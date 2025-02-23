@@ -1,31 +1,27 @@
-import React from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import MainHome from './Components/MainHome';
-import NewYork from './Components/NewYork';
-import AppStore from './Components/AppStore';
+import React from "react";
+import { Routes, Route } from "react-router-dom";
+import MainHome from "./Components/MainHome";
+import NewYork from "./Components/NewYork";
 
 const CityRoutes = () => (
-  <BrowserRouter>
-    <Switch>
-      <Route exact path="/" component={MainHome} />
-      <Route exact path="/cities/new-york" component={NewYork} />
-      <Route exact path="/cities/las-vegas" component={MainHome} />
-      <Route exact path="/cities/rome" component={MainHome} />
-      <Route exact path="/cities/paris" component={MainHome} />
-      <Route exact path="/cities/london" component={MainHome} />
-      <Route exact path="/cities/dubai" component={MainHome} />
-      <Route exact path="/cities/barcelona" component={MainHome} />
-      <Route exact path="/cities/madrid" component={MainHome} />
-      <Route exact path="/cities/singapore" component={MainHome} />
-      <Route exact path="/cities/venice" component={MainHome} />
-      <Route exact path="/cities/milan" component={MainHome} />
-      <Route exact path="/cities/naples" component={MainHome} />
-      <Route exact path="/cities/budapest" component={MainHome} />
-      <Route exact path="/cities/edinburg" component={MainHome} />
-      <Route exact path="/cities/florence" component={MainHome} />
-      <Route exact path="/app" component={AppStore} />
-    </Switch>
-  </BrowserRouter>
+  <Routes>
+    <Route path="/" element={<MainHome />} />
+    <Route path="/cities/new-york" element={<NewYork />} />
+    <Route path="/cities/las-vegas" element={<MainHome />} />
+    <Route path="/cities/rome" element={<MainHome />} />
+    <Route path="/cities/paris" element={<MainHome />} />
+    <Route path="/cities/london" element={<MainHome />} />
+    <Route path="/cities/dubai" element={<MainHome />} />
+    <Route path="/cities/barcelona" element={<MainHome />} />
+    <Route path="/cities/madrid" element={<MainHome />} />
+    <Route path="/cities/singapore" element={<MainHome />} />
+    <Route path="/cities/venice" element={<MainHome />} />
+    <Route path="/cities/milan" element={<MainHome />} />
+    <Route path="/cities/naples" element={<MainHome />} />
+    <Route path="/cities/budapest" element={<MainHome />} />
+    <Route path="/cities/edinburg" element={<MainHome />} />
+    <Route path="/cities/florence" element={<MainHome />} />
+  </Routes>
 );
 
 export default CityRoutes;
