@@ -21,7 +21,7 @@ export default function Customer() {
       <div
         className="d-flex flex-wrap justify-content-center gap-2"
         style={{
-          width: "85%",
+          width: "90%",
         }}
       >
         {listCustomer.map((item) => (
