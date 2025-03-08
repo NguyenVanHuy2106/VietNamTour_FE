@@ -1,16 +1,30 @@
-import React from "react";
+import React, { useState } from "react";
 import { Nav } from "react-bootstrap";
+import { FaHome, FaBars } from "react-icons/fa"; // Import icon Home & Menu
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css"; // Import file CSS
 
 const Menu = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
     <div className="menu-container">
-      {HeaderNavData.map((item) => (
-        <Nav.Link key={item.id} href={item.link} className="menu-item">
-          {item.name}
+      {/* Menu chính */}
+      <div className={`menu-items ${isOpen ? "open" : ""}`}>
+        <Nav.Link href="#" className="menu-item home">
+          <FaHome style={{ marginRight: 5, width: 25, height: 25 }} />
         </Nav.Link>
-      ))}
+        {HeaderNavData.map((item) => (
+          <Nav.Link key={item.id} href={item.link} className="menu-item">
+            {item.name}
+          </Nav.Link>
+        ))}
+      </div>
+
+      {/* Nút mở menu khi responsive */}
+      <div className="menu-toggle" onClick={() => setIsOpen(!isOpen)}>
+        <FaBars />
+      </div>
     </div>
   );
 };

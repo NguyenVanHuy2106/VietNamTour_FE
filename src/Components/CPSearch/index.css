@@ -1,0 +1,32 @@
+.search-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffffff;
+  font-weight: bold;
+  padding: 20px 40px;
+  margin: 30px 15px;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.3s, transform 0.1s;
+
+}
+
+.search-button:hover {
+  background: #1d61ad;
+  color: #ffffff;
+}
+
+.search-button:active {
+  background: #1d61ad;
+  transform: scale(0.95);
+}
+
+.search-label {
+  padding-left: 20px;
+}
+
+.icon-style {
+  width: 30px;
+  height: 30px;
+}

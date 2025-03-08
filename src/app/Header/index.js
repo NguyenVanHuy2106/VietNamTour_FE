@@ -5,33 +5,22 @@ import "bootstrap/dist/css/bootstrap.min.css";
 const Header = () => {
   return (
     <Navbar
+      expand="lg"
       className="p-3 flex-column"
-      style={{
-        backgroundColor: "#ffffff",
-        color: "#1D61AD",
-        paddingTop: 0,
-        paddingBottom: 0,
-      }}
+      style={{ backgroundColor: "#ffffff", color: "#1D61AD" }}
     >
-      <Container
-        className="d-flex justify-content-between align-items-center mb-2"
-        style={{
-          paddingTop: 0,
-          paddingBottom: 0,
-        }}
-      >
-        {/* Logo */}
+      <Container className="d-flex justify-content-between align-items-center mb-2 flex-wrap">
+        {/* Logo nhỏ hơn */}
         <Navbar.Brand href="#" className="me-3 d-flex align-items-center">
           <img
-            src="https://firebasestorage.googleapis.com/v0/b/core-pilates-e0144.firebasestorage.app/o/LOGOWEB.png?alt=media&token=c2420a58-23d8-42ab-b9a5-c2d54a9c6c32" // Thay bằng logo thật
+            src="https://firebasestorage.googleapis.com/v0/b/core-pilates-e0144.firebasestorage.app/o/LOGOWEB.png?alt=media&token=c2420a58-23d8-42ab-b9a5-c2d54a9c6c32"
             alt="Logo"
-            // className="rounded-circle me-2"
-            style={{ width: "300px", height: "100px" }}
+            style={{ width: "240px", height: "80px" }}
           />
         </Navbar.Brand>
 
-        {/* Ô tìm kiếm */}
-        <Form className="d-flex flex-grow-1 mx-3">
+        {/* Ô tìm kiếm giữ nguyên */}
+        <Form className="d-flex flex-grow-1 mx-3" style={{ minWidth: "200px" }}>
           <FormControl
             type="search"
             placeholder="Tìm kiếm..."
@@ -39,18 +28,22 @@ const Header = () => {
           />
         </Form>
 
-        {/* Administrator */}
-        <div className="d-flex align-items-center">
+        {/* Administrator - chỉ hiển thị trên màn hình lớn */}
+        <div className="d-none d-lg-flex align-items-center">
           <img
-            src="https://via.placeholder.com/40" // Thay bằng avatar thật
+            src="https://via.placeholder.com/40"
             alt="Admin"
             style={{ width: "40px", height: "40px" }}
           />
-          <span className="text-white">Administrator</span>
+          <span className="ms-2" style={{ color: "#1D61AD" }}>
+            Administrator
+          </span>
         </div>
       </Container>
-      <div>
-        <Nav className="">
+
+      {/* Thanh menu (chỉ hiển thị trên màn hình lớn) */}
+      <Navbar.Collapse id="navbar-nav" className="w-100 d-none d-lg-block">
+        <Nav className="d-flex justify-content-center w-100 flex-wrap">
           {HeaderNavData.map((item) => (
             <Nav.Link
               key={item.id}
@@ -58,15 +51,14 @@ const Header = () => {
               style={{
                 fontSize: "14px",
                 color: "#1D61AD",
-                paddingTop: 0,
-                paddingBottom: 0,
+                padding: "5px 10px",
               }}
             >
               {item.name}
             </Nav.Link>
           ))}
         </Nav>
-      </div>
+      </Navbar.Collapse>
     </Navbar>
   );
 };
@@ -74,54 +66,14 @@ const Header = () => {
 export default Header;
 
 const HeaderNavData = [
-  {
-    id: 1,
-    name: "Team Building",
-    link: "#",
-  },
-  {
-    id: 2,
-    name: "Gala Dinner",
-    link: "#",
-  },
-  {
-    id: 3,
-    name: "Tổ chức Event",
-    link: "#",
-  },
-  {
-    id: 4,
-    name: "Cho thuê xe",
-    link: "#",
-  },
-  {
-    id: 5,
-    name: "Vé máy báy",
-    link: "#",
-  },
-  {
-    id: 6,
-    name: "Du lịch trải nghiệm học tập",
-    link: "#",
-  },
-  {
-    id: 7,
-    name: "Du lịch Mice",
-    link: "#",
-  },
-  {
-    id: 8,
-    name: "Tổ chức YEP, Tân niên",
-    link: "#",
-  },
-  {
-    id: 9,
-    name: "Hội nghị - Hội thảo",
-    link: "#",
-  },
-  {
-    id: 10,
-    name: "Booking dịch vụ: Khách sạn, nhà hàng,...",
-    link: "#",
-  },
+  { id: 1, name: "Team Building", link: "#" },
+  { id: 2, name: "Gala Dinner", link: "#" },
+  { id: 3, name: "Tổ chức Event", link: "#" },
+  { id: 4, name: "Cho thuê xe", link: "#" },
+  { id: 5, name: "Vé máy báy", link: "#" },
+  { id: 6, name: "Du lịch trải nghiệm học tập", link: "#" },
+  { id: 7, name: "Du lịch Mice", link: "#" },
+  { id: 8, name: "Tổ chức YEP, Tân niên", link: "#" },
+  { id: 9, name: "Hội nghị - Hội thảo", link: "#" },
+  { id: 10, name: "Booking dịch vụ: Khách sạn, nhà hàng,...", link: "#" },
 ];

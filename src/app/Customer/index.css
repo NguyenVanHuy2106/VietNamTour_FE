@@ -1,0 +1,23 @@
+@keyframes marquee {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.marquee {
+  display: flex;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 100%;
+  position: relative;
+}
+
+.marquee-content {
+  display: flex;
+  animation: marquee 20s linear infinite;
+  min-width: 100%;
+  -webkit-animation: marquee 20s linear infinite;
+}

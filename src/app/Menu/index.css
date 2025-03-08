@@ -1,24 +1,102 @@
 .menu-container {
-    position: sticky;
+  position: sticky;
   top: 0;
   z-index: 1000;
   display: flex;
   justify-content: center;
-  background-color: #1d61ad;  
+  align-items: center;
+  background-color: #1d61ad;
   width: 100%;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  height: 50px;
+  padding: 0 15px;
 }
 
+/* Menu ngang khi không responsive */
+.menu-items {
+  display: flex;
+  gap: 10px;
+}
+
+/* Các mục trong menu */
 .menu-item {
   font-size: 14px;
   color: #ffffff;
   font-weight: bold;
-  padding: 10px 15px;
+  padding: 15px;
   text-decoration: none;
   transition: background-color 0.3s ease, color 0.3s ease;
+  display: flex;
+  align-items: center;
 }
 
-.menu-item:hover {
-  background-color: #ffffff; /* Màu nền khi hover */
-  color: #1d61ad; /* Màu chữ khi hover */
+/* Khi hover, không làm thay đổi chiều cao */
+.menu-item:not(.home):hover {
+  background-color: #ffffff;
+  color: #1d61ad;
+}
+
+/* Trang chủ */
+.menu-item.home {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+/* Hover của Trang chủ */
+.menu-item.home:hover {
+  background-color: inherit !important;
+  color: inherit !important;
+}
+
+/* Nút ☰ chỉ hiển thị khi responsive */
+.menu-toggle {
+  display: none;
+  font-size: 24px;
+  color: white;
+  cursor: pointer;
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* Khi màn hình nhỏ */
+@media (max-width: 768px) {
+  .menu-container {
+    justify-content: space-between;
+    height: 50px;
+    padding: 0 15px;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+
+  /* Menu ẩn bên phải */
+  .menu-items {
+    position: fixed;
+    top: 0;
+    right: -250px; /* Ban đầu ẩn bên phải */
+    height: 100vh;
+    width: 250px;
+    background-color: #1d61ad;
+    box-shadow: -4px 0px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 0;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: right 0.3s ease-in-out;
+  }
+
+  /* Khi mở menu */
+  .menu-items.open {
+    right: 0;
+  }
+
+  .menu-item {
+    padding: 15px;
+    text-align: center;
+    width: 100%;
+  }
 }
