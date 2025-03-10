@@ -4,7 +4,8 @@ import TopCities from "./TopCities";
 import HeadoutPicks from "./Picks";
 import Download from "./Download";
 import Media from "./Media";
-import Footer from "../app/Footer";
+import Hotline from "../app/Hotline";
+
 import "./Styles/main-home.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Carousel } from "react-bootstrap";
@@ -16,6 +17,7 @@ import Search from "../app/Search";
 import NewTour from "../app/NewTour";
 import Customer from "../app/Customer";
 import Collections from "../app/Collections";
+import Footer from "../app/Footer";
 const MainHome = ({ history }) => {
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -49,6 +51,7 @@ const MainHome = ({ history }) => {
       {/* <HeadoutPicks pickedData={pickedData} headline={"Headout Picks"} /> */}
       <Collections />
       <Footer />
+      <Hotline />
     </div>
   );
 };
