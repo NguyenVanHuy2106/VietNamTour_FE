@@ -61,18 +61,15 @@ export default MainHome;
 const backgroundImagesData = [
   {
     id: 1,
-    url:
-      "https://firebasestorage.googleapis.com/v0/b/core-pilates-e0144.firebasestorage.app/o/1.png?alt=media&token=cc82f51d-4d09-4f47-b95b-d63f472769c8",
+    url: "https://images.vietnamluxtour.com/uploads/1745928495710.png",
   },
   {
     id: 2,
-    url:
-      "https://firebasestorage.googleapis.com/v0/b/core-pilates-e0144.firebasestorage.app/o/2.png?alt=media&token=2507ac62-a904-48ea-bc76-c9052a69fcae",
+    url: "https://images.vietnamluxtour.com/uploads/1745928511810.png",
   },
   {
     id: 3,
-    url:
-      "https://firebasestorage.googleapis.com/v0/b/core-pilates-e0144.firebasestorage.app/o/3.png?alt=media&token=b52ddb1f-bce9-4041-bb7f-7a700e83c238",
+    url: "https://images.vietnamluxtour.com/uploads/1745928524944.png",
   },
 ];
 

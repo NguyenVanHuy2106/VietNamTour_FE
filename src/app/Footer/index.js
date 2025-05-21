@@ -13,9 +13,9 @@ const Footer = () => {
         {/* Logo & Intro */}
         <div className="footer-section about">
           <img
-            src="https://firebasestorage.googleapis.com/v0/b/core-pilates-e0144.firebasestorage.app/o/LOGOWEB.png?alt=media&token=c2420a58-23d8-42ab-b9a5-c2d54a9c6c32"
+            src="https://images.vietnamluxtour.com/uploads/1.png"
             alt="Logo"
-            style={{ width: "240px", height: "80px" }}
+            style={{ width: "80px", height: "80px" }}
           />
           <p>
             Khám phá thế giới cùng chúng tôi - nơi mọi hành trình đều trở nên

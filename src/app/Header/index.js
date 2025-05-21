@@ -13,9 +13,9 @@ const Header = () => {
         {/* Logo nhỏ hơn */}
         <Navbar.Brand href="#" className="me-3 d-flex align-items-center">
           <img
-            src="https://firebasestorage.googleapis.com/v0/b/core-pilates-e0144.firebasestorage.app/o/LOGOWEB.png?alt=media&token=c2420a58-23d8-42ab-b9a5-c2d54a9c6c32"
+            src="https://images.vietnamluxtour.com/uploads/vnt.png"
             alt="Logo"
-            style={{ width: "240px", height: "80px" }}
+            style={{ width: "280px", height: "80px" }}
           />
         </Navbar.Brand>
 
@@ -31,7 +31,7 @@ const Header = () => {
         {/* Administrator - chỉ hiển thị trên màn hình lớn */}
         <div className="d-none d-lg-flex align-items-center">
           <img
-            src="https://via.placeholder.com/40"
+            src="https://images.vietnamluxtour.com/uploads/user-icon.png"
             alt="Admin"
             style={{ width: "40px", height: "40px" }}
           />
