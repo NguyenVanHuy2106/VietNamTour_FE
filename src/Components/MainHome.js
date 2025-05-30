@@ -6,6 +6,10 @@ import Download from "./Download";
 import Media from "./Media";
 import Hotline from "../app/Hotline";
 
+import FadeInSection from "./FadeInSection";
+import FloatingButtons from "./FloatingButton";
+import FamousDes from "../app/FamousDes";
+
 import "./Styles/main-home.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Carousel } from "react-bootstrap";
@@ -15,9 +19,13 @@ import Header from "../app/Header";
 import Menu from "../app/Menu";
 import Search from "../app/Search";
 import NewTour from "../app/NewTour";
+import CompanyTour from "../app/CompanyTour";
 import Customer from "../app/Customer";
+import CustomerFeedBack from "../app/CustomerFeedBack";
 import Collections from "../app/Collections";
 import Footer from "../app/Footer";
+import Relation from "../app/Relation";
+
 const MainHome = ({ history }) => {
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -25,33 +33,64 @@ const MainHome = ({ history }) => {
 
   return (
     <div className="App" style={{ margin: 0 }}>
-      <Header />
+      <FadeInSection>
+        <Header />
+      </FadeInSection>
+
       <Menu />
-      <Carousel>
-        {backgroundImagesData.map((image) => (
-          <Carousel.Item key={image.id}>
-            <img
-              className="d-block w-100"
-              src={image.url}
-              alt={`Slide ${image.id}`}
-              style={{
-                height: "auto", // Tự động tính chiều cao theo tỷ lệ
-                maxHeight: "550px",
-                minHeight: "200px",
-                objectFit: "cover",
-              }}
-            />
-          </Carousel.Item>
-        ))}
-      </Carousel>
-      <Search />
-      <NewTour />
+
+      <FadeInSection>
+        <Carousel>
+          {backgroundImagesData.map((image) => (
+            <Carousel.Item key={image.id}>
+              <img
+                className="d-block w-100"
+                src={image.url}
+                alt={`Slide ${image.id}`}
+                style={{
+                  height: "auto", // Tự động tính chiều cao theo tỷ lệ
+                  maxHeight: "550px",
+                  minHeight: "200px",
+                  objectFit: "cover",
+                }}
+              />
+            </Carousel.Item>
+          ))}
+        </Carousel>
+      </FadeInSection>
+      <FadeInSection>
+        <Search />
+      </FadeInSection>
+      <FadeInSection>
+        <NewTour />
+      </FadeInSection>
+      <FadeInSection>
+        <CompanyTour />
+      </FadeInSection>
       {/* <TopCities /> */}
-      <Customer />
+      <FadeInSection>
+        <Relation />
+      </FadeInSection>
+      <FadeInSection>
+        <FamousDes />
+      </FadeInSection>
+      <FadeInSection>
+        <Customer />
+      </FadeInSection>
+      <FadeInSection>
+        <CustomerFeedBack />
+      </FadeInSection>
       {/* <HeadoutPicks pickedData={pickedData} headline={"Headout Picks"} /> */}
-      <Collections />
-      <Footer />
-      <Hotline />
+      <FadeInSection>
+        <Collections />
+      </FadeInSection>
+      <FadeInSection>
+        <Footer />
+      </FadeInSection>
+      <FadeInSection>
+        <Hotline />
+      </FadeInSection>
+      <FloatingButtons />
     </div>
   );
 };

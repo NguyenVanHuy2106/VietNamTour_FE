@@ -5,11 +5,17 @@ const Collections = ({ collectionsData }) => {
   return (
     <div className="d-flex justify-content-center flex-column align-items-center">
       <div className="collections-wrapper d-flex justify-content-center">
-        <h1>--- Bộ sưu tập ---</h1>
+        <div className="CollectionTitle">BỘ SƯU TẬP</div>
       </div>
-      <div className="d-flex flex-wrap justify-content-center">
+      <div
+        className="d-flex flex-wrap justify-content-center"
+        style={{
+          marginBottom: "40px",
+        }}
+      >
         {listCollections.map((item) => (
           <div
+            key={item.id}
             className="card-parent"
             style={{
               height: 200,

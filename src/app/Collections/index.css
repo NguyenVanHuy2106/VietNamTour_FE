@@ -1,3 +1,14 @@
+.CollectionTitle {
+    font-weight: bold;
+  color: #1d61ad;
+  margin-left: 23px;
+  margin-right: 23px;
+  display: flex;
+  justify-content: center;
+  padding-bottom: 10px;
+  margin-bottom: 5px;
+  margin-top:15px;
+}
 .collections-wrapper {
   width: 85%;
   margin: 0px auto;
@@ -102,5 +113,14 @@ display: inline-block;
 @media only screen and (min-width: 1600px) {
   .collections-wrapper {
     width: 70%;
+  }
+}
+/* Responsive: màn hình nhỏ hơn 768px */
+@media (max-width: 768px) {
+  .card-parent {
+    flex: 0 0 calc(50% - 10px);
+    height: calc((200 / 287) * (50% - 10px)); /* giữ tỉ lệ 200:287 */
+    max-height: 150px; /* giới hạn chiều cao tối đa */
+    gap: 2;
   }
 }

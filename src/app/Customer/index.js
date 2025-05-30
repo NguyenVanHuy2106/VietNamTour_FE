@@ -1,23 +1,15 @@
 import React from "react";
-
+import "./index.css";
 export default function Customer() {
   return (
     <div
       className="bg-gray-100 p-4 d-flex justify-content-center flex-column align-items-center"
       style={{
         backgroundColor: "#eeeeee",
+        paddingTop: "10px",
       }}
     >
-      <h4
-        style={{
-          marginBottom: 20,
-          color: "#545454",
-          fontWeight: 300,
-          fontSize: 27,
-        }}
-      >
-        --- Khách hàng của chúng tôi ---
-      </h4>
+      <div className="CustomerTitle">KHÁCH HÀNG CỦA CHÚNG TÔI</div>
       <div
         className="d-flex flex-wrap justify-content-center gap-2"
         style={{

@@ -10,22 +10,18 @@ const Footer = () => {
   return (
     <footer className="footer-container">
       <div className="footer-content">
-        {/* Logo & Intro */}
-        <div className="footer-section about">
-          <img
-            src="https://images.vietnamluxtour.com/uploads/1.png"
-            alt="Logo"
-            style={{ width: "80px", height: "80px" }}
-          />
-          <p>
-            Khám phá thế giới cùng chúng tôi - nơi mọi hành trình đều trở nên
-            đáng nhớ!
-          </p>
-        </div>
-
         {/* Quick Links */}
         <div className="footer-section links">
-          <h4>Khám Phá</h4>
+          <h4>Dịch vụ</h4>
+          <ul>
+            <li>Tour Trong Nước</li>
+            <li>Tour Nước Ngoài</li>
+            <li>Khuyến Mãi</li>
+            <li>Cẩm Nang Du Lịch</li>
+          </ul>
+        </div>
+        <div className="footer-section links">
+          <h4>Thông tin</h4>
           <ul>
             <li>Tour Trong Nước</li>
             <li>Tour Nước Ngoài</li>
@@ -36,7 +32,7 @@ const Footer = () => {
 
         {/* Policies */}
         <div className="footer-section policies">
-          <h4>Chính Sách</h4>
+          <h4>Hướng dẫn</h4>
           <ul>
             <li>Điều khoản sử dụng</li>
             <li>Chính sách bảo mật</li>
@@ -46,23 +42,22 @@ const Footer = () => {
         </div>
 
         {/* Contact & Social */}
-        <div className="footer-section contact">
-          <h4>Liên hệ</h4>
-          <p>Email: dulichvasukienvietnam@gmail.com</p>
-          <p>Hotline: 0764.747.160</p>
-          <div className="social-icons">
-            <img src={Facebook} alt="Facebook" />
-            <img src={Instagram} alt="Instagram" />
-            <img src={Tiktok} alt="TikTok" />
-            <img src={Youtube} alt="YouTube" />
+        <div className="footer-section">
+          <h4>Đăng ký nhận thông tin</h4>
+          <div className="subscribe-wrapper">
+            <input
+              type="email"
+              placeholder="Email..."
+              className="form-control subscribe-input"
+            />
+            <button type="button" className="subscribe-button">
+              Gửi
+            </button>
           </div>
         </div>
       </div>
 
       {/* Bottom Footer */}
-      <div className="footer-bottom">
-        <p>© 2025 Travel Website. All rights reserved.</p>
-      </div>
     </footer>
   );
 };

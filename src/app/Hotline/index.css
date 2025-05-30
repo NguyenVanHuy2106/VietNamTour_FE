@@ -1,49 +1,71 @@
-.menu-container-footer {
-  position: sticky;
+.HotlineContainer {
   bottom: 0;
   z-index: 1000;
   display: flex;
-  justify-content: center;
   background-color: #1d61ad;
   width: 100%;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  color: #ffffff;
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 
-.menu-item-footer {
-  font-size: 14px;
-  color: #ffffff;
+.Company {
   font-weight: bold;
-  padding: 10px 15px;
-  text-decoration: none;
-  transition: background-color 0.3s ease, color 0.3s ease;
-  
-}
-
-
-
-.menu-item-footer:hover {
-  display: flex;
-  align-items: center;
-  background-color: #ffffff;
-  color:#1d61ad;
-  cursor: pointer;
-}
-.homeFooter {
-  display: flex;
-  align-items: center;
-  color: #ffffff;
-  font-weight: 600;
+  font-size: large;
+  text-align: left;
+  margin-top: 20px;
 
 }
 
+.CompanyDetail{
+  text-align: left;
+  margin-top: 6px;
+}
+
+.Contact {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.contentCompany {
+  font-style: italic;
+}
 @media (max-width: 768px) {
-  .menu-item-footer {
-    font-size: 12px !important;
+  .responsive-hotline {
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
   }
-}
 
-@media (max-width: 480px) {
-  .menu-item-footer {
-    font-size: 10px !important;
+  .responsive-hotline > div {
+    width: 100% !important;
+    padding-left: 0 !important;
+    margin-bottom: 20px;
+  }
+
+  .responsive-hotline img {
+    margin: 0 auto;
+  }
+
+  .footer-bottom {
+    text-align: center;
+    margin-top: 20px;
+  }
+
+  .Contact {
+    text-align: center;
+  }
+
+  .responsive-hotline .d-flex {
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  /* Icon style giữ nguyên cỡ và không bị lệch */
+  .responsive-hotline svg {
+    font-size: 35px;
+    margin: 0 10px;
   }
 }

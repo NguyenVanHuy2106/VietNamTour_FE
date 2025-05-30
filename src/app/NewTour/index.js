@@ -30,28 +30,11 @@ const NewTour = () => {
           backgroundColor: "#ffffff",
         }}
       >
-        <div
-          className="newTour-title d-flex justify-content-between"
-          style={{
-            width: "100%",
-            display: "flex",
-            alignItems: "center",
-            padding: 5,
-            backgroundColor: "#1d61ad",
-            color: "#ffffff",
-            marginTop: 10,
-          }}
-        >
-          <div className="d-flex justify-content-center align-items-center gap-2">
-            <BsCaretRightFill />
-            <h4 className="m-0">Tour mới nhất</h4>
-          </div>
-          <h7 className="m-0">Xem thêm >></h7>
-        </div>
-        <div className="" style={{}}>
+        <div className="" style={{ marginBottom: "30px" }}>
+          <div className="NewTourTitleNT">TOUR MỚI NHẤT</div>
           <div className="card-container d-flex flex-wrap justify-content-center grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-4 gap-2">
             {pickedData.map((item) => (
-              <div className="">
+              <div key={item.id}>
                 <div className="exp-card">
                   <>
                     <div
@@ -69,8 +52,8 @@ const NewTour = () => {
                         </div>
                       )}
                     </div>
-                    <div className="exp-content-wrap">
-                      <div className="exp-info-wrap">
+                    <div className="exp-content-wrapNT">
+                      <div className="exp-info-wrapNT">
                         {item.city ? (
                           <>
                             <p id="exp-city">{item.city}</p>
@@ -125,40 +108,6 @@ const NewTour = () => {
                             ) : (
                               <div className="discount" />
                             )}
-                            <div className="ratings-section">
-                              {item.stars ? (
-                                <div className="stars">
-                                  <p id="stars-p">
-                                    {parseFloat(
-                                      Math.round(item.stars * 100) / 100
-                                    ).toFixed(1)}
-                                    <span id="star"> &#9733;</span>
-                                  </p>
-                                </div>
-                              ) : (
-                                <div
-                                  style={{
-                                    width: "25px",
-                                    height: "20px",
-                                    borderRadius: "50%",
-                                    background:
-                                      "linear-gradient(340deg, #ffbb58, #f5c684)",
-                                    paddingTop: "3px",
-                                  }}
-                                >
-                                  <p id="stars-p">
-                                    <span> &#9733;</span>
-                                  </p>
-                                </div>
-                              )}
-                              {item.ratings ? (
-                                <p id="ratings">{`(${item.ratings} Rating${
-                                  item.ratings > 1 ? "s" : ""
-                                })`}</p>
-                              ) : (
-                                <p id="ratings"></p>
-                              )}
-                            </div>
                           </div>
                           <div className="price">
                             {/* <p id="price">{`${item.currency}${1000000}`}</p> */}

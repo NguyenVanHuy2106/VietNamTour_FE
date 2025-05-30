@@ -1,0 +1,90 @@
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(0, 123, 255, 0.6);
+  }
+  70% {
+    box-shadow: 0 0 0 12px rgba(0, 123, 255, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(0, 123, 255, 0);
+  }
+}
+.floating-buttons {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  z-index: 999;
+}
+.circle-button {
+  width: 60px;
+  height: 60px;
+  background-color: #007bff;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  position: relative;
+  animation: pulse 2s infinite;
+  transition: background-color 0.3s ease;
+}
+
+.circle-button:hover {
+  background-color: #0056b3;
+}
+
+.circle-button.phone {
+  background-color: #28a745;
+  animation: pulse-green 2s infinite;
+}
+
+.circle-button.messenger {
+  background-color: #0084ff;
+  animation: pulse-blue 2s infinite;
+}
+
+.circle-button.zalo {
+  background-color: #99FFFF;
+  animation: pulse-zalo 2s infinite;
+}
+
+/* Tùy chỉnh hiệu ứng màu sắc cho từng nút */
+@keyframes pulse-green {
+  0% {
+    box-shadow: 0 0 0 0 rgba(40, 167, 69, 0.6);
+  }
+  70% {
+    box-shadow: 0 0 0 12px rgba(40, 167, 69, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(40, 167, 69, 0);
+  }
+}
+
+@keyframes pulse-blue {
+  0% {
+    box-shadow: 0 0 0 0 rgba(0, 132, 255, 0.6);
+  }
+  70% {
+    box-shadow: 0 0 0 12px rgba(0, 132, 255, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(0, 132, 255, 0);
+  }
+}
+
+@keyframes pulse-zalo {
+  0% {
+    box-shadow: 0 0 0 0 rgba(0, 136, 204, 0.6);
+  }
+  70% {
+    box-shadow: 0 0 0 12px rgba(0, 136, 204, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(0, 136, 204, 0);
+  }
+}

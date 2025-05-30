@@ -1,0 +1,92 @@
+.RelationTitle{
+    font-weight: bold;
+    color: #1d61ad;
+    border-bottom: 1px solid #1d61ad;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.RelationTitleTour {
+    text-align: justify;
+    font-weight: bold;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size:medium
+}
+
+.RelationContentTour {
+    text-align: justify;
+    padding-left: 10px;
+    padding-right: 10px;
+    display: -webkit-box;
+
+    -webkit-line-clamp: 10;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.RelationBlogItem {
+    text-align: justify;
+    max-width: 225px;
+    word-break: keep-all;
+    padding-left: 10px;
+    font-size: small;
+    font-weight:bold;
+    padding-right: 10px;
+    
+}
+
+.BlogItem:hover {
+    cursor: pointer;
+    transform: translateY(-0.2em);
+    box-shadow: 4px 8px 15px -3px rgba(80, 79, 79, 0.4);
+}
+.slide-image {
+   width: 100%;
+   height: 100%;
+   object-fit: cover;
+}
+.SliderContainer {
+  max-width: 800px; 
+  margin: 0 auto;
+  padding: 15px 10px;
+  box-sizing: border-box;
+}
+.slick-slide {
+  text-align: center;
+}
+
+.slick-slide > div {
+  display: inline-block;
+}
+@media (max-width: 768px) {
+  .slide-image {
+    width: 150px;  /* Thu nhỏ trên màn hình nhỏ */
+    height: 80px;
+  }
+  .RelationContentTour {
+    text-align: justify;
+    padding-left: 10px;
+    padding-right: 10px;
+    display: -webkit-box;
+
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    }
+    .SliderContainer {
+        max-width: 330px;
+        width: 100%; 
+        margin-top: 15px;
+    }
+    .RelationTitleTour {
+    display: -webkit-box;
+
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+}
