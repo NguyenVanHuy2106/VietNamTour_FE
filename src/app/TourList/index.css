@@ -1,0 +1,14 @@
+.DestinationName {
+    color: #9a9a9a;
+}
+
+.card {
+    position: relative;
+}
+.card :hover {
+  cursor: pointer;
+  background-color: #FFFFCC;
+}
+.option :hover {
+    cursor: pointer;
+}

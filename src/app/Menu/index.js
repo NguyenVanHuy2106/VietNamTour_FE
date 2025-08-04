@@ -11,7 +11,7 @@ const Menu = () => {
     <div className="menu-container">
       {/* Menu chính */}
       <div className={`menu-items ${isOpen ? "open" : ""}`}>
-        <Nav.Link href="#" className="menu-item home">
+        <Nav.Link href="/" className="menu-item home">
           <FaHome style={{ marginRight: 5, width: 25, height: 25 }} />
         </Nav.Link>
         {HeaderNavData.map((item) => (
@@ -36,7 +36,7 @@ const HeaderNavData = [
   { id: 2, name: "TOUR NƯỚC NGOÀI", link: "#" },
   { id: 3, name: "TOUR ĐOÀN", link: "#" },
   { id: 4, name: "TOUR DOANH NGHIỆP", link: "#" },
-  { id: 5, name: "BLOG", link: "#" },
+  { id: 5, name: "BLOG", link: "blog" },
   { id: 6, name: "KHẢO SÁT", link: "#" },
   { id: 7, name: "LIÊN HỆ", link: "#" },
   { id: 8, name: "TUYỂN DỤNG", link: "#" },

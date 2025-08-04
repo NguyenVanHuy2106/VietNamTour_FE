@@ -1,12 +1,32 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./index.css";
 
+import APIToken from "../../config/APIToken";
+import API from "../../config/APINoToken";
+import { useNavigate } from "react-router-dom";
+
 import { BsCalendar3, BsCarFront, BsBuilding } from "react-icons/bs";
 
 const CompanyTour = () => {
+  const navigate = useNavigate();
+  const [dataDOANTour, setDataDOANTour] = useState([]);
+  const getData = async () => {
+    try {
+      const response = await API.get("/tour/getDOANTour");
+      setDataDOANTour(response.data.data || []);
+    } catch (error) {
+      console.error("Lỗi khi lấy danh sách Tour mới:", error.response || error);
+    }
+  };
+  const handleGoToDetail = (tourid) => {
+    navigate("/tour-detail", { state: { tourId: tourid } });
+  };
+  useEffect(() => {
+    getData();
+  }, []);
   const settings = {
     dots: false,
     infinite: true,
@@ -44,59 +64,88 @@ const CompanyTour = () => {
   return (
     <div
       style={{
-        maxWidth: "85%",
+        width: "100%",
+        maxWidth: "1210px",
         boxSizing: "border-box",
         margin: "0 auto",
       }}
     >
-      <div className="NewTourTitleNT">TOUR KHÁCH ĐOÀN</div>
+      <div
+        className="NewTourTitleNT"
+        onClick={() => navigate("/tour-list", { state: { tourtype: "DOAN" } })}
+      >
+        TOUR KHÁCH ĐOÀN
+      </div>
       <div
         className="d-flex justify-content-center"
         style={{
           marginBottom: "30px",
         }}
       >
-        <div style={{ maxWidth: "1180px", width: "100%", textAlign: "center" }}>
+        <div style={{ width: "98%", textAlign: "center" }}>
           <Slider {...settings}>
-            {pickedData.map((item) => (
-              <div key={item.id}>
-                <div className="exp-cardC">
+            {dataDOANTour.map((item) => (
+              <div key={item.tourid}>
+                <div
+                  className="exp-cardC"
+                  onClick={() => handleGoToDetail(item.tourid)}
+                >
                   <div
                     className="exp-card-img"
                     style={{
                       height: "166px",
-                      backgroundImage: `url(${item.url})`,
+                      backgroundImage: `url(${item.images[0].imageurl})`,
                       backgroundSize: "cover",
                       backgroundPosition: "center",
                       backgroundRepeat: "no-repeat",
                     }}
-                  >
-                    {item.highlight && (
-                      <div className="cashback">
-                        <p>{item.highlight}</p>
-                      </div>
-                    )}
-                  </div>
+                  ></div>
                   <div className="exp-content-wrap" style={{ padding: 10 }}>
                     <div className="exp-info-wrapCT">
-                      {item.city ? (
+                      {item.destination_name && (
                         <>
                           <p id="exp-city" style={{ fontWeight: "bold" }}>
-                            {item.city}
+                            {item.destination_name}
                           </p>
-                          <p id="exp-description">{item.description}</p>
-                        </>
-                      ) : (
-                        <>
-                          <p id="exp-about">{item.about}</p>
-                          <p id="exp-description">{item.description}</p>
+                          <p
+                            id="exp-description"
+                            style={{
+                              display: "-webkit-box",
+                              WebkitLineClamp: 2,
+                              WebkitBoxOrient: "vertical",
+                              overflow: "hidden",
+                              textOverflow: "ellipsis",
+                              fontWeight: "bold",
+                            }}
+                          >
+                            {item.tourname}
+                          </p>
                         </>
                       )}
+                    </div>
+                    <div className="priceCompanyTour">
+                      <p
+                        style={{
+                          fontSize: 11,
+                          paddingRight: 10,
+                        }}
+                      >
+                        Chỉ từ VNĐ
+                      </p>
+                      <p
+                        style={{
+                          fontSize: 20,
+                          color: "#ff0000",
+                        }}
+                      >
+                        {item.price &&
+                          Number(item.price.adultprice).toLocaleString("de-DE")}
+                      </p>
                     </div>
                     <div
                       style={{
                         textAlign: "right",
-                        marginTop: 8,
+                        marginTop: 4,
                       }}
                     >
                       Xem thêm

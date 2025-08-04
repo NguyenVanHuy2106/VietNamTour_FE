@@ -1,8 +1,40 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Navbar, Nav, Container, Form, FormControl } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const Header = () => {
+  const [city, setCity] = useState("Đang xác định...");
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(
+      async (position) => {
+        const lat = position.coords.latitude;
+        const lon = position.coords.longitude;
+
+        try {
+          const res = await fetch(
+            `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json`
+          );
+          const data = await res.json();
+          const foundCity =
+            data.address.city ||
+            data.address.town ||
+            data.address.village ||
+            "Không xác định";
+
+          setCity(foundCity);
+        } catch (err) {
+          console.error("Lỗi khi lấy địa chỉ:", err);
+          setCity("Không xác định");
+        }
+      },
+      (error) => {
+        console.error("Lỗi khi lấy vị trí:", error);
+        setCity("Không xác định");
+      }
+    );
+  }, []);
+
   return (
     <Navbar
       expand="lg"
@@ -10,8 +42,7 @@ const Header = () => {
       style={{ backgroundColor: "#ffffff", color: "#1D61AD" }}
     >
       <Container className="d-flex justify-content-between align-items-center mb-2 flex-wrap">
-        {/* Logo nhỏ hơn */}
-        <Navbar.Brand href="#" className="me-3 d-flex align-items-center">
+        <Navbar.Brand href="/" className="me-3 d-flex align-items-center">
           <img
             src="https://images.vietnamluxtour.com/uploads/vnt.png"
             alt="Logo"
@@ -19,7 +50,6 @@ const Header = () => {
           />
         </Navbar.Brand>
 
-        {/* Ô tìm kiếm giữ nguyên */}
         <Form className="d-flex flex-grow-1 mx-3" style={{ minWidth: "200px" }}>
           <FormControl
             type="search"
@@ -28,20 +58,19 @@ const Header = () => {
           />
         </Form>
 
-        {/* Administrator - chỉ hiển thị trên màn hình lớn */}
+        {/* Hiển thị vị trí thay vì admin */}
         <div className="d-none d-lg-flex align-items-center">
           <img
-            src="https://images.vietnamluxtour.com/uploads/user-icon.png"
-            alt="Admin"
-            style={{ width: "40px", height: "40px" }}
+            src="https://cdn-icons-png.flaticon.com/512/684/684908.png"
+            alt="Location"
+            style={{ width: "24px", height: "24px" }}
           />
-          <span className="ms-2" style={{ color: "#1D61AD" }}>
-            Administrator
+          <span className="ms-2" style={{ color: "#1D61AD", fontSize: "16px" }}>
+            {city}
           </span>
         </div>
       </Container>
 
-      {/* Thanh menu (chỉ hiển thị trên màn hình lớn) */}
       <Navbar.Collapse id="navbar-nav" className="w-100 d-none d-lg-block">
         <Nav className="d-flex justify-content-center w-100 flex-wrap">
           {HeaderNavData.map((item) => (

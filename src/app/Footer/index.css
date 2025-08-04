@@ -3,20 +3,23 @@
   padding: 40px 100px 20px;
   color: #333;
   font-family: 'Arial', sans-serif;
+  display: flex;
+  justify-content: center;
+
 }
 
 .footer-content {
+  max-width: 1160px;
+  width: 100%;
   display: flex;
   justify-content: space-between;
-  max-width: 1200px;
-  margin: auto;
   flex-wrap: wrap;
   margin-left: 40px;
   margin-right: 40px;
 }
 
 .footer-section {
-  width: 23%;
+  width: 20%;
   margin-bottom: 20px;
   
 }

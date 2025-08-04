@@ -301,6 +301,12 @@
   margin: 0px;
 }
 
+.priceCompanyTour {
+  display: flex;
+  align-items: center;
+  justify-content:flex-end;
+}
+
 #last-price {
   font-size: 13px;
   padding: 1px 0px;
