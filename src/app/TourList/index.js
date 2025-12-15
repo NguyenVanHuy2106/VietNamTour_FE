@@ -3,6 +3,7 @@ import React, { useState, useEffect, useRef } from "react";
 import API from "../../config/APINoToken";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
+import { toSlug } from "../../Components/ToSlug";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
 import {
@@ -226,15 +227,16 @@ export default function TourList() {
     }
   };
 
-  const handleGoToDetail = (tourid) => {
-    navigate("/tour-detail", { state: { tourId: tourid } });
+  const handleGoToDetail = (tourid, tourname) => {
+    const slug = toSlug(tourname);
+    navigate(`/tour/${slug}-${tourid}`);
   };
   useEffect(() => {
     window.scrollTo(0, 0);
     fetchOptions();
     tourtypeRef.current = tourtype;
     getData();
-    console.log(selectedDestination);
+    //console.log(selectedDestination);
   }, []);
   const [currentPage, setCurrentPage] = useState(1);
   const toursPerPage = 8;
@@ -480,8 +482,8 @@ export default function TourList() {
             {currentTours.map((tour) => (
               <div
                 key={tour.tourid}
-                className="card mb-4 shadow-sm"
-                onClick={() => handleGoToDetail(tour.tourid)}
+                className="cardTourList mb-4 shadow-sm"
+                onClick={() => handleGoToDetail(tour.tourid, tour.tourname)}
               >
                 <div className="cardHover row g-0">
                   <div className="col-md-4">
@@ -498,7 +500,7 @@ export default function TourList() {
                     />
                   </div>
                   <div className="col-md-8">
-                    <div className="card-body">
+                    <div className="cardTourList-body">
                       <p className="DestinationName">{tour.destination_name}</p>
                       <h6
                         style={{

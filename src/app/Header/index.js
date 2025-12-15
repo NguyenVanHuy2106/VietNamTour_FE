@@ -39,9 +39,17 @@ const Header = () => {
     <Navbar
       expand="lg"
       className="p-3 flex-column"
-      style={{ backgroundColor: "#ffffff", color: "#1D61AD" }}
+      style={{
+        backgroundColor: "#ffffff",
+        color: "#1D61AD",
+      }}
     >
-      <Container className="d-flex justify-content-between align-items-center mb-2 flex-wrap">
+      <div
+        className="d-flex justify-content-between align-items-center flex-wrap"
+        style={{
+          width: "85%",
+        }}
+      >
         <Navbar.Brand href="/" className="me-3 d-flex align-items-center">
           <img
             src="https://images.vietnamluxtour.com/uploads/vnt.png"
@@ -69,7 +77,7 @@ const Header = () => {
             {city}
           </span>
         </div>
-      </Container>
+      </div>
 
       <Navbar.Collapse id="navbar-nav" className="w-100 d-none d-lg-block">
         <Nav className="d-flex justify-content-center w-100 flex-wrap">

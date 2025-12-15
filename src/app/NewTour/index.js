@@ -5,6 +5,7 @@ import { Container, Nav } from "react-bootstrap";
 import { FaHome } from "react-icons/fa"; // Import icon Home
 import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { toSlug } from "../../Components/ToSlug";
 import {
   BsClock,
   BsCalendar3,
@@ -25,8 +26,9 @@ const NewTour = () => {
       console.error("Lỗi khi lấy danh sách Tour mới:", error.response || error);
     }
   };
-  const handleGoToDetail = (tourid) => {
-    navigate("/tour-detail", { state: { tourId: tourid } });
+  const handleGoToDetail = (tourid, tourname) => {
+    const slug = toSlug(tourname);
+    navigate(`/tour/${slug}-${tourid}`);
   };
 
   useEffect(() => {
@@ -53,7 +55,9 @@ const NewTour = () => {
         <div className="" style={{ marginBottom: "30px" }}>
           <div
             className="NewTourTitleNT"
-            onClick={() => navigate("/tour-list", { state: { tourtype: "" } })}
+            onClick={() =>
+              navigate("/danh-sach-tour", { state: { tourtype: "" } })
+            }
           >
             TOUR MỚI NHẤT
           </div>
@@ -62,7 +66,7 @@ const NewTour = () => {
               <div key={item.tourid}>
                 <div
                   className="exp-card"
-                  onClick={() => handleGoToDetail(item.tourid)}
+                  onClick={() => handleGoToDetail(item.tourid, item.tourname)}
                 >
                   <>
                     <div

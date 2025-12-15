@@ -3,6 +3,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./index.css";
+import { toSlug } from "../../Components/ToSlug";
 
 import APIToken from "../../config/APIToken";
 import API from "../../config/APINoToken";
@@ -21,9 +22,11 @@ const CompanyTour = () => {
       console.error("Lỗi khi lấy danh sách Tour mới:", error.response || error);
     }
   };
-  const handleGoToDetail = (tourid) => {
-    navigate("/tour-detail", { state: { tourId: tourid } });
+  const handleGoToDetail = (tourid, tourname) => {
+    const slug = toSlug(tourname);
+    navigate(`/tour/${slug}-${tourid}`);
   };
+
   useEffect(() => {
     getData();
   }, []);
@@ -72,7 +75,9 @@ const CompanyTour = () => {
     >
       <div
         className="NewTourTitleNT"
-        onClick={() => navigate("/tour-list", { state: { tourtype: "DOAN" } })}
+        onClick={() =>
+          navigate("/danh-sach-tour", { state: { tourtype: "DOAN" } })
+        }
       >
         TOUR KHÁCH ĐOÀN
       </div>
@@ -88,7 +93,7 @@ const CompanyTour = () => {
               <div key={item.tourid}>
                 <div
                   className="exp-cardC"
-                  onClick={() => handleGoToDetail(item.tourid)}
+                  onClick={() => handleGoToDetail(item.tourid, item.tourname)}
                 >
                   <div
                     className="exp-card-img"

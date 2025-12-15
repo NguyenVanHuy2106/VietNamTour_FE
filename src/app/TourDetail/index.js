@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+
+import { useLocation, useParams } from "react-router-dom";
 import API from "../../config/APINoToken";
 import { Spinner } from "react-bootstrap";
+import { toSlug } from "../../Components/ToSlug";
+
 import {
   FaRegClock,
   FaRegCalendarAlt,
@@ -15,9 +18,13 @@ import { useNavigate } from "react-router-dom";
 import "./index.css";
 
 const TourDetail = () => {
+  const { idSlug } = useParams(); // ví dụ: '123-da-lat-tour'
+  const slugParts = idSlug.split("-");
+  const tourId = slugParts[slugParts.length - 1]; // lấy phần cuối
+  //const tourId = idSlug.split("-")[0]; // lấy '123'
   const location = useLocation();
   const navigate = useNavigate();
-  const { tourId } = location.state || {};
+  //const { tourId } = location.state || {};
   const [dataTourDetail, setDataTourDetail] = useState([]);
   const [loading, setLoading] = useState(false);
   const [tourInfo, setTourInfo] = useState("");
@@ -71,11 +78,13 @@ const TourDetail = () => {
       setLoading(false);
     }
   };
-  const handleGoToDetail = (tourid) => {
-    navigate("/tour-detail", { state: { tourId: tourid } });
+  const handleGoToDetail = (tourid, tourname) => {
+    const slug = toSlug(tourname);
+    navigate(`/tour/${slug}-${tourid}`);
   };
 
   useEffect(() => {
+    //console.log(tourId);
     window.scrollTo(0, 0);
     if (tourId) {
       getData();
@@ -218,7 +227,7 @@ const TourDetail = () => {
                 {dataRelationTours.map((tour) => (
                   <div
                     key={tour.tourid}
-                    onClick={() => handleGoToDetail(tour.tourid)}
+                    onClick={() => handleGoToDetail(tour.tourid, tour.tourname)}
                     className="relative-tour-card d-flex mb-3 p-2 border rounded"
                   >
                     <img

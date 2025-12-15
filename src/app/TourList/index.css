@@ -2,13 +2,16 @@
     color: #9a9a9a;
 }
 
-.card {
+.cardTourList {
     position: relative;
 }
-.card :hover {
+.cardTourList :hover {
   cursor: pointer;
   background-color: #FFFFCC;
 }
 .option :hover {
     cursor: pointer;
+}
+.cardTourList-body {
+   margin: 10px;
 }

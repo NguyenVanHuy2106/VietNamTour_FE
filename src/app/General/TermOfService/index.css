@@ -1,0 +1,64 @@
+/* src/components/TermsOfService.css */
+
+.container {
+  margin-top: 20px;
+  padding: 20px;
+
+}
+.terms-title {
+    text-align: center;
+    font-size: 2em;
+    color: #004d99;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.terms-intro {
+    font-size: 1.1em;
+    margin-bottom: 30px;
+    text-align: justify;
+    padding: 10px;
+    background-color: #f0f8ff;
+    border-left: 4px solid #004d99;
+}
+
+.terms-section {
+    margin-bottom: 35px;
+}
+
+.section-title {
+    font-size: 1.6em;
+    color: #004d99;
+    margin-bottom: 15px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.terms-section p {
+    margin-bottom: 15px;
+    text-align: justify;
+}
+
+.terms-list {
+    list-style-type: disc;
+    padding-left: 30px;
+    margin-bottom: 15px;
+}
+
+.terms-list li {
+    margin-bottom: 8px;
+}
+
+.terms-section a {
+    color: #0066cc;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.terms-section a:hover {
+    text-decoration: underline;
+}
+
+strong {
+    color: #1a1a1a;
+}

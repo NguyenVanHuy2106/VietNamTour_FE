@@ -1,14 +1,20 @@
 import React, { useState, useEffect } from "react";
 
 import API from "../../config/APINoToken";
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import "./index.css";
 import { FaCalendarAlt, FaUser } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import { toSlug } from "../../Components/ToSlug";
+
 const BlogDetail = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { postId } = location.state || {};
+  //const { postId } = location.state || {};
+  const { idSlug } = useParams(); // ví dụ: '123-da-lat-tour'
+  const slugParts = idSlug.split("-");
+  const postId = slugParts[slugParts.length - 1]; // lấy phần cuối
+
   const [dataPostDetail, setDataPostDetail] = useState([]);
   const [dataTag, setDataTag] = useState([]);
   const [dataCreator, setDataCreator] = useState({});
@@ -46,8 +52,9 @@ const BlogDetail = () => {
       setLoading(false);
     }
   };
-  const handleGoToDetail = (postId) => {
-    navigate("/blog-detail", { state: { postId: postId } });
+  const handleGoToDetail = (id, title) => {
+    const slug = toSlug(title);
+    navigate(`/blog/${slug}-${id}`);
   };
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -104,7 +111,7 @@ const BlogDetail = () => {
           {dataRelationPost.map((reBlog) => (
             <div
               className="cardDetail"
-              onClick={() => handleGoToDetail(reBlog.post_id)}
+              onClick={() => handleGoToDetail(reBlog.post_id, reBlog.title)}
             >
               <img
                 src={reBlog.thumbnail_url}

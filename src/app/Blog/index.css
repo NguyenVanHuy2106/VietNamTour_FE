@@ -1,6 +1,6 @@
 
 .card {
-  width: calc(25% - 12px); /* phù hợp với gap 16px giữa các card */
+  width: calc(33% - 12px); /* phù hợp với gap 16px giữa các card */
   background: #ffffff;
   padding: 14px;
   border-radius: 8px;

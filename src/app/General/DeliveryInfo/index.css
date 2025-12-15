@@ -1,0 +1,97 @@
+/* src/components/DeliveryInfo.css */
+
+.container {
+  margin-top: 20px;
+  padding: 20px;
+
+}
+
+.delivery-title {
+    text-align: center;
+    font-size: 2.5em;
+    color: #004d99;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.delivery-intro {
+    font-size: 1.1em;
+    margin-bottom: 30px;
+    text-align: justify;
+    padding: 10px;
+    background-color: #f0f8ff;
+    border-left: 4px solid #004d99;
+}
+
+.delivery-section {
+    margin-bottom: 35px;
+}
+
+.section-title {
+    font-size: 1.6em;
+    color: #004d99;
+    margin-bottom: 15px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.sub-section {
+    margin-left: 20px;
+    margin-bottom: 20px;
+}
+
+.sub-section h3 {
+    font-size: 1.2em;
+    color: #004d99;
+    margin-bottom: 10px;
+}
+
+.delivery-section p {
+    margin-bottom: 15px;
+    text-align: justify;
+}
+
+.delivery-list {
+    list-style-type: disc;
+    padding-left: 30px;
+    margin-bottom: 15px;
+}
+
+.delivery-list li {
+    margin-bottom: 8px;
+}
+
+.delivery-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.delivery-table th, .delivery-table td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: left;
+}
+
+.delivery-table th {
+    background-color: #004d99;
+    color: white;
+    font-weight: bold;
+}
+
+.delivery-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.delivery-contact-list {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.delivery-contact-list li {
+    margin-bottom: 5px;
+}
+
+strong {
+    color: #1a1a1a;
+}

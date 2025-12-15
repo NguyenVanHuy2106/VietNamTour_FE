@@ -43,7 +43,7 @@ const Banner = ({ collectionsData }) => {
               style={{
                 width: "100%",
                 height: "auto",
-                maxHeight: "550px",
+                maxHeight: "620px",
                 // minHeight: "200px",
                 objectFit: "cover",
                 display: "block",

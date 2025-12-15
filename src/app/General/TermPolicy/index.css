@@ -1,0 +1,63 @@
+/* src/components/PrivacyPolicy.css */
+.container {
+  margin-top: 20px;
+  padding: 20px;
+
+}
+
+.policy-title {
+    text-align: center;
+    font-size: 2em;
+    color: #004d99;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.policy-intro {
+    font-size: 1.1em;
+    margin-bottom: 30px;
+    text-align: justify;
+    padding: 10px;
+    background-color: #f0f8ff;
+    border-left: 4px solid #004d99;
+}
+
+.policy-section {
+    margin-bottom: 35px;
+}
+
+.section-title {
+    font-size: 1.6em;
+    color: #004d99;
+    margin-bottom: 15px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.policy-section p {
+    margin-bottom: 15px;
+    text-align: justify;
+}
+
+.policy-list {
+    list-style-type: disc;
+    padding-left: 30px;
+    margin-bottom: 15px;
+}
+
+.policy-list li {
+    margin-bottom: 8px;
+}
+
+.policy-contact-list {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.policy-contact-list li {
+    margin-bottom: 5px;
+}
+
+strong {
+    color: #1a1a1a;
+}
