@@ -5,6 +5,7 @@ import Footer from "../../app/Footer";
 import Menu from "../../app/Menu";
 import Hotline from "../../app/Hotline";
 import FadeInSection from "../../Components/FadeInSection";
+import FloatingButtons from "../../Components/FloatingButton";
 
 import { Outlet } from "react-router-dom";
 
@@ -19,6 +20,7 @@ const MainPage = () => {
       <main>
         <Outlet />
       </main>
+      <FloatingButtons />
       <FadeInSection>
         <Footer />
         <Hotline />

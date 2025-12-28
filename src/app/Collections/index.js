@@ -1,109 +1,68 @@
 import React, { useState, useEffect } from "react";
 import API from "../../config/APINoToken";
+import { Maximize2, X } from "lucide-react";
 import "./index.css";
 
-const Collections = ({ collectionsData }) => {
+const Collections = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [dataCollection, setDataCollection] = useState([]);
-  let [loading, setLoading] = useState(false);
 
-  const openImage = (url) => {
-    setSelectedImage(url);
-  };
+  const openImage = (url) => setSelectedImage(url);
+  const closeImage = () => setSelectedImage(null);
 
-  const closeImage = () => {
-    setSelectedImage(null);
-  };
   const getData = async () => {
     try {
       const response = await API.get("collection/get");
       setDataCollection(response.data.data);
     } catch (error) {
-      console.error(
-        "Lỗi khi lấy danh sách khách hàng",
-        error.response || error
-      );
-    } finally {
-      // setLoading(false);
+      console.error("Lỗi:", error);
     }
   };
+
   useEffect(() => {
     getData();
   }, []);
+
   return (
-    <div className="d-flex justify-content-center">
-      <div
-        style={{
-          width: "100%",
-          maxWidth: "1210px",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-        // className="d-flex justify-content-center flex-column align-items-center"
-      >
-        <div className="collections-wrapper d-flex justify-content-center">
-          <div className="CollectionTitle">BỘ SƯU TẬP</div>
+    <div className="coll-v4-section">
+      <div className="coll-v4-container">
+        {/* Tiêu đề tối giản, sang trọng */}
+        <div className="coll-v4-header">
+          <h2 className="coll-v4-title">BỘ SƯU TẬP HÀNH TRÌNH</h2>
+          <div className="coll-v4-line"></div>
+          <p className="coll-v4-subtitle">
+            Những khoảnh khắc chân thực từ khách hàng của chúng tôi
+          </p>
         </div>
-        <div
-          className="d-flex flex-wrap justify-content-center"
-          style={{
-            marginBottom: "40px",
-          }}
-        >
+
+        {/* Layout Masonry Columns */}
+        <div className="coll-v4-masonry">
           {dataCollection.map((item) => (
             <div
               key={item.collectionid}
-              className="card-parent"
-              style={{
-                height: 140,
-                width: 227,
-                backgroundColor: "#ffffff",
-                cursor: "pointer",
-              }}
+              className="coll-v4-item"
               onClick={() => openImage(item.collectionurl)}
             >
-              <img
-                key={item.collectionid}
-                src={item.collectionurl}
-                alt={`Customer ${item.id}`}
-                className="card-child"
-                style={{
-                  height: "100%",
-                  width: "100%",
-                }}
-              />
+              <img src={item.collectionurl} alt="Gallery" />
+              <div className="coll-v4-overlay">
+                <Maximize2 size={28} color="white" />
+                <span>Phóng to</span>
+              </div>
             </div>
           ))}
         </div>
       </div>
+
+      {/* Modal phóng to */}
       {selectedImage && (
-        <div
-          className="image-modal"
-          onClick={closeImage}
-          style={{
-            position: "fixed",
-            top: 0,
-            left: 0,
-            width: "100vw",
-            height: "100vh",
-            backgroundColor: "rgba(0,0,0,0.7)",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            zIndex: 1000,
-          }}
-        >
+        <div className="coll-v4-modal" onClick={closeImage}>
+          <div className="coll-v4-modal-close">
+            <X size={30} />
+          </div>
           <img
             src={selectedImage}
-            alt="Large view"
-            style={{
-              maxWidth: "90vw",
-              maxHeight: "90vh",
-              borderRadius: "8px",
-              boxShadow: "0 0 20px rgba(0,0,0,0.5)",
-            }}
+            alt="Large View"
+            className="coll-v4-zoom-img"
           />
         </div>
       )}

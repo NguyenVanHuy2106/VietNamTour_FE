@@ -237,7 +237,7 @@ export default function TourList() {
     tourtypeRef.current = tourtype;
     getData();
     //console.log(selectedDestination);
-  }, []);
+  }, [tourtype]);
   const [currentPage, setCurrentPage] = useState(1);
   const toursPerPage = 8;
 

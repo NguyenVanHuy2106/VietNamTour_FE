@@ -1,0 +1,161 @@
+body { margin:0; font-family:'Poppins', sans-serif; color:#111; }
+
+/* HERO FULL-WIDTH */
+.hero-fullwidth {
+  position: relative;
+  height: 60vh;
+  background: url('https://static.vinwonders.com/2022/11/du-lich-team-building-top.jpg') center/cover no-repeat;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+
+  color:#fff;
+}
+.hero-overlay { position:absolute; inset:0; background: rgba(0,0,0,0.5); }
+.hero-content { position:relative; animation: fadeIn 1.2s ease forwards;
+padding-left: 20px; padding-right: 20px; }
+.hero-content h1 { font-size:2.8rem; margin-bottom:15px; }
+.hero-content p { font-size:1.2rem; margin-bottom:25px; font-style:italic; }
+.btn-main { display:inline-block; background:#ffb700; color:#111; padding:14px 36px; border-radius:50px; text-decoration:none; font-weight:600; transition:0.3s; }
+.btn-main:hover { background:#e6a200; }
+.btn-large { padding:18px 45px; font-size:1.15rem; }
+
+/* SECTION BACKGROUND */
+.section-white { background-color:#fff; }
+.section-gray { background-color:#f8f8f8; }
+
+/* INTRO */
+.intro-flex { display:flex; gap:40px; align-items:center; margin-bottom:80px; flex-wrap:wrap; }
+.intro-text { flex:1; }
+.intro-text h2 { font-size:2rem; margin-bottom:15px; }
+.intro-text p { font-size:1.1rem; margin-bottom:15px; line-height:1.7; }
+.intro-text ul { padding-left:20px; }
+.intro-image { flex:1; }
+.intro-image img { width:100%; border-radius:15px; box-shadow:0 15px 35px rgba(0,0,0,0.15); }
+.intro-container {
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+
+/* FORMATS */
+.formats-container {
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+.formats-container h2 { font-size:2rem; margin-bottom:40px; text-align:center; }
+.formats-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:30px; }
+.format-card { position:relative; border-radius:15px; overflow:hidden; cursor:pointer; }
+.format-card img { width:100%; height:100%; object-fit:cover; transition:transform 0.3s; }
+.format-card:hover img { transform:scale(1.05); }
+.format-text { position:absolute; bottom:15px; left:15px; background:rgba(0,0,0,0.5); color:#fff; padding:15px 20px; border-radius:10px; }
+
+/* PROCESS */
+.process-container {
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+.process-container h2 { font-size:2rem; margin-bottom:50px; text-align:center; }
+.process-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:30px; }
+.process-item { background:#fff; padding:25px; border-radius:15px; box-shadow:0 10px 25px rgba(0,0,0,0.1); transition: transform 0.3s; }
+.process-item:hover { transform: translateY(-5px); }
+.step { width:50px; height:50px; background:#ffb700; color:#111; border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 15px; font-weight:700; }
+
+/* GALLERY */
+.gallery-container {
+    padding-bottom: 30px;
+    padding-top: 30px;
+}
+.gallery-container h2 { font-size:2rem; margin-bottom:40px; text-align:center; }
+.gallery-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:20px; }
+.gallery-grid img { width:100%; border-radius:15px; object-fit:cover; transition:transform 0.3s; }
+.gallery-grid img:hover { transform:scale(1.05); }
+
+/* QUOTE */
+.quote-container {
+  position: relative;
+  padding: 90px 0;
+  background-image: url("https://images.unsplash.com/photo-1503428593586-e225b39bddfe");
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #fff;
+}
+
+.quote-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5); /* overlay tối để chữ nổi bật */
+}
+
+.quote-content {
+  position: relative;
+  font-size: 1.6rem;
+  font-style: italic;
+  max-width: 800px;
+}
+
+
+/* CTA */
+.cta-white {
+  background: #fff;
+  padding: 80px 0;
+}
+
+.cta-card {
+  background: #f8f8f8;
+  padding: 50px 40px;
+  border-radius: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+  flex-wrap: wrap;
+  text-align: center;
+}
+
+.cta-text {
+  flex: 1;
+}
+
+.cta-text h2 {
+  font-size: 2rem;
+  margin-bottom: 15px;
+  color: #111;
+}
+
+.cta-text p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #555;
+}
+
+.cta-button {
+  flex: 0 0 auto;
+}
+
+.btn-cta {
+  display: inline-block;
+  background: #ffb700;
+  color: #111;
+  padding: 18px 45px;
+  border-radius: 50px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  text-decoration: none;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.btn-cta:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+}
+
+
+/* ANIMATION */
+@keyframes fadeIn { 0%{opacity:0; transform:translateY(30px);} 100%{opacity:1; transform:translateY(0);} }

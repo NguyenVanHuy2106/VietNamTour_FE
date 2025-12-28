@@ -4,7 +4,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 import FadeInSection from "./FadeInSection";
-import FloatingButtons from "./FloatingButton";
+// import FloatingButtons from "./FloatingButton";
 import FamousDes from "../app/FamousDes";
 
 import "./Styles/main-home.css";
@@ -32,14 +32,15 @@ const MainHome = ({ history }) => {
       <FadeInSection>
         <Banner />
       </FadeInSection>
-      <FadeInSection>
-        <Search />
-      </FadeInSection>
+
       <FadeInSection>
         <NewTour />
       </FadeInSection>
       <FadeInSection>
         <CompanyTour />
+      </FadeInSection>
+      <FadeInSection>
+        <Search />
       </FadeInSection>
       <FadeInSection>
         <Relation />
@@ -56,7 +57,7 @@ const MainHome = ({ history }) => {
       <FadeInSection>
         <Collections />
       </FadeInSection>
-      <FloatingButtons />
+      {/* <FloatingButtons /> */}
     </div>
   );
 };

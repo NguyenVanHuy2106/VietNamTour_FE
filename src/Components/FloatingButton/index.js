@@ -10,7 +10,7 @@ const FloatingButtons = () => {
         <Phone size={23} />
       </a>
       <a
-        href="sms:0764747160"
+        href="sms:0373954963"
         target="_blank"
         rel="noopener noreferrer"
         className="circle-button messenger"
@@ -19,14 +19,14 @@ const FloatingButtons = () => {
         <MessageSquare size={23} />
       </a>
       <a
-        href="https://zalo.me/0764747160"
+        href="https://zalo.me/0373954963"
         target="_blank"
         rel="noopener noreferrer"
         className="circle-button zalo"
         title="Zalo"
       >
         <img
-          src="https://images.vietnamluxtour.com/uploads/Logo-zalo-png.png"
+          src="https://cdn.myvietnamtour.vn/uploads/Logo-zalo-png.png"
           alt="Logo"
           style={{ width: "25px", height: "25px" }}
         />

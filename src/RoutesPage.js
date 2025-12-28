@@ -11,6 +11,11 @@ import TermsOfService from "./app/General/TermOfService";
 import TermPolicy from "./app/General/TermPolicy";
 import PaymentMethods from "./app/General/PaymentMethod";
 import DeliveryInfo from "./app/General/DeliveryInfo";
+import TeamBuilding from "./app/Service/TeamBuilding";
+import Conference from "./app/Service/Conference";
+import YearEndEvent from "./app/Service/YearEndEvent";
+import Travel from "./app/Service/Travel";
+import StudyTour from "./app/Service/StudyTour";
 
 const CityRoutes = () => (
   <Routes>
@@ -24,6 +29,12 @@ const CityRoutes = () => (
       <Route path="chinh-sach-bao-mat" element={<TermPolicy />} />
       <Route path="phuong-thuc-thanh-toan" element={<PaymentMethods />} />
       <Route path="chinh-sach-giao-nhan" element={<DeliveryInfo />} />
+
+      <Route path="dich-vu/team-building" element={<TeamBuilding />} />
+      <Route path="dich-vu/hoi-nghi-hoi-thao" element={<Conference />} />
+      <Route path="dich-vu/year-end-party" element={<YearEndEvent />} />
+      <Route path="dich-vu/du-lich-trong-nuoc" element={<Travel />} />
+      <Route path="dich-vu/du-lich-hoc-tap" element={<StudyTour />} />
     </Route>
   </Routes>
 );

@@ -11,6 +11,7 @@
     color: #004d99;
     margin-bottom: 20px;
     font-weight: bold;
+    margin-top: 20px;
 }
 
 .terms-intro {
@@ -24,6 +25,10 @@
 
 .terms-section {
     margin-bottom: 35px;
+}
+
+.terms-section h2 {
+    text-align: justify;
 }
 
 .section-title {

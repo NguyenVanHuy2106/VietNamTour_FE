@@ -1,177 +1,134 @@
-import React from "react";
-import "./index.css";
-import { Carousel } from "react-bootstrap";
-
+import React, { useState, useEffect } from "react";
 import Slider from "react-slick";
+import API from "../../config/APINoToken";
+import { useNavigate } from "react-router-dom";
+import { toSlug } from "../../Components/ToSlug";
+import { ArrowUpRight, Compass, Sparkles } from "lucide-react";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import "./index.css";
 
 export default function Relation() {
-  const settings = {
-    dots: true, // có chấm tròn ở dưới
-    infinite: true, // lặp vô hạn
-    autoplay: true, // tự động chạy
-    autoplaySpeed: 3000, // mỗi 3 giây
+  const [data, setData] = useState([]);
+  const [dataDOAN, setDataDOAN] = useState([]);
+  const navigate = useNavigate();
+  const bigSliderSettings = {
+    dots: true,
+    infinite: true,
+    speed: 1000,
     slidesToShow: 1,
     slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 3000,
+    fade: true,
+    arrows: false,
+    pauseOnHover: false, // Thêm dòng này để tránh bị dừng khi chuột vô tình đè lên
+    dotsClass: "slick-dots custom-big-dots",
   };
+  const getData = async () => {
+    try {
+      const response = await API.post("/post/getCNDLPost", { category_id: 9 });
+      if (response && response.data && response.data.data) {
+        setData(response.data.data.slice(0, 3)); // Chỉ lấy 3 bài đẹp nhất
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const getDataDOAN = async () => {
+    try {
+      const response = await API.post("/post/getCNDLPost", { category_id: 12 });
+      if (response && response.data && response.data.data) {
+        setDataDOAN(response.data.data.slice(0, 3)); // Chỉ lấy 1 bài tiêu điểm
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    getData();
+    getDataDOAN();
+  }, []);
+
+  const handleGoToDetail = (id, title) => {
+    const slug = toSlug(title);
+    navigate(`/blog/${slug}-${id}`);
+  };
+
   return (
-    <div
-      className="d-flex justify-content-center align-items-center"
-      style={{
-        backgroundColor: "#eeeeee",
-      }}
-    >
-      <div
-        style={{
-          backgroundColor: "#ffffff",
-          marginTop: "20px",
-          paddingLeft: "40px",
-          paddingRight: "40px",
-          paddingBottom: "40px",
-          borderRadius: "10px",
-          marginBottom: "20px",
-        }}
-      >
-        <div className="d-flex flex-column flex-lg-row">
-          <div
-            style={{
-              marginRight: "10px ",
-            }}
-          >
-            <div className="RelationTitle">KHÁCH ĐOÀN</div>
-            <div className="SliderContainer">
-              <Slider {...settings}>
-                {CustomerList.map((image) => (
-                  <div key={image.id} className="d-flex">
-                    <img
-                      src={image.imageUrl}
-                      alt={`Slide ${image.id}`}
-                      className="slide-image"
-                    />
-                    <div>
-                      <div className="RelationTitleTour">{image.title}</div>
-                      <div className="RelationContentTour">
-                        {image.description}
-                      </div>
-                      <div
-                        style={{
-                          textAlign: "right",
-                          paddingRight: "10px",
-                          paddingTop: "10px",
-                          color: "#0000FF",
-                          fontStyle: "italic",
-                        }}
-                      >
-                        Xem thêm
+    <div className="rel-v3-section">
+      <div className="rel-v3-container">
+        {/* TIÊU ĐỀ TỔNG KHỐI */}
+        <div className="rel-v3-header">
+          <div className="rel-v3-title-group">
+            <span className="rel-v3-subtitle">
+              Khám phá thế giới cùng chúng tôi
+            </span>
+            <h2 className="rel-v3-main-title">HÀNH TRÌNH & KINH NGHIỆM</h2>
+          </div>
+          <button className="rel-v3-all-btn" onClick={() => navigate("/blog")}>
+            Xem tất cả bài viết <ArrowUpRight size={20} />
+          </button>
+        </div>
+
+        <div className="rel-v3-grid">
+          {/* KHỐI TRÁI: TIÊU ĐIỂM KHÁCH ĐOÀN (BIG CARD) */}
+          <div className="rel-v3-big-slider-container">
+            {dataDOAN && dataDOAN.length > 0 ? (
+              <Slider {...bigSliderSettings} key={dataDOAN.length}>
+                {dataDOAN.map((item) => (
+                  <div
+                    key={item.post_id}
+                    className="lp-slide-item"
+                    onClick={() => handleGoToDetail(item.post_id, item.title)}
+                  >
+                    <div className="rel-v3-big-card">
+                      <img
+                        src={item.thumbnail_url}
+                        alt={item.title}
+                        className="rel-v3-big-img"
+                      />
+                      <div className="rel-v3-big-overlay">
+                        <div className="rel-v3-tag">
+                          <Compass size={14} /> KHÁCH ĐOÀN TIÊU BIỂU
+                        </div>
+                        <h3 className="rel-v3-big-title">{item.title}</h3>
+                        <p className="rel-v3-big-desc">{item.description}</p>
                       </div>
                     </div>
                   </div>
                 ))}
               </Slider>
-            </div>
+            ) : (
+              <div className="rel-v3-loader">Đang tải hành trình...</div>
+            )}
           </div>
-          <div
-            style={{
-              marginLeft: "10px",
-            }}
-          >
-            <div className="RelationTitle">CẨM NANG DU LỊCH</div>
-            <div className="d-flex flex-column" style={{ marginTop: "15px" }}>
-              {BlogList.map((item) => (
-                <div
-                  key={item.id}
-                  className="d-flex align-items-center BlogItem"
-                  onClick={() => {}}
-                >
-                  <img
-                    key={item.id}
-                    src={item.imageUrl}
-                    alt={`Customer ${item.id}`}
-                    className="object-cover"
-                    style={{
-                      height: 100,
-                      width: 130,
-                      backgroundColor: "#ffffff",
-                      marginTop: 8,
-                    }}
-                  />
-                  <div className="RelationBlogItem">{item.title}</div>
-                </div>
-              ))}
-              <div
-                style={{
-                  color: "#0000ff",
-                  marginTop: "20px",
-                  display: "flex",
-                  justifyContent: "center",
-                }}
-              >
-                <p
-                  style={{
-                    border: "1px solid #0000ff",
-                    paddingLeft: "10px",
-                    paddingRight: "10px",
-                  }}
-                >
-                  Xem thêm
-                </p>
-              </div>
+
+          {/* KHỐI PHẢI: DANH SÁCH CẨM NANG (STACKED CARDS) */}
+          <div className="rel-v3-list">
+            <div className="rel-v3-list-label">
+              <Sparkles size={16} /> CẨM NANG MỚI NHẤT
             </div>
+            {data.map((item) => (
+              <div
+                key={item.post_id}
+                className="rel-v3-small-card"
+                onClick={() => handleGoToDetail(item.post_id, item.title)}
+              >
+                <div className="rel-v3-small-img-box">
+                  <img src={item.thumbnail_url} alt={item.title} />
+                </div>
+                <div className="rel-v3-small-info">
+                  <h4>{item.title}</h4>
+                  <span>Chi tiết hành trình</span>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>
     </div>
   );
 }
-
-const CustomerList = [
-  {
-    id: 1,
-    imageUrl:
-      "https://firebasestorage.googleapis.com/v0/b/core-pilates-e0144.firebasestorage.app/o/image%2F1.png?alt=media&token=6aebb33f-45ae-4fb0-b043-572911c635c2",
-    title:
-      "MWG - Hành trình khám phá Vũng Tàu thành phố biển Vũng Tàu thành phố biển đẹp nè ",
-    description:
-      "Mango Beach là tổ hợp giải trí ven biển nổi bật tại Phan Thiết, kết hợp giữa không gian thư giãn và các hoạt động vui chơi đa dạng. Với bãi biển cát trắng mịn, làn nước trong xanh và nhiều góc check-in rực rỡ, nơi đây thu hút du khách yêu thích chụp ảnh. Điểm nhấn bao gồm khu vườn thú nhỏ với các loài động vật như lạc đà, thỏ, rùa, cùng quầy bar và nhà hàng ven biển. Vào cuối tuần, Mango Beach tổ chức các buổi biểu diễn DJ sôi động, tạo nên không khí náo nhiệt và hấp dẫn.",
-  },
-  {
-    id: 2,
-    imageUrl:
-      "https://firebasestorage.googleapis.com/v0/b/core-pilates-e0144.firebasestorage.app/o/image%2F10.png?alt=media&token=eedce5e3-1cae-4e81-b47d-a83c45f0eede",
-    title: "MWG - Hành trình khám phá Vũng Tàu thành phố biển ",
-    description:
-      "Mango Beach là tổ hợp giải trí ven biển nổi bật tại Phan Thiết, kết hợp giữa không gian thư giãn và các hoạt động vui chơi đa dạng. Với bãi biển cát trắng mịn, làn nước trong xanh và nhiều góc check-in rực rỡ, nơi đây thu hút du khách yêu thích chụp ảnh. Điểm nhấn bao gồm khu vườn thú nhỏ với các loài động vật như lạc đà, thỏ, rùa, cùng quầy bar và nhà hàng ven biển. Vào cuối tuần, Mango Beach tổ chức các buổi biểu diễn DJ sôi động, tạo nên không khí náo nhiệt và hấp dẫn.",
-  },
-  {
-    id: 3,
-    imageUrl:
-      "https://firebasestorage.googleapis.com/v0/b/core-pilates-e0144.firebasestorage.app/o/image%2F11.png?alt=media&token=fee5a9d9-1f4b-4a9a-9f2b-63c06d174eb6",
-    title: "MWG - Hành trình khám phá Vũng Tàu thành phố biển ",
-    description:
-      "Mango Beach là tổ hợp giải trí ven biển nổi bật tại Phan Thiết, kết hợp giữa không gian thư giãn và các hoạt động vui chơi đa dạng. Với bãi biển cát trắng mịn, làn nước trong xanh và nhiều góc check-in rực rỡ, nơi đây thu hút du khách yêu thích chụp ảnh. Điểm nhấn bao gồm khu vườn thú nhỏ với các loài động vật như lạc đà, thỏ, rùa, cùng quầy bar và nhà hàng ven biển. Vào cuối tuần, Mango Beach tổ chức các buổi biểu diễn DJ sôi động, tạo nên không khí náo nhiệt và hấp dẫn.",
-  },
-];
-
-const BlogList = [
-  {
-    id: 1,
-    imageUrl:
-      "https://firebasestorage.googleapis.com/v0/b/core-pilates-e0144.firebasestorage.app/o/customer%2FCBBANK.png?alt=media&token=3a39bb0b-11fe-458f-a0f2-6396ff4b3f6d",
-    title: "MWG - Hành trình khám phá Vũng Tàu thành phố biển MWG  ",
-  },
-  {
-    id: 2,
-    imageUrl:
-      "https://firebasestorage.googleapis.com/v0/b/core-pilates-e0144.firebasestorage.app/o/customer%2FCHICUCTHUE.png?alt=media&token=7220de94-1f1a-47af-8560-c6d9a44abe6a",
-    title:
-      "MWG - Hành trình khám phá Vũng Tàu thành phố biển MWG - Hành trình khám phá Vũng",
-  },
-  {
-    id: 3,
-    imageUrl:
-      "https://firebasestorage.googleapis.com/v0/b/core-pilates-e0144.firebasestorage.app/o/customer%2FDAIHOCMO.png?alt=media&token=b4f7d6a9-37fd-479b-a273-b63b7f88746f",
-    title:
-      "MWG - Hành trình khám phá Vũng Tàu thành phố biển MWG - Hành trình khám ",
-  },
-];

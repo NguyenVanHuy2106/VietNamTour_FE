@@ -11,6 +11,7 @@
     color: #004d99;
     margin-bottom: 20px;
     font-weight: bold;
+    margin-top: 20px;
 }
 
 .policy-intro {
@@ -25,7 +26,9 @@
 .policy-section {
     margin-bottom: 35px;
 }
-
+.policy-section h2 {
+    text-align: justify;
+}
 .section-title {
     font-size: 1.6em;
     color: #004d99;

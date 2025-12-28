@@ -52,7 +52,7 @@ const Header = () => {
       >
         <Navbar.Brand href="/" className="me-3 d-flex align-items-center">
           <img
-            src="https://images.vietnamluxtour.com/uploads/vnt.png"
+            src="https://cdn.myvietnamtour.vn/uploads/vnt.png"
             alt="Logo"
             style={{ width: "280px", height: "80px" }}
           />
@@ -103,14 +103,14 @@ const Header = () => {
 export default Header;
 
 const HeaderNavData = [
-  { id: 1, name: "Team Building", link: "#" },
-  { id: 2, name: "Gala Dinner", link: "#" },
+  { id: 1, name: "Team Building", link: "/dich-vu/team-building" },
+  { id: 2, name: "Du lịch trong nước", link: "/dich-vu/du-lich-trong-nuoc" },
   { id: 3, name: "Tổ chức Event", link: "#" },
   { id: 4, name: "Cho thuê xe", link: "#" },
   { id: 5, name: "Vé máy báy", link: "#" },
-  { id: 6, name: "Du lịch trải nghiệm học tập", link: "#" },
+  { id: 6, name: "Trải nghiệm học tập", link: "/dich-vu/du-lich-hoc-tap" },
   { id: 7, name: "Du lịch Mice", link: "#" },
-  { id: 8, name: "Tổ chức YEP, Tân niên", link: "#" },
-  { id: 9, name: "Hội nghị - Hội thảo", link: "#" },
+  { id: 8, name: "Tổ chức YEP, Tân niên", link: "/dich-vu/year-end-party" },
+  { id: 9, name: "Hội nghị - Hội thảo", link: "/dich-vu/hoi-nghi-hoi-thao" },
   { id: 10, name: "Booking dịch vụ: Khách sạn, nhà hàng,...", link: "#" },
 ];

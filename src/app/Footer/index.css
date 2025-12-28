@@ -1,165 +1,125 @@
-.footer-container {
-  background-color: #f5f5f5;
-  padding: 40px 100px 20px;
-  color: #333;
-  font-family: 'Arial', sans-serif;
-  display: flex;
-  justify-content: center;
+.footer-modern {
+  background: #1d61ad;
+  color: #ffffff;
+  font-family: 'Helvetica Neue', sans-serif;
+  padding: 40px 20px 20px;
 
 }
 
-.footer-content {
-  max-width: 1160px;
-  width: 100%;
+.footer-main {
   display: flex;
-  justify-content: space-between;
   flex-wrap: wrap;
-  margin-left: 40px;
-  margin-right: 40px;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+  gap: 40px;
 }
 
-.footer-section {
-  width: 20%;
-  margin-bottom: 20px;
-  
-}
-
-.footer-logo {
-  width: 150px;
-  margin-bottom: 15px;
-}
-
-.footer-section h4 {
-  margin-bottom: 15px;
-  font-size: 18px;
-  color: #0e76a8;
-  display: flex;
-  align-items: flex-start;
-}
-
-.footer-section p {
-  font-size: 14px;
-  line-height: 1.6;
-}
-
-.footer-section ul {
-  list-style: none;
-  padding: 0;
+/* Left Section */
+.footer-left {
+  flex: 1 1 300px;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  gap: 15px;
 }
-.contact {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
- }
 
-.footer-section ul li {
+.footer-left h3 {
+  margin: 0;
+  font-size: 24px;
+  color: #FFFFFF;
+}
+
+.footer-left p {
+  line-height: 1.6;
+  color: #ffffff;
+}
+
+.subscribe-box {
+  display: flex;
+  gap: 10px;
+}
+
+.subscribe-box input {
+  flex: 1;
+  padding: 10px 15px;
+  border-radius: 6px;
+  border: none;
+  outline: none;
+}
+
+.subscribe-box button {
+  background: #ffb400;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.subscribe-box button:hover {
+  background: #FFFFFF;
+}
+
+/* Right Section */
+.footer-right {
+  flex: 2 1 600px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.footer-card {
+  flex: 1 1 180px;
+  background: #154b8a;
+  padding: 20px;
+  border-radius: 10px;
+  transition: 0.3s;
+}
+
+.footer-card h4 {
+  margin-bottom: 15px;
+  color: #FFFFFF;
+}
+
+.footer-card ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-card ul li {
   margin-bottom: 10px;
   cursor: pointer;
-  transition: color 0.3s;
+  color: #ffffff;
+  transition: 0.3s;
 }
 
-.footer-section ul li:hover {
-  color: #e74c3c;
+.footer-card ul li:hover {
+  color: #ffb400;
 }
 
-.social-icons {
+/* Social Card */
+.social-card .social-icons {
   display: flex;
+  gap: 15px;
   margin-top: 10px;
 }
 
-.social-icons img {
-  width: 28px;
-  margin-right: 10px;
+.social-card .social-icons img {
+  width: 36px;
+  height: 36px;
   cursor: pointer;
-  transition: transform 0.3s;
+  transition: 0.3s;
 }
 
-.social-icons img:hover {
-  transform: scale(1.1);
+.social-card .social-icons img:hover {
+  transform: scale(1.2);
 }
 
+/* Footer Bottom */
 .footer-bottom {
-  border-top: 1px solid #ddd;
-  padding-top: 15px;
   text-align: center;
-  font-size: 13px;
-  color: #ffffff;
-  margin-top: 20px;
-}
-
-/* Responsive */
-@media (max-width: 991px) {
-  .footer-section {
-    width: 45%;
-    margin-bottom: 30px;
-    margin-left: 20px;
-    margin-right: 20px;
-  }
-}
-
-@media (max-width: 600px) {
-  .footer-section {
-    width: 100%;
-    text-align: center;
-  }
-  .social-icons {
-    justify-content: center;
-  }
-}
-.subscribe-wrapper {
-  display: flex;
-  gap: 8px;
-  width: 100%;
-  max-width: 400px;
-  justify-content: center;
-  align-items: center;
-  margin: 0 auto;
-}
-
-.subscribe-input {
-  flex: 1;
-  height: 34px;
+  margin-top: 40px;
   font-size: 14px;
-  padding: 4px 8px;
-}
-
-.subscribe-button {
-  height: 32px;
-  padding: 0 12px;
-  background-color: #1d61ad;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  font-size: 14px;
-  cursor: pointer;
-}
-
-/* Responsive nhỏ lại cho mobile */
-
-
-@media (max-width: 768px) {
-  .footer-content {
-    min-width: 220px;
-    display: flex;
-    justify-content: center;
-
-  }
-    .subscribe-wrapper {
-    gap: 6px;
-    max-width: 100%;
-   
-  }
-
-  .subscribe-input {
-    width: 300px;
-  }
-
-
-  .subscribe-button {
-    height: 30px;
-    width: 40px;
-  }
+  color: #777;
 }

@@ -1,92 +1,263 @@
-.RelationTitle{
-    font-weight: bold;
-    color: #1d61ad;
-    border-bottom: 1px solid #1d61ad;
-    padding-top: 10px;
-    padding-bottom: 10px;
-}
-.RelationTitleTour {
-    text-align: justify;
-    font-weight: bold;
-    padding-left: 10px;
-    padding-right: 10px;
-    font-size:medium
+.rel-v3-section {
+  padding: 80px 0;
+  background-color: #fff;
+  font-family: 'Inter', sans-serif;
 }
 
-.RelationContentTour {
-    text-align: justify;
-    padding-left: 10px;
-    padding-right: 10px;
-    display: -webkit-box;
-
-    -webkit-line-clamp: 10;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.RelationBlogItem {
-    text-align: justify;
-    max-width: 225px;
-    word-break: keep-all;
-    padding-left: 10px;
-    font-size: small;
-    font-weight:bold;
-    padding-right: 10px;
-    
-}
-
-.BlogItem:hover {
-    cursor: pointer;
-    transform: translateY(-0.2em);
-    box-shadow: 4px 8px 15px -3px rgba(80, 79, 79, 0.4);
-}
-.slide-image {
-   width: 100%;
-   height: 100%;
-   object-fit: cover;
-}
-.SliderContainer {
-  max-width: 800px; 
+.rel-v3-container {
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 15px 10px;
-  box-sizing: border-box;
-}
-.slick-slide {
-  text-align: center;
+  padding: 0 20px;
 }
 
-.slick-slide > div {
-  display: inline-block;
-}
-@media (max-width: 768px) {
-  .slide-image {
-    width: 150px;  /* Thu nhỏ trên màn hình nhỏ */
-    height: 80px;
-  }
-  .RelationContentTour {
-    text-align: justify;
-    padding-left: 10px;
-    padding-right: 10px;
-    display: -webkit-box;
-
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    }
-    .SliderContainer {
-        max-width: 330px;
-        width: 100%; 
-        margin-top: 15px;
-    }
-    .RelationTitleTour {
-    display: -webkit-box;
-
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
+/* HEADER */
+.rel-v3-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 50px;
 }
 
+.rel-v3-subtitle {
+  color: #0052cc;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 14px;
+  letter-spacing: 2px;
+}
+
+.rel-v3-main-title {
+  font-size: 36px;
+  font-weight: 900;
+  color: #1a1a1a;
+  margin-top: 10px;
+}
+
+.rel-v3-all-btn {
+  background: none;
+  border: none;
+  border-bottom: 2px solid #1a1a1a;
+  padding-bottom: 5px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.rel-v3-all-btn:hover { color: #0052cc; border-color: #0052cc; }
+
+/* GRID LAYOUT */
+.rel-v3-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 30px;
+}
+
+/* BIG CARD */
+.rel-v3-big-card {
+  position: relative;
+  height: 550px;
+  border-radius: 30px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.rel-v3-big-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: 0.8s;
+}
+
+.rel-v3-big-card:hover .rel-v3-big-img { transform: scale(1.1); }
+
+.rel-v3-big-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 50px;
+  background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+  color: white;
+}
+
+.rel-v3-tag {
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  padding: 6px 15px;
+  border-radius: 50px;
+  font-size: 12px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.rel-v3-big-title { font-size: 28px; font-weight: 800; margin-bottom: 15px; }
+.rel-v3-big-desc { font-size: 16px; opacity: 0.9; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+
+/* SMALL CARDS LIST */
+.rel-v3-list { display: flex; flex-direction: column; gap: 20px; }
+
+.rel-v3-list-label {
+  font-weight: 800;
+  font-size: 18px;
+  color: #1a1a1a;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.rel-v3-small-card {
+  display: flex;
+  gap: 20px;
+  padding: 15px;
+  border-radius: 20px;
+  background: #f8f9fa;
+  transition: 0.3s;
+  cursor: pointer;
+  align-items: center;
+}
+
+.rel-v3-small-card:hover { background: #fff; box-shadow: 0 15px 30px rgba(0,0,0,0.08); transform: translateX(10px); }
+
+.rel-v3-small-img-box {
+  width: 120px;
+  height: 120px;
+  border-radius: 15px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.rel-v3-small-img-box img { width: 100%; height: 100%; object-fit: cover; }
+
+.rel-v3-small-info h4 {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 8px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.rel-v3-small-info span { font-size: 13px; color: #0052cc; font-weight: 700; }
+
+/* MOBILE */
+@media (max-width: 1024px) {
+  .rel-v3-grid { grid-template-columns: 1fr; }
+  .rel-v3-big-card { height: 400px; }
+  .rel-v3-header { flex-direction: column; align-items: flex-start; gap: 20px; }
+}
+
+/* Đảm bảo container có chiều cao cố định ngay lập tức */
+.rel-v3-big-slider-container {
+  min-height: 550px; 
+  background: #f0f0f0; /* Màu nền nhẹ khi chờ ảnh */
+  border-radius: 30px;
+  overflow: hidden;
+}
+
+/* Fix lỗi ảnh không hiện hoặc hiện chậm */
+.rel-v3-big-img {
+  width: 100%;
+  height: 550px;
+  object-fit: cover;
+  display: block !important; /* Quan trọng để slick không ẩn ảnh */
+}
+
+/* Loader placeholder */
+.rel-v3-loader-placeholder {
+  height: 550px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #eee;
+}
+
+/* Đảm bảo khối card wrapper chiếm 100% */
+.rel-v3-big-card-wrapper {
+  outline: none;
+  height: 550px;
+}
+
+/* Fix lỗi Slider không chạy trong Grid */
+.rel-v3-grid {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  gap: 30px;
+  min-width: 0; /* Quan trọng: Cho phép grid con co giãn để Slick tính toán width */
+}
+
+.rel-v3-big-slider-container {
+  min-width: 0; /* Quan trọng: Đảm bảo container không bị tràn */
+  width: 100%;
+  border-radius: 32px;
+  overflow: hidden;
+  height: 550px;
+  position: relative;
+}
+
+/* Ép các slide hiện thị */
+.lp-slide-item {
+  outline: none;
+  height: 550px;
+}
+
+.slick-slider, .slick-list, .slick-track {
+  height: 100% !important;
+}
+
+.rel-v3-big-img {
+  width: 100% !important;
+  height: 550px !important;
+  object-fit: cover;
+  display: block;
+}
+
+/* HIỆN THỊ DOTS (DẤU CHẤM) */
+.custom-big-dots {
+  position: absolute !important;
+  bottom: 30px !important;
+  left: 50px !important;
+  width: auto !important;
+  z-index: 100 !important;
+  display: block !important; /* Ép hiển thị */
+}
+
+.custom-big-dots li button:before {
+  font-size: 12px !important;
+  color: white !important;
+  opacity: 0.6 !important;
+}
+
+.custom-big-dots li.slick-active button:before {
+  color: #00baff !important;
+  opacity: 1 !important;
+}
+
+/* Khi dùng fade: true, tất cả slide đều nằm chồng lên nhau */
+.rel-v3-big-slider-container .slick-slide {
+  opacity: 0 !important;
+  transition: opacity 1000ms ease;
+  pointer-events: none; /* Khóa click của tất cả slide ẩn */
+  z-index: 0;
+}
+
+/* Chỉ slide đang hiển thị mới có opacity = 1 và nhận click */
+.rel-v3-big-slider-container .slick-active {
+  opacity: 1 !important;
+  pointer-events: auto; /* Mở khóa click cho slide đang hiện */
+  z-index: 10; /* Đưa slide hiện tại lên lớp trên cùng */
+}
+
+/* Đảm bảo vùng click bao phủ toàn bộ card */
+.lp-slide-item {
+  cursor: pointer;
+  outline: none;
 }

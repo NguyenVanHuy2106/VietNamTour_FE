@@ -1,57 +1,56 @@
-import React, { useEffect, useState } from "react";
-import {
-  Container,
-  Row,
-  Col,
-  Button,
-  Tabs,
-  Tab,
-  Toast,
-  Spinner,
-} from "react-bootstrap";
-import { FaFacebookF, FaTiktok, FaPhoneAlt } from "react-icons/fa"; // Import icon Home
-import "bootstrap/dist/css/bootstrap.min.css";
-import "./index.css"; // Import file CSS
+import React from "react";
 import { useNavigate } from "react-router-dom";
+import "./index.css";
 
 const FamousDes = () => {
-  const [key, setKey] = useState("southeast");
   const navigate = useNavigate();
 
-  const filteredData = FamousData.filter((item) => item.type === key);
   return (
-    <div className="FamousContainer">
-      <div className="FamousDesTitle">ĐIỂM ĐẾN NỔI TIẾNG</div>
-      <Tabs
-        id="tour-add-tabs"
-        activeKey={key}
-        onSelect={(k) => setKey(k)}
-        className="mb-3 custom-tabs"
-      >
-        <Tab eventKey="southeast" title="Đông Nam Bộ" />
-        <Tab eventKey="central" title="Miền Trung" />
-        <Tab eventKey="southwest" title="Tây Nam Bộ" />
-        <Tab eventKey="centralHigh" title="Tây Nguyên" />
-        <Tab eventKey="north" title="Miền Bắc" />
-      </Tabs>
+    <section className="micro-bento-section">
+      <div className="micro-container">
+        <div className="micro-header">
+          <h2 className="micro-title">ĐIỂM ĐẾN NỔI TIẾNG</h2>
+          <div className="micro-line"></div>
+        </div>
 
-      <div className="FamousGrid">
-        {filteredData.map((item) => (
-          <div
-            className="FamousItem"
-            key={item.id}
-            onClick={() =>
-              navigate("/tour-list", { state: { destinationid: item.value } })
-            }
-          >
-            <img className="FamousImg" src={item.url} alt={item.city} />
-            <div className="FamousName">{item.city}</div>
-          </div>
-        ))}
+        <div className="micro-grid-wrapper">
+          {FamousData.map((item, index) => {
+            // Tạo một chu kỳ lặp lại cho các ô lớn nhỏ
+            let sizeClass = "s-small";
+            if (index === 0) sizeClass = "s-hero";
+            // Ô đầu tiên siêu to
+            else if (index === 5 || index === 12 || index === 25)
+              sizeClass = "s-medium"; // Một vài ô vừa
+
+            return (
+              <div
+                className={`micro-item ${sizeClass}`}
+                key={item.id}
+                onClick={() =>
+                  navigate("/danh-sach-tour", {
+                    state: { destinationid: item.value },
+                  })
+                }
+              >
+                <div className="micro-card">
+                  <img src={item.url} alt={item.city} className="micro-img" />
+                  <div className="micro-overlay">
+                    <span className="micro-city-name">{item.city}</span>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
       </div>
-    </div>
+    </section>
   );
 };
+
+// export default FamousDes;
+
+// ... FamousData giữ nguyên như bạn đã cung cấp ...
+
 const FamousData = [
   {
     id: 1,
@@ -92,22 +91,7 @@ const FamousData = [
     url:
       "https://ik.imagekit.io/tvlk/blog/2023/03/kinh-nghiem-du-lich-phuoc-hai-4.jpg",
   },
-  {
-    id: 6,
-    type: "southeast",
-    value: 9,
-    city: "Côn Đảo",
-    url:
-      "https://media-cdn-v2.laodong.vn/Storage/NewsPortal/2022/9/24/1096833/Hon-Bay-Canh---Yeudu.jpg",
-  },
-  {
-    id: 7,
-    type: "southeast",
-    value: 37,
-    city: "Bình Châu",
-    url:
-      "https://tommyresorts.com/wp-content/uploads/2024/03/187540730_352417579559176_1631634959072335771_n_800x533.jpg",
-  },
+
   {
     id: 8,
     type: "southeast",
@@ -165,14 +149,7 @@ const FamousData = [
     url:
       "https://i2.ex-cdn.com/crystalbay.com/files/content/2024/06/03/du-lich-hoi-an-1-1542.jpg",
   },
-  {
-    id: 15,
-    type: "central",
-    value: 13,
-    city: "Quảng Bình",
-    url:
-      "https://sacotravel.com/wp-content/uploads/2023/07/Dong-Phong-Nha2.jpg",
-  },
+
   {
     id: 16,
     type: "central",
@@ -180,22 +157,6 @@ const FamousData = [
     city: "Quy Nhơn",
     url:
       "https://ik.imagekit.io/tvlk/loc-asset/gNr3hLh55ZCkPJisyxFK-v9MmzxPu57ZRVI+10VZ2S4b1PNW4T++cbA6yK4gzhAhs9o2HLZ9vs7gy3rpcIU+oKi5EygzQLRjTUv7fRblEVA=/images/1709046159210-3500x1877-FIT_AND_TRIM-275ad0f4554f0bfcad9c458d5ca8f221.jpeg?_src=imagekit&tr=c-at_max,h-500,q-100,w-740",
-  },
-
-  {
-    id: 17,
-    type: "southwest",
-    value: 5,
-    city: "Cà Mau",
-    url: "https://halophuot.com/static/uploads/blog/1737958354_muicamau-.jpg",
-  },
-  {
-    id: 18,
-    type: "southwest",
-    value: 40,
-    city: "Trà Vinh",
-    url:
-      "https://i2.ex-cdn.com/crystalbay.com/files/content/2025/03/09/bien-ba-dong-3-0006.jpg",
   },
 
   {
@@ -229,22 +190,6 @@ const FamousData = [
     url: "https://s3.centours.vn/centours/file-gallery/condao-3centours.jpg",
   },
   {
-    id: 23,
-    type: "southwest",
-    value: 41,
-    city: "Hà Tiên",
-    url:
-      "https://cafefcdn.com/thumb_w/640/203337114487263232/2021/4/19/photo1618804498712-16188044988341417433829.jpg",
-  },
-  {
-    id: 24,
-    type: "southwest",
-    city: "Châu Đốc",
-    url:
-      "https://bizweb.dktcdn.net/100/539/761/files/kham-pha-chua-ba-chau-doc-1.jpg?v=1741142164850",
-  },
-
-  {
     id: 25,
     type: "centralHigh",
     value: 27,
@@ -252,67 +197,11 @@ const FamousData = [
     url: "https://www.dalattrip.com/dulich/media/2017/12/thanh-pho-da-lat.jpg",
   },
   {
-    id: 26,
-    type: "centralHigh",
-    value: 25,
-    city: "Buôn Mê Thuột",
-    url:
-      "https://i2.ex-cdn.com/crystalbay.com/files/content/2024/06/19/du-lich-buon-ma-thuot-1-1128.jpg",
-  },
-  {
-    id: 27,
-    type: "centralHigh",
-    value: 26,
-    city: "Pleiku",
-    url:
-      "https://upload.wikimedia.org/wikipedia/commons/0/06/M%E1%BB%99t_g%C3%B3c_TP._Pleiku.jpg",
-  },
-
-  {
-    id: 33,
-    type: "north",
-    value: 28,
-    city: "Hà Nội",
-    url:
-      "https://toursdulichninhbinh.com/wp-content/uploads/2017/11/lang-chu-tich-ho-chi-minh-54b8786a1d4b7.jpg",
-  },
-  {
     id: 34,
     type: "north",
     value: 30,
     city: "Hạ Long",
     url: "https://www.paradisevietnam.com/public/backend/uploads/1.jpeg",
-  },
-  {
-    id: 35,
-    type: "north",
-    value: 32,
-    city: "Hà Giang",
-    url:
-      "https://carpla.vn/blog/wp-content/uploads/2025/05/du-lich-ha-giang.jpg",
-  },
-  {
-    id: 36,
-    type: "north",
-    value: 31,
-    city: "Sa Pa",
-    url:
-      "https://fansipanlegend.sunworld.vn/wp-content/uploads/2024/03/1-cam-nang-du-lich-sapa.png",
-  },
-  {
-    id: 37,
-    type: "north",
-    value: 29,
-    city: "Ninh Bình",
-    url:
-      "https://thungnham.com/wp-content/uploads/2024/03/khu-du-lich-trang-an-2.webp",
-  },
-  {
-    id: 38,
-    type: "north",
-    value: 33,
-    city: "Mộc Châu",
-    url: "https://mic.mediacdn.vn/Upload_Moi/2023_02_vn/20232809-duy16.jpg",
   },
 ];
 

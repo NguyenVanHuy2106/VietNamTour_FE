@@ -1,39 +1,160 @@
-.CustomerTitle {
-
-  font-weight: bold;
-  color: #1d61ad;
-  margin-left: 23px;
-  margin-right: 23px;
-  display: flex;
-  justify-content: center;
-
-  padding-bottom: 10px;
-  margin-bottom: 5px;
-}
-.FeedBack {
-  border: 1px solid #000000;
-  width: 100%;
-}
-@keyframes marquee {
-  from {
-    transform: translateX(-100%);
-  }
-  to {
-    transform: translateX(0);
-  }
-}
-
-.marquee {
-  display: flex;
+.premium-customer-section {
+  background-color: #ffffff;
+  position: relative;
   overflow: hidden;
-  white-space: nowrap;
+
+}
+
+/* Hiệu ứng mờ ảo phía sau tạo chiều sâu */
+.customer-blur-bg-1 {
+  position: absolute;
+  width: 350px;
+  height: 350px;
+  background: rgba(0, 82, 204, 0.08);
+  filter: blur(80px);
+  top: -100px;
+  left: -100px;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.customer-blur-bg-2 {
+  position: absolute;
+  width: 450px;
+  height: 450px;
+  background: rgba(0, 186, 255, 0.08);
+  filter: blur(100px);
+  bottom: -150px;
+  right: -50px;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+/* Tiêu đề */
+.customer-badge {
+  background: #f0f7ff;
+  color: #0052cc;
+  padding: 8px 24px;
+  border-radius: 50px;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  display: inline-block;
+}
+
+.customer-main-title {
+  font-size: 40px;
+  font-weight: 900;
+  color: #091e42;
+  margin-top: 15px;
+  letter-spacing: -1px;
+}
+
+.title-line {
+  width: 50px;
+  height: 4px;
+  background: #0052cc;
+  margin: 20px auto;
+  border-radius: 10px;
+}
+
+/* Cấu trúc Slider vô tận */
+.logo-slider {
   width: 100%;
+  overflow: hidden;
+  padding: 20px 0;
   position: relative;
 }
 
-.marquee-content {
+/* Dừng chuyển động khi người dùng rê chuột vào dòng logo */
+.logo-slider:hover .logo-track {
+  animation-play-state: paused;
+}
+
+.logo-slider::before,
+.logo-slider::after {
+  content: "";
+  height: 100%;
+  width: 15vw;
+  position: absolute;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.logo-slider::before {
+  left: 0; top: 0;
+  background: linear-gradient(to right, white, transparent);
+}
+
+.logo-slider::after {
+  right: 0; top: 0;
+  background: linear-gradient(to left, white, transparent);
+}
+
+.logo-track {
   display: flex;
-  animation: marquee 20s linear infinite;
-  min-width: 100%;
-  -webkit-animation: marquee 20s linear infinite;
+  width: max-content;
+  animation: scrollLeft 50s linear infinite; /* Tăng thời gian để chạy mượt hơn với logo màu */
+}
+
+.track-reverse {
+  animation: scrollRight 50s linear infinite;
+}
+
+.logo-card {
+  width: 155px;
+  height: 90px;
+  background: white;
+  margin: 0 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px;
+  padding: 10px;
+  /* Đổ bóng sâu hơn để nổi bật màu sắc logo */
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+  border: 1px solid #f2f2f2;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.logo-card:hover {
+  transform: translateY(-12px) scale(1.1);
+  box-shadow: 0 10px 30px rgba(0, 82, 204, 0.15);
+  border-color: #0052cc;
+  z-index: 10;
+  -webkit-transform: translateY(-12px) scale(1.1);
+  -moz-transform: translateY(-12px) scale(1.1);
+  -ms-transform: translateY(-12px) scale(1.1);
+  -o-transform: translateY(-12px) scale(1.1);
+}
+
+.logo-card img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  /* MÀU NGUYÊN BẢN */
+  filter: none !important;
+  opacity: 1 !important;
+  transition: transform 0.4s ease;
+}
+
+.logo-card:hover img {
+  transform: scale(1.05);
+}
+
+/* Keyframes */
+@keyframes scrollLeft {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); } /* Để -50% nếu bạn đã nhân đôi mảng logo trong JS */
+}
+
+@keyframes scrollRight {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+
+@media (max-width: 768px) {
+  .customer-main-title { font-size: 26px; }
+  .logo-card { width: 160px; height: 90px; margin: 0 10px; }
+  .logo-slider { padding: 15px 0; }
 }

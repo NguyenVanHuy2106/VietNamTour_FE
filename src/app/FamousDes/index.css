@@ -1,91 +1,128 @@
-.FamousDesTitle {
-    font-weight: bold;
-    color: #1d61ad;
-    padding-top: 10px;
-    padding-bottom: 10px;
+.micro-bento-section {
+  padding: 40px 0;
+  background-color: #fff;
 }
 
-.FamousContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-bottom: 20px;
-    
+.micro-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 20px;
 }
-.FamousGrid {
+
+.micro-header {
+  margin-bottom: 20px;
+}
+
+.micro-title {
+  font-size: 22px;
+  font-weight: 900;
+  color: #1a1a1a;
+  letter-spacing: 1px;
+}
+
+.micro-line {
+  width: 40px;
+  height: 3px;
+  background: #0052cc;
+  margin-top: 8px;
+}
+
+/* Khu vực hiển thị 38 địa điểm gói gọn */
+.micro-grid-wrapper {
   display: grid;
-  grid-template-columns: repeat(4, 1fr); /* 4 cột mỗi hàng */
-  gap: 10px; /* khoảng cách giữa các ô */
-  row-gap: 10px; /* khoảng cách giữa 2 dòng */
-
+  /* Chia làm 6 cột nhỏ để chứa được nhiều hình */
+  grid-template-columns: repeat(6, 1fr); 
+  grid-auto-rows: 140px; /* Chiều cao mỗi ô nhỏ lại */
+  gap: 10px;
+  height: 600px; /* Cố định chiều cao tầm 1/2 màn hình */
+  overflow-y: auto; /* Cho phép cuộn bên trong nếu quá 38 hình */
+  padding-right: 10px;
 }
 
+/* Tùy chỉnh thanh cuộn cho sang trọng */
+.micro-grid-wrapper::-webkit-scrollbar {
+  width: 5px;
+}
+.micro-grid-wrapper::-webkit-scrollbar-thumb {
+  background: #ebecf0;
+  border-radius: 10px;
+}
 
+/* Các loại kích thước ô */
+.micro-item {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+}
 
-/* .FamousImg {
+/* Ô tiêu điểm siêu to (chiếm 2 cột 2 hàng) */
+.s-hero {
+  grid-column: span 2;
+  grid-row: span 2;
+}
+
+/* Ô vừa (chiếm 2 cột 1 hàng) */
+.s-medium {
+  grid-column: span 2;
+}
+
+/* Ô mặc định (1 cột 1 hàng) */
+.s-small {
+  grid-column: span 1;
+}
+
+.micro-card {
   width: 100%;
-  height: auto;
-  border-radius: 8px;
+  height: 100%;
+}
+
+.micro-img {
+  width: 100%;
+  height: 100%;
   object-fit: cover;
-} */
-
-.FamousName {
-  font-weight: 500;
+  transition: 0.5s ease;
 }
 
-
-.custom-tabs .nav-link {
-  color: black;
-}
-.custom-tabs .nav-link.active {
-  color: #007bff !important; /* Bootstrap xanh */
-  font-weight: 600;
- 
-}
-.FamousItem {
-   box-shadow: -1px 4px 20px -3px rgba(80, 79, 79, 0.3);
-   border-radius: 7%;
-   -webkit-border-radius: 7%;
-   -moz-border-radius: 7%;
-   -ms-border-radius: 7%;
-   -o-border-radius: 7%;
-   margin: 10px;
-}
-.FamousItem:hover {
-    cursor: pointer;
-    transform: translateY(-0.2em);
-    box-shadow: -4px 8px 15px -3px rgba(80, 79, 79, 0.4);
-    -webkit-transform: translateY(-0.2em);
-    -moz-transform: translateY(-0.2em);
-    -ms-transform: translateY(-0.2em);
-    -o-transform: translateY(-0.2em);
+.micro-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 50%);
+  display: flex;
+  align-items: flex-end;
+  padding: 12px;
 }
 
-.FamousName {
-    font-weight: bold;
-    padding-top: 10px;
-    padding-bottom: 10px;
+.micro-city-name {
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.FamousImg {
- width: 250px;
- height: 140px;
- border-radius: 8px;
- -webkit-border-radius: 8px;
- -moz-border-radius: 8px;
- -ms-border-radius: 8px;
- -o-border-radius: 8px;
+.micro-item:hover .micro-img {
+  transform: scale(1.1);
 }
-@media (max-width: 768px) {
-  .FamousGrid {
-    grid-template-columns: repeat(2, 1fr); /* 2 cột trên màn hình nhỏ */
-    gap: 0px;
-    margin-left: 10px;
-    margin-right: 10px;
+
+.micro-item:hover .micro-overlay {
+  background: rgba(0, 82, 204, 0.4);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .micro-grid-wrapper {
+    grid-template-columns: repeat(4, 1fr);
   }
-  .FamousImg {
-  width: 190px;
-  height: 100px;
-
 }
+
+@media (max-width: 768px) {
+  .micro-grid-wrapper {
+    grid-template-columns: repeat(2, 1fr);
+    height: 500px;
+  }
+  .s-hero, .s-medium {
+    grid-column: span 2;
+  }
 }

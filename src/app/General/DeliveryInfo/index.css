@@ -8,10 +8,12 @@
 
 .delivery-title {
     text-align: center;
-    font-size: 2.5em;
+  
     color: #004d99;
     margin-bottom: 20px;
     font-weight: bold;
+    font-size: 2em;
+    margin-top: 20px;
 }
 
 .delivery-intro {
@@ -26,7 +28,9 @@
 .delivery-section {
     margin-bottom: 35px;
 }
-
+.delivery-section h2 {
+    text-align: justify;
+}
 .section-title {
     font-size: 1.6em;
     color: #004d99;

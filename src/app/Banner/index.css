@@ -1,0 +1,259 @@
+/* --- TỔNG THỂ --- */
+.vnt-hero-wrapper {
+  --vnt-primary: #0052cc;
+  --vnt-secondary: #00baff;
+  --vnt-dark: #091e42;
+  --vnt-text: #42526e;
+  --vnt-white: #ffffff;
+  
+  min-height: 100vh;
+  position: relative;
+  background: var(--vnt-white);
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+/* --- KHỐI HÌNH BÁN NGUYỆT CỐ ĐỊNH --- */
+.vnt-hero-bg-shape {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 55%;
+  height: 100%;
+  background: url('https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=1200&q=80') center/cover;
+  border-radius: 50% 0 0 50% / 50% 0 0 50%;
+  z-index: 1;
+}
+
+.vnt-hero-bg-shape::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, var(--vnt-white) 0%, rgba(255, 255, 255, 0.2) 15%, transparent 40%);
+  border-radius: inherit;
+}
+
+/* --- CONTAINER GRID --- */
+.vnt-hero-container {
+  width: 100%;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 80px 24px;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr; /* Giữ tỷ lệ 2 cột */
+  gap: 60px;
+  position: relative;
+  z-index: 10;
+  align-items: center;
+}
+
+/* --- PHẦN NỘI DUNG VĂN BẢN (CĂN TRÁI) --- */
+.vnt-hero-content {
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Căn toàn bộ con sang trái */
+  width: 100%;
+}
+
+.vnt-hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #eef2ff;
+  color: var(--vnt-primary);
+  padding: 10px 20px;
+  border-radius: 100px;
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 25px;
+  border: 1px solid rgba(0, 82, 204, 0.1);
+}
+
+.vnt-hero-title {
+  font-size: clamp(2.2rem, 5vw, 3.8rem); /* Giảm nhẹ font dòng chính */
+  font-weight: 900;
+  line-height: 1.2; /* Tăng khoảng cách dòng để không bị dính chữ */
+  color: var(--vnt-dark);
+  margin-bottom: 20px;
+  text-align: left;
+}
+.vnt-form-footer {
+    margin-top: 15px;
+}
+
+.vnt-text-highlight {
+  /* Chỉnh font-size nhỏ hơn dòng chính (dòng chính là 4.2rem) */
+  font-size: clamp(1.5rem, 3vw, 2.2rem); 
+  
+  font-weight: 700; /* Giảm độ đậm một chút để thanh thoát */
+  display: block; /* Ép xuống dòng */
+  margin-top: 10px; /* Tạo khoảng cách với dòng phía trên */
+  
+  /* Giữ nguyên hiệu ứng màu */
+  background: linear-gradient(90deg, var(--vnt-primary), var(--vnt-secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  
+  /* Thêm khoảng cách giữa các chữ cho sang trọng */
+  letter-spacing: 1px; 
+  text-transform: uppercase; /* Viết hoa toàn bộ cho chuyên nghiệp */
+}
+
+.vnt-hero-desc {
+  font-size: 1.15rem;
+  line-height: 1.8;
+  color: var(--vnt-text);
+  max-width: 550px;
+  margin-bottom: 40px;
+}
+
+.vnt-hero-btns {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 50px;
+}
+
+.vnt-btn {
+  padding: 16px 32px;
+  border-radius: 12px;
+  font-weight: 700;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: 0.3s;
+}
+
+.vnt-btn-main { background: var(--vnt-primary); color: white; box-shadow: 0 10px 20px rgba(0,82,204,0.2); }
+.vnt-btn-outline { border: 2px solid #dfe1e6; color: var(--vnt-dark); }
+
+/* --- PHẦN CỘT FORM (KHẮC PHỤC LỖI) --- */
+.vnt-hero-form-box {
+  width: 100%; /* Đảm bảo cột bao quanh form rộng 100% cột grid */
+  display: flex;
+  justify-content: flex-end; /* Đẩy form về phía bên phải để cân bằng với text bên trái */
+}
+
+.vnt-glass-card {
+  width: 100%;
+  max-width: 460px; /* Giới hạn độ rộng form để không bị quá to */
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(20px);
+  padding: 40px;
+  border-radius: 30px;
+  border: 1px solid white;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.1);
+  animation: vntFloat 8s ease-in-out infinite;
+}
+
+@keyframes vntFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+
+.vnt-form-main {
+  width: 100%;
+  display: flex;
+  flex-direction: column; /* Đảm bảo các input xếp dọc */
+}
+
+.vnt-input-group {
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.vnt-form-main input, 
+.vnt-form-main select {
+  width: 100%; /* Ép input giãn hết chiều rộng form */
+  padding: 16px;
+  border-radius: 12px;
+  border: 1px solid #ebecf0;
+  background: #f4f5f7;
+  font-size: 15px;
+  outline: none;
+}
+
+.vnt-btn-submit {
+  width: 100%;
+  padding: 18px;
+  background: linear-gradient(135deg, var(--vnt-primary), var(--vnt-secondary));
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-weight: 800;
+  cursor: pointer;
+  margin-top: 10px;
+}
+/* --- KHỐI THỐNG KÊ (FIX LỖI ĐỊNH DẠNG) --- */
+.vnt-hero-trust {
+  display: flex;
+  align-items: center;
+  gap: 40px; /* Khoảng cách giữa 2 khối thống kê */
+  margin-top: 10px;
+  justify-content: flex-start;
+  width: 100%;
+}
+
+.vnt-trust-item {
+  display: flex;
+  flex-direction: column; /* Ép con số ở trên, chữ ở dưới */
+  gap: 4px; /* Khoảng cách giữa số và chữ */
+  text-align: left;
+}
+
+.vnt-trust-item strong {
+  display: block;
+  font-size: 32px; /* Làm con số to và nổi bật hơn */
+  color: var(--vnt-dark);
+  font-weight: 900;
+  line-height: 1;
+}
+
+.vnt-trust-item span {
+  display: block;
+  font-size: 14px;
+  color: var(--vnt-text);
+  font-weight: 500;
+  white-space: nowrap; /* Ngăn chữ bị xuống dòng lạ */
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Thanh gạch dọc phân cách */
+.vnt-trust-divider {
+  width: 1px;
+  height: 45px;
+  background: #dfe1e6;
+  flex-shrink: 0; /* Không cho thanh gạch bị co lại */
+}
+
+/* --- RESPONSIVE CHO THỐNG KÊ TRÊN MOBILE --- */
+@media (max-width: 600px) {
+  .vnt-hero-trust {
+    gap: 20px;
+    flex-wrap: wrap; /* Cho phép xuống dòng nếu màn hình quá nhỏ */
+  }
+  .vnt-trust-item strong {
+    font-size: 24px;
+  }
+  .vnt-trust-item span {
+    font-size: 12px;
+  }
+}
+
+/* --- MOBILE --- */
+@media (max-width: 1024px) {
+  .vnt-hero-container {
+    grid-template-columns: 1fr;
+    text-align: left;
+    padding-top: 100px;
+  }
+  .vnt-hero-bg-shape { opacity: 0.1; width: 100%; }
+  .vnt-hero-form-box {
+    justify-content: flex-start; /* Mobile thì căn form theo lề trái luôn cho đồng nhất */
+    margin-top: 30px;
+  }
+}
