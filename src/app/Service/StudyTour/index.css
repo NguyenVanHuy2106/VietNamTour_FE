@@ -19,15 +19,23 @@
 }
 
 /* HERO SECTION - Mượt mà với CSS Animations */
-.st-pro-hero {
+.study-pro-hero {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  height: 90vh;
+  /* THAY ĐỔI: Sử dụng min-height thay vì height cố định */
+  min-height: 90vh; 
+  height: auto; /* Đảm bảo chiều cao tự động co giãn theo nội dung */
   align-items: center;
+  position: relative;
+  z-index: 10;
+  overflow: visible; /* Cho phép nội dung cuộn đi bình thường */
+  background: var(--white); /* Đảm bảo có nền che các phần dưới khi cuộn */
 }
 
 .hero-visual {
+  /* THAY ĐỔI: Đảm bảo chiều cao khớp với container cha */
   height: 100%;
+  min-height: 500px; /* Chiều cao tối thiểu để không bị mất hình trên màn hình lớn */
   overflow: hidden;
   clip-path: polygon(0 0, 100% 0, 85% 100%, 0% 100%);
 }
@@ -180,7 +188,7 @@
 }
 
 @media (max-width: 768px) {
-  .st-pro-hero { grid-template-columns: 1fr; height: auto; }
+  .study-pro-hero { grid-template-columns: 1fr; height: auto; }
   .matrix-grid { grid-template-columns: 1fr; }
   .hero-text { padding: 40px 20px; }
 }

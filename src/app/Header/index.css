@@ -1,0 +1,119 @@
+/* Logo điều chỉnh theo màn hình */
+.header-logo {
+  width: 250px;
+  height: auto;
+  transition: width 0.3s;
+}
+
+.header-container {
+    margin-top: 10px;
+}
+@media (max-width: 768px) {
+  .header-logo { width: 120px; }
+}
+
+/* Thanh tìm kiếm */
+.search-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-input {
+  border-radius: 20px !important;
+  background-color: #f1f3f5 !important;
+  border: none !important;
+  padding: 8px 15px 8px 35px !important;
+  font-size: 14px;
+}
+
+.search-icon-inside {
+  position: absolute;
+  left: 12px;
+  color: #888;
+  font-size: 14px;
+}
+
+/* Vị trí */
+.location-display {
+  align-items: center;
+  color: #1D61AD;
+  font-weight: 600;
+  min-width: 100px;
+}
+
+.marker-icon {
+  color: #ff4d4d;
+  margin-right: 5px;
+}
+
+/* --- QUAN TRỌNG: Hiệu ứng cuộn ngang danh mục trên Mobile --- */
+.sub-nav-scroll {
+  background-color: #fff;
+  border-top: 1px solid #f8f9fa;
+  overflow-x: auto; /* Cho phép cuộn ngang */
+  white-space: nowrap; /* Không cho rớt dòng */
+  -webkit-overflow-scrolling: touch; /* Cuộn mượt trên iPhone */
+}
+
+/* Ẩn thanh cuộn xấu xí của trình duyệt */
+.sub-nav-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.sub-nav-content {
+  display: flex !important;
+  padding: 5px 0;
+  justify-content: flex-start !important; /* Mobile bắt đầu từ trái */
+  flex-wrap: nowrap; /* Đảm bảo không rớt dòng */
+}
+.sub-nav-scroll {
+  width: 100%;
+  background-color: #fff;
+  border-top: 1px solid #f8f9fa;
+  overflow-x: auto;
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Đảm bảo Container không bóp nghẹt nội dung khi cuộn */
+.sub-nav-scroll .container {
+  display: flex;
+  justify-content: inherit; /* Thừa hưởng từ sub-nav-content */
+}
+@media (min-width: 992px) {
+  .sub-nav-content {
+    justify-content: center !important; /* PC căn giữa cho đẹp */
+  }
+}
+.sub-nav-link-item {
+  color: #1D61AD !important;
+  font-size: 13px !important;
+  font-weight: 400;
+  padding: 8px 15px !important;
+  position: relative;
+  flex: 0 0 auto; /* Đảm bảo các mục không bị co lại */
+}
+
+/* Hiệu ứng gạch chân khi hover */
+.sub-nav-link-item:hover {
+  color: #004085 !important;
+}
+
+.sub-nav-link-item::after {
+  content: '';
+  position: absolute;
+  bottom: 5px;
+  left: 15px;
+  right: 15px;
+  height: 2px;
+  background-color: #1D61AD;
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.sub-nav-link-item:hover::after {
+  transform: scaleX(1);
+}
+
+

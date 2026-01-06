@@ -1,0 +1,207 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap');
+
+:root {
+  --gold: #c5a059;
+  --navy: #0f172a;
+  --light-bg: #f8fafc;
+  --text-gray: #64748b;
+}
+
+body { margin: 0; font-family: 'Plus Jakarta Sans', sans-serif; scroll-behavior: smooth; color: var(--navy); overflow-x: hidden; }
+
+/* Responsive Header */
+header {
+  position: sticky; top: 0; z-index: 1000; background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(10px); padding: 15px 5%; display: flex; justify-content: space-between; align-items: center;
+  border-bottom: 1px solid #eee;
+}
+
+/* Hero Section - Căn chỉnh lại font-size cho Mobile */
+.hero {
+  min-height: 60vh; 
+  background: linear-gradient(rgba(15, 23, 42, 0.7), rgba(15, 23, 42, 0.7)), 
+              url('https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=1600') center/cover;
+  display: flex; align-items: center; justify-content: center; text-align: center; color: white; padding: 40px 5%;
+}
+
+.hero h1 { font-size: clamp(2rem, 8vw, 4rem); line-height: 1.2; margin-bottom: 20px; }
+.hero p { font-size: clamp(1rem, 4vw, 1.2rem); max-width: 800px; margin: 0 auto; line-height: 1.6; }
+
+/* Layout Grid linh hoạt */
+.main-grid { 
+  display: grid; 
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
+  gap: 25px; 
+}
+
+/* Sections */
+section { padding: clamp(50px, 10vh, 100px) 5%; }
+
+.services-highlight { background: var(--light-bg); border-top: 4px solid var(--gold); }
+.process-highlight { background: var(--navy); color: white; }
+.contact-highlight { background: var(--navy); color: white; text-align: center; padding-top: 40px;padding-bottom: 40px; }
+
+/* Cards */
+.service-card { 
+  background: white; border-radius: 20px; padding: 30px; 
+  border-bottom: 5px solid transparent; transition: 0.4s; 
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+.commit-grid { 
+  display: grid; 
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
+  gap: 20px; 
+}
+
+/* Buttons Responsive */
+.btn-group { 
+  display: flex; gap: 15px; justify-content: center; margin-top: 40px; flex-wrap: wrap; 
+}
+.btn { 
+  padding: 15px 30px; border-radius: 50px; font-weight: 700; 
+  text-decoration: none; transition: 0.3s; cursor: pointer; border: none; 
+  font-size: 1rem; width: auto;
+}
+.btn-gold { background: var(--gold); color: white; }
+.btn-outline { border: 2px solid white; color: white; background: transparent; }
+
+/* Reveal Animation */
+.reveal { opacity: 0; transform: translateY(30px); transition: 0.8s ease-out; }
+.reveal.active { opacity: 1; transform: translateY(0); }
+
+/* MEDIA QUERIES CỤ THỂ */
+@media (max-width: 768px) {
+  header { padding: 15px 5%; }
+  .logo-text { font-size: 1.2rem !important; }
+  .main-grid { grid-template-columns: 1fr; } /* Ép về 1 cột trên mobile */
+  .commit-grid { grid-template-columns: 1fr 1fr; } /* 2 cột cho cam kết */
+  .btn { width: 100%; text-align: center; } /* Nút bấm full-width trên mobile */
+  .contact-highlight h2 { font-size: 2rem !important; }
+}
+
+@media (max-width: 480px) {
+  .commit-grid { grid-template-columns: 1fr; }
+  section { padding: 60px 5%; }
+}
+
+
+/* Container chính của dịch vụ */
+.services-highlight {
+  background: linear-gradient(to bottom, #fcfdfd, #f1f5f9);
+  padding: 100px 5%;
+}
+
+/* Tiêu đề có gạch chân nghệ thuật */
+.services-title {
+  position: relative;
+  display: inline-block;
+  padding-bottom: 15px;
+  margin-bottom: 20px;
+}
+.services-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background: var(--gold);
+}
+
+/* Cấu trúc Card mới */
+.service-card-premium {
+  background: #ffffff;
+  border-radius: 30px;
+  padding: 45px 35px;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(197, 160, 89, 0.1);
+  transition: all 0.5s cubic-bezier(0.2, 1, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+  z-index: 1;
+}
+
+/* Hiệu ứng nền khi hover */
+.service-card-premium::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: linear-gradient(135deg, var(--navy) 0%, #1e293b 100%);
+  z-index: -1;
+  opacity: 0;
+  transition: all 0.5s ease;
+  transform: translateY(100%);
+}
+
+.service-card-premium:hover::before {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.service-card-premium:hover {
+  transform: translateY(-15px);
+  box-shadow: 0 25px 50px rgba(15, 23, 42, 0.15);
+}
+
+/* Icon & Text transition */
+.service-card-premium .icon-box {
+  width: 70px;
+  height: 70px;
+  background: rgba(197, 160, 89, 0.1);
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  margin-bottom: 25px;
+  transition: 0.4s;
+}
+
+.service-card-premium:hover .icon-box {
+  background: rgba(255, 255, 255, 0.15);
+  transform: rotateY(360deg);
+}
+
+.service-card-premium h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  transition: 0.4s;
+}
+
+.service-card-premium:hover h3, 
+.service-card-premium:hover p,
+.service-card-premium:hover li {
+  color: #ffffff !important;
+}
+
+.service-card-premium ul li {
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: 0.3s;
+}
+
+.service-card-premium .check-icon {
+  color: var(--gold);
+  font-weight: bold;
+}
+
+/* Responsive cho Grid */
+.main-grid-premium {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 30px;
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .main-grid-premium {
+    grid-template-columns: 1fr;
+  }
+}

@@ -25,7 +25,7 @@ const StudyTour = () => {
   return (
     <div className="st-pro-wrapper">
       {/* SECTION 1: HERO - Sang trọng và tập trung */}
-      <header className="st-pro-hero">
+      <header className="study-pro-hero">
         <div className="hero-visual">
           <img
             src="https://c3ngoctao.edu.vn/wp-content/uploads/2022/11/DSC04306-scaled.jpg"

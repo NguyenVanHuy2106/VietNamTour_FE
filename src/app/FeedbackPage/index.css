@@ -1,0 +1,240 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap');
+
+:root {
+  --gold: #c5a059;
+  --navy: #0f172a;
+  --light-gray: #f1f5f9;
+  --star-color: #ffb800;
+}
+
+.feedback-page {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  color: var(--navy);
+  background-color: #f8fafc;
+  line-height: 1.6;
+}
+
+/* Header Section */
+.fb-header {
+  background: linear-gradient(135deg, var(--navy) 0%, #1e293b 100%);
+  color: white;
+  padding: 80px 5%;
+  text-align: center;
+}
+
+.fb-container {
+  max-width: 900px;
+  margin: -60px auto 60px;
+  padding: 0 20px;
+}
+
+/* Card Style */
+.fb-card {
+  background: white;
+  border-radius: 24px;
+  padding: 40px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+  margin-bottom: 30px;
+}
+
+/* Star Rating System */
+.rating-group {
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.rating-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.stars {
+  display: flex;
+  gap: 8px;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.star-active { color: var(--star-color); }
+.star-inactive { color: #e2e8f0; }
+
+/* Form Elements */
+.fb-input {
+  width: 100%;
+  padding: 15px;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  margin-top: 10px;
+  font-family: inherit;
+  transition: 0.3s;
+}
+
+.fb-input:focus {
+  outline: none;
+  border-color: var(--gold);
+  box-shadow: 0 0 0 4px rgba(197, 160, 89, 0.1);
+}
+
+.btn-submit {
+  background: var(--gold);
+  color: white;
+  width: 100%;
+  padding: 20px;
+  border-radius: 15px;
+  border: none;
+  font-size: 1.1rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-submit:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(197, 160, 89, 0.3);
+}
+
+/* Testimonials */
+.mini-testi {
+  background: var(--light-gray);
+  padding: 20px;
+  border-radius: 15px;
+  font-style: italic;
+  font-size: 0.9rem;
+  margin-bottom: 15px;
+}
+
+@media (max-width: 600px) {
+  .fb-card { padding: 25px; }
+  .rating-header { flex-direction: column; align-items: flex-start; }
+}
+
+/* ================= CTA ================= */
+.feedback-cta {
+  position: relative;
+  padding: 90px 0;
+  background-image: url("https://images.unsplash.com/photo-1503428593586-e225b39bddfe");
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+}
+.feedback-cta-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(11, 44, 77, 0.95) 0%,
+    rgba(11, 44, 77, 0.75) 60%,
+    rgba(11, 44, 77, 0.4) 100%
+  );
+  z-index: 1;
+}
+.feedback-cta-wrap {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 50px;
+}
+.feedback-cta-content {
+  max-width: 620px;
+  color: #fff;
+}
+.feedback-cta-content p {
+  font-style: italic;
+}
+.feedback-cta-label {
+  display: inline-block;
+  font-size: 13px;
+  letter-spacing: 2px;
+  font-weight: 600;
+  color: #fbbf24;
+  margin-bottom: 14px;
+}
+.feedback-cta-content h2 {
+  font-size: 38px;
+  font-weight: 700;
+  line-height: 1.25;
+  margin-bottom: 20px;
+}
+.feedback-cta-content p {
+  font-size: 16px;
+  line-height: 1.7;
+  opacity: 0.9;
+}
+.feedback-cta-action {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 991px) {
+  .process-grid { grid-template-columns: 1fr; }
+  .stagger-wrapper { flex-direction: column; }
+  .yep-intro { flex-direction: column; }
+  .feedback-cta-wrap { flex-direction: column; }
+}
+
+/* Container chứa 2 nút */
+.feedback-cta-action {
+  display: flex;
+  flex-direction: column; /* Xếp chồng theo chiều dọc như ảnh mẫu */
+  gap: 15px;
+  min-width: 280px;
+}
+
+/* Base Style cho nút bấm */
+.feedback-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 28px;
+  border-radius: 8px; /* Bo góc nhẹ theo style chuyên nghiệp */
+  font-size: 16px;
+  font-weight: 800;
+  text-decoration: none;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  justify-content: flex-start; /* Để icon và chữ canh trái như ảnh */
+}
+
+/* Nút màu vàng (Primary) giống trong ảnh bạn gửi */
+.feedback-btn.primary {
+  background-color: #ffc107; /* Màu vàng rực rỡ */
+  color: #091e42; /* Chữ màu xanh đen đậm cho sang */
+  box-shadow: 0 4px 15px rgba(255, 193, 7, 0.2);
+}
+
+.feedback-btn.primary:hover {
+  background-color: #ffca2c;
+  transform: translateX(-8px); /* Hiệu ứng trượt sang trái nhẹ khi hover */
+  box-shadow: 0 8px 25px rgba(255, 193, 7, 0.4);
+}
+
+/* Chỉnh icon và ảnh bên trong nút */
+.feedback-btn img, .feedback-btn svg {
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+}
+
+.feedback-btn:hover img, .feedback-btn:hover svg {
+  transform: scale(1.1);
+}
+
+/* Responsive cho điện thoại */
+@media (max-width: 768px) {
+  .feedback-cta-action {
+    width: 100%;
+  }
+  .feedback-btn {
+    justify-content: center; /* Ra giữa trên mobile cho dễ bấm */
+  }
+}

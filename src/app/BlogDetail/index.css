@@ -1,106 +1,166 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Fraunces:ital,wght@0,700;1,400&display=swap');
 
-.title {
-    font-weight: bold;
-    font-size: 1.6rem;
-    color: #1d61ad;
-}
-.description {
-    margin-top: 15px;
-    font-size: 1.0rem;
-    color: #444444;
-    font-style: italic;
-    padding-left: 15px;
-    padding-right: 15px;
-    padding-top: 12px;
-    padding-bottom: 12px;
-    background-color: #EEEEEE;
-    text-align: justify;
-}
-.ContainerCombo {
-    display: flex;
-    gap: 8px;
-    margin-top: 10px;
-}
-.combo {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 0.9rem;
-    color: #444444;
-}
-.TagDetail {
-    background-color: #009999;
-    padding-left: 15px;
-    padding-right: 15px;
-    color: #ffffff;
-    border-radius: 30px;
-    -webkit-border-radius: 30px;
-    -moz-border-radius: 30px;
-    -ms-border-radius: 30px;
-    -o-border-radius: 30px;
-    margin: 3px;
-}
-.TagDetail:hover {
-    cursor: pointer;
-    background-color: #1d61ad;
-}
-.titleRelation {
-    font-weight: bold;
-    color: #1d61ad;
-}
-.cardDetail {
-  background: #ffffff;
-  padding: 16px;
-  border-radius: 8px;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  display: block;
-  width: 100%;
-  border: none; 
-   box-shadow: -1px 4px 20px -3px rgba(80, 79, 79, 0.3);
-   margin-top: 10px;
+:root {
+  --primary: #5ec2b7; /* Xanh Mint tươi sáng */
+  --secondary: #ff9f67; /* Cam Pastel phóng khoáng */
+  --bg-color: #fcfcfd;
+  --text-dark: #1e293b;
 }
 
-.cardDetail:hover {
-  cursor: pointer;
-  transform: translateY(-0.2em);
-  box-shadow: -4px 8px 15px -3px rgba(80, 79, 79, 0.4);
+.lifestyle-layout {
+  background-color: var(--bg-color);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  color: var(--text-dark);
 }
 
-
-.card-img {
-  width: 100%;
-  border-radius: 8px;
-  object-fit: cover;
+/* Nav */
+.lifestyle-nav {
+  padding: 10px 0;
+  /* background: white; */
+  /* position: sticky; */
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.02);
   margin-bottom: 10px;
 }
 
-.card-title {
-  font-weight: bold;
-  color: #1d61ad;
-  margin-bottom: 8px;
+.back-circle {
+  width: 45px; height: 45px;
+  border-radius: 50%;
+  border: 1px solid #eee;
+  background: white;
+  display: flex; align-items: center; justify-content: center;
+  transition: 0.3s;
 }
 
-.card-meta {
-  display: flex;
-  gap: 12px;
-  font-size: 14px;
-  color: #777;
-  margin-bottom: 10px;
+.back-circle:hover { background: var(--primary); color: white; border-color: var(--primary); }
+
+.nav-brand { font-weight: 800; letter-spacing: 4px; font-size: 1.2rem; }
+
+/* Hero Section */
+.lifestyle-hero { 
+  margin-top: 50px;
+  position: relative; /* Đảm bảo tách biệt layer */
+  z-index: 1; 
+  background-color: var(--bg-color);
+ }
+
+.hero-image-frame {
+  position: relative;
+  padding: 15px;
+  background: white;
+  border-radius: 40px;
+  box-shadow: 0 30px 60px rgba(0,0,0,0.05);
+  transform: rotate(2deg); /* Tạo cảm giác phóng khoáng */
+  transition: 0.5s;
 }
 
-.combo {
-  display: flex;
-  align-items: center;
-  gap: 6px;
+.hero-image-frame:hover { transform: rotate(0deg); }
+
+.hero-image-frame img {
+  width: 100%; border-radius: 30px;
+  height: 450px; object-fit: cover;
 }
 
-.card-description {
+.location-tag {
+  position: absolute;
+  top: 40px; right: -20px;
+  background: var(--secondary);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 50px;
+  font-weight: 700;
+  box-shadow: 0 10px 20px rgba(244, 162, 97, 0.4);
+}
+.lifestyle-content {
+  padding-top: 50px !important;
+}
+
+.lifestyle-title {
+  font-family: 'Fraunces', serif; /* Font Serif sang trọng nhưng hiện đại */
+  font-size: clamp(2.5rem, 5vw, 3.8rem);
+  font-weight: 700;
+  line-height: 1.1;
+  margin: 20px 0;
+}
+
+.lifestyle-badge {
+  background: #e0f2f1;
+  color: var(--primary);
+  padding: 6px 15px;
+  border-radius: 50px;
+  font-weight: 800;
+  font-size: 0.75rem;
+}
+
+/* Content */
+.content-card {
+  background: white;
+  padding: 50px;
+  border-radius: 40px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.03);
+}
+
+.small-description {
+  font-size: 1.0rem;
+  line-height: 1.6;
+  color: #475569;
+  font-style: italic;
+  margin-bottom: 40px;
   text-align: justify;
-  font-size: 14px;
-  color: #444;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
+}
+
+.rich-text-area { font-size: 1.1rem; line-height: 1.9; color: #334155; text-align: justify;         /* Căn đều nội dung 2 bên */
+  text-justify: inter-word; }
+.rich-text-area img { width: 100%; border-radius: 30px; margin: 30px 0; }
+.rich-text-area p {
+  margin-bottom: 1.5rem;
+  text-align: justify;
+}
+/* Sidebar */
+.newsletter-card {
+  background: linear-gradient(135deg, var(--primary), #4db6ac);
+  color: white;
+  padding: 35px;
+  border-radius: 30px;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.plane-icon { font-size: 3rem; margin-bottom: 20px; opacity: 0.8; }
+
+.input-group-custom {
+  background: white;
+  padding: 5px;
+  border-radius: 50px;
+  display: flex;
+  margin-top: 20px;
+}
+
+.input-group-custom input {
+  border: none; padding-left: 15px; flex: 1; outline: none; border-radius: 50px;
+}
+
+.input-group-custom button {
+  background: var(--text-dark);
+  color: white; border: none;
+  padding: 10px 25px; border-radius: 50px;
+}
+
+.lifestyle-rel-card {
+  display: flex; gap: 15px; align-items: center; margin-bottom: 20px;
+  cursor: pointer; padding: 10px; border-radius: 20px;
+  transition: 0.3s;
+}
+
+.lifestyle-rel-card:hover { background: white; box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+
+.lifestyle-rel-card img { width: 80px; height: 80px; border-radius: 15px; object-fit: cover; }
+
+.section-title { font-weight: 100; font-size: 0.5rem; margin-bottom: 25px; }
+
+/* Loader */
+.travel-loader {
+  height: 100vh; display: flex; align-items: center; justify-content: center;
+  font-family: 'Fraunces', serif; font-size: 2rem; color: var(--primary);
 }

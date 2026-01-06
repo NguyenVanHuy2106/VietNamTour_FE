@@ -6,7 +6,7 @@ import "./index.css";
 const FloatingButtons = () => {
   return (
     <div className="floating-buttons">
-      <a href="tel:0764747160" className="circle-button phone" title="Gọi điện">
+      <a href="tel:0373954963" className="circle-button phone" title="Gọi điện">
         <Phone size={23} />
       </a>
       <a

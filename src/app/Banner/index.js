@@ -1,26 +1,29 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import API from "../../config/APINoToken";
 import Slider from "react-slick";
 import { Phone, Users, Star, ArrowRight, Send } from "lucide-react";
 import "./index.css";
 import { useNavigate } from "react-router-dom";
+import emailjs from "@emailjs/browser"; // Import thư viện
 
 const Banner = ({ collectionsData }) => {
   const [dataBanner, setDataBanner] = useState([]);
-  let [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false); // State để quản lý nút gửi
   const navigate = useNavigate();
+  const formRef = useRef(); // Khởi tạo ref để tham chiếu đến form
 
   const settings = {
-    dots: true, // Hiện chấm tròn dưới slide
-    infinite: true, // Lặp vô hạn
-    speed: 500, // Tốc độ chuyển slide
+    dots: true,
+    infinite: true,
+    speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
-    autoplay: true, // Tự động lướt
-    autoplaySpeed: 3000, // 3 giây lướt 1 lần
-    swipe: true, // Vuốt được trên mobile
-    draggable: true, // Kéo chuột được trên desktop
+    autoplay: true,
+    autoplaySpeed: 3000,
+    swipe: true,
+    draggable: true,
   };
+
   const getData = async () => {
     try {
       const response = await API.get("banner/get");
@@ -30,36 +33,49 @@ const Banner = ({ collectionsData }) => {
         "Lỗi khi lấy danh sách khách hàng",
         error.response || error
       );
-    } finally {
-      // setLoading(false);
     }
   };
+
   useEffect(() => {
     getData();
   }, []);
+
+  // HÀM XỬ LÝ GỬI EMAIL
+  const sendEmail = (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    const SERVICE_ID = "service_opt3z9s";
+    const TEMPLATE_ID = "template_05mq10g";
+    const PUBLIC_KEY = "gwgx9EAfzRi9KCeKM";
+
+    emailjs
+      .sendForm(SERVICE_ID, TEMPLATE_ID, formRef.current, PUBLIC_KEY)
+      .then(
+        (result) => {
+          // Hiện thông báo thành công
+          alert(
+            "Gửi yêu cầu thành công! Chúng tôi sẽ gọi lại cho bạn sớm nhất."
+          );
+
+          // SỬA TẠI ĐÂY: Dùng formRef.current thay vì e.target
+          if (formRef.current) {
+            formRef.current.reset();
+          }
+        },
+        (error) => {
+          alert("Gửi thất bại, vui lòng kiểm tra lại thông tin hoặc kết nối.");
+          console.log("Chi tiết lỗi:", error.text);
+        }
+      )
+      .finally(() => {
+        setLoading(false);
+      });
+  };
+
   return (
     <div>
-      {/* <Slider {...settings}>
-        {dataBanner.map((image) => (
-          <div key={image.bannerid}>
-            <img
-              src={image.bannerurl}
-              alt={image.bannername}
-              style={{
-                width: "100%",
-                height: "auto",
-                maxHeight: "620px",
-                // minHeight: "200px",
-                objectFit: "cover",
-                display: "block",
-              }}
-            />
-          </div>
-        ))}
-      </Slider> */}
-      {/* 1. ĐẲNG CẤP HERO SECTION */}
       <section className="vnt-hero-wrapper">
-        {/* Khối trang trí nền */}
         <div className="vnt-hero-bg-shape"></div>
 
         <div className="vnt-hero-container">
@@ -113,36 +129,54 @@ const Banner = ({ collectionsData }) => {
                 <p>Để lại thông tin, chúng tôi sẽ gọi lại ngay!</p>
               </div>
 
+              {/* Gán ref và hàm sendEmail vào đây */}
               <form
                 className="vnt-form-main"
-                onSubmit={(e) => e.preventDefault()}
+                ref={formRef}
+                onSubmit={sendEmail}
               >
                 <div className="vnt-input-group">
-                  <input type="text" placeholder="Họ và tên của bạn" required />
+                  {/* Thêm name="user_name" để EmailJS bắt được dữ liệu */}
+                  <input
+                    name="user_name"
+                    type="text"
+                    placeholder="Họ và tên của bạn"
+                    required
+                  />
                 </div>
                 <div className="vnt-input-group">
+                  {/* Thêm name="user_phone" */}
                   <input
+                    name="user_phone"
                     type="tel"
                     placeholder="Số điện thoại liên hệ"
                     required
                   />
                 </div>
                 <div className="vnt-input-group">
-                  <select defaultValue="">
+                  {/* Thêm name="user_service" */}
+                  <select name="user_service" defaultValue="" required>
                     <option value="" disabled>
                       Chọn loại hình dịch vụ
                     </option>
-                    <option value="corporate">
+                    <option value="Du lịch Doanh Nghiệp">
                       Du lịch Doanh Nghiệp / Tour Đoàn
                     </option>
-                    <option value="family">Du lịch Gia Đình / Nhóm Nhỏ</option>
-                    <option value="premium">
+                    <option value="Du lịch Gia Đình">
+                      Du lịch Gia Đình / Nhóm Nhỏ
+                    </option>
+                    <option value="Nghỉ dưỡng Cao Cấp">
                       Nghỉ dưỡng Cao Cấp / Khách VIP
                     </option>
                   </select>
                 </div>
-                <button type="submit" className="vnt-btn-submit">
-                  GỬI YÊU CẦU <Send size={18} />
+                {/* Vô hiệu hóa nút khi đang gửi để tránh khách bấm nhiều lần */}
+                <button
+                  type="submit"
+                  className="vnt-btn-submit"
+                  disabled={loading}
+                >
+                  {loading ? "ĐANG GỬI..." : "GỬI YÊU CẦU"} <Send size={18} />
                 </button>
               </form>
 

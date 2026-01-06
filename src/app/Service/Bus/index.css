@@ -1,0 +1,124 @@
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;600;800&display=swap');
+
+:root {
+  --navy: #0f172a;
+  --accent: #f59e0b;
+  --blue: #2563eb;
+  --light: #f8fafc;
+}
+
+.rental-wrapper { font-family: 'Lexend', sans-serif; color: var(--navy); background: #fff; }
+
+/* Hero Full Width cải tiến */
+.hero-section {
+  height: 90vh; width: 100vw;
+  background: linear-gradient(rgba(15, 23, 42, 0.7), rgba(15, 23, 42, 0.7)), 
+              url('https://thuductravel.com.vn/wp-content/uploads/2018/11/Cho_thue_xe_45_cho_cao_cap_doi_moi_Hyundai_Universe_du_lich_thu_duc_01.png') center/cover;
+  display: flex; align-items: center; justify-content: center; text-align: center; color: white;
+}
+
+/* Bảng giá chuyên nghiệp */
+.price-table-container { padding: 100px 8%; background: var(--light); }
+.price-table {
+  width: 100%; border-collapse: collapse; background: white;
+  border-radius: 20px; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+}
+.price-table th { background: var(--navy); color: white; padding: 20px; text-align: left; }
+.price-table td { padding: 18px 20px; border-bottom: 1px solid #e2e8f0; }
+.price-table tr:hover { background: #f1f5f9; }
+
+/* Bento Grid cho phần "Tại sao chọn chúng tôi" */
+.feature-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; padding: 80px 8%;
+}
+.feature-item {
+  background: white; padding: 30px; border-radius: 24px;
+  border: 1px solid #e2e8f0; transition: 0.3s;
+}
+.feature-item:hover { border-color: var(--blue); transform: translateY(-5px); }
+.feature-icon { font-size: 2.5rem; margin-bottom: 15px; display: block; }
+
+/* FAQ Section */
+.faq-section { padding: 100px 20%; background: white; }
+.faq-item { margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 15px; }
+
+.reveal { opacity: 0; transform: translateY(30px); transition: 1.2s cubic-bezier(0.2, 1, 0.2, 1); }
+.reveal.active { opacity: 1; transform: translateY(0); }
+
+
+/* Layout mới cho Feature */
+.feature-container {
+  padding: 30px 8%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Chia 2 cột để nhìn gọn và cân đối */
+  gap: 30px;
+  background: #ffffff;
+}
+
+.feature-card-modern {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  padding: 30px;
+  background: #fff;
+  border-radius: 20px;
+  border: 1px solid #f1f5f9;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s ease;
+}
+
+.feature-card-modern:hover {
+  border-color: var(--blue);
+  box-shadow: 0 20px 40px rgba(37, 99, 235, 0.08);
+  transform: translateY(-5px);
+}
+
+/* Số thứ tự trang trí chạy chìm phía sau */
+.feature-card-modern::after {
+  content: attr(data-step);
+  position: absolute;
+  right: 10px;
+  bottom: -10px;
+  font-size: 6rem;
+  font-weight: 900;
+  color: rgba(15, 23, 42, 0.03); /* Số chìm cực nhẹ */
+  z-index: 0;
+}
+
+.feature-icon-wrapper {
+  min-width: 60px;
+  height: 60px;
+  background: #f8fafc;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  z-index: 1;
+}
+
+.feature-text {
+  z-index: 1;
+}
+
+.feature-text h4 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 0 0 8px 0;
+  color: var(--navy);
+}
+
+.feature-text p {
+  margin: 0;
+  line-height: 1.6;
+  color: #64748b;
+  font-size: 0.95rem;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .feature-container {
+    grid-template-columns: 1fr;
+  }
+}

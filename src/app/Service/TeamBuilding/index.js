@@ -44,70 +44,117 @@ const TeamBuildingLuxury = () => {
       </section>
 
       {/* INTRO */}
-      <section className="intro-container section-white">
-        <div className="container intro-flex">
-          <div className="intro-text">
-            <h2>Trải nghiệm độc quyền cho doanh nghiệp</h2>
-            <p>
-              Mỗi chương trình Team Building được thiết kế riêng theo văn hóa,
-              mục tiêu và quy mô doanh nghiệp.
-            </p>
-            <ul>
-              <li>Kịch bản sáng tạo & độc quyền</li>
-              <li>Đội ngũ vận hành chuyên nghiệp</li>
-              <li>Hình ảnh & truyền thông cao cấp</li>
-            </ul>
-          </div>
-          <div className="intro-image">
+      {/* INTRO – LUXURY VERSION */}
+      <section className="lux-intro">
+        <div className="lux-intro-inner">
+          {/* IMAGE */}
+          <div className="lux-intro-image">
             <img
-              src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=800&q=80"
-              alt="Team Building"
+              src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1400&q=80"
+              alt="Team Building Doanh Nghiệp"
             />
+            <div className="image-overlay"></div>
+          </div>
+
+          {/* CONTENT */}
+          <div className="lux-intro-content">
+            <span className="lux-label">EXCLUSIVE EXPERIENCE</span>
+            <h2>
+              Trải nghiệm Team Building <br />
+              <span>được “đo ni đóng giày”</span>
+              <br /> cho doanh nghiệp
+            </h2>
+
+            <p className="lux-desc">
+              Vietnam Tour kiến tạo những chương trình Team Building mang dấu ấn
+              riêng, phản ánh *văn hóa – mục tiêu – tầm nhìn* của từng tổ chức.
+            </p>
+
+            <div className="lux-features">
+              <div className="feature-item">
+                <span>01</span>
+                <p>Kịch bản sáng tạo, độc quyền 100%</p>
+              </div>
+              <div className="feature-item">
+                <span>02</span>
+                <p>Đội ngũ vận hành & điều phối chuyên nghiệp</p>
+              </div>
+              <div className="feature-item">
+                <span>03</span>
+                <p>Hình ảnh – truyền thông cao cấp cho thương hiệu</p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
       {/* FORMATS */}
-      <section className="formats-container section-gray">
+      {/* FORMATS – LIGHT LUXURY */}
+      <section className="formats-premium">
         <div className="container">
-          <h2>Hình thức tổ chức đa dạng</h2>
-          <div className="formats-grid">
-            <div className="format-card">
-              <img
-                src="https://images.unsplash.com/photo-1528605248644-14dd04022da1?auto=format&fit=crop&w=800&q=80"
-                alt="Outdoor Team"
-              />
-              <div className="format-text">
+          <div className="formats-head">
+            <span className="eyebrow">PROGRAM FORMATS</span>
+            <h2>Hình thức tổ chức Team Building</h2>
+          </div>
+
+          <div className="formats-premium-grid">
+            <article className="format-premium-card">
+              <div className="card-image">
+                <img
+                  src="https://images.unsplash.com/photo-1528605248644-14dd04022da1?auto=format&fit=crop&w=1000&q=80"
+                  alt="Team Building ngoài trời"
+                />
+              </div>
+              <div className="card-body">
+                <span className="index">01</span>
                 <h3>Team Building ngoài trời</h3>
+                <p>
+                  Không gian mở, năng lượng cao, tăng cường kết nối đội ngũ.
+                </p>
               </div>
-            </div>
-            <div className="format-card">
-              <img
-                src="https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&w=800&q=80"
-                alt="Indoor Team"
-              />
-              <div className="format-text">
+            </article>
+
+            <article className="format-premium-card offset">
+              <div className="card-image">
+                <img
+                  src="https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&w=1000&q=80"
+                  alt="Team Building trong nhà"
+                />
+              </div>
+              <div className="card-body">
+                <span className="index">02</span>
                 <h3>Team Building trong nhà</h3>
+                <p>Linh hoạt cho hội nghị, khách sạn và trung tâm sự kiện.</p>
               </div>
-            </div>
-            <div className="format-card">
-              <img
-                src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80"
-                alt="Gala Dinner"
-              />
-              <div className="format-text">
+            </article>
+
+            <article className="format-premium-card">
+              <div className="card-image">
+                <img
+                  src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1000&q=80"
+                  alt="Gala Dinner"
+                />
+              </div>
+              <div className="card-body">
+                <span className="index">03</span>
                 <h3>Kết hợp Gala Dinner</h3>
+                <p>Trải nghiệm – vinh danh – truyền thông thương hiệu.</p>
               </div>
-            </div>
-            <div className="format-card">
-              <img
-                src="https://images.unsplash.com/photo-1531497865144-0464ef8fb9a9?auto=format&fit=crop&w=800&q=80"
-                alt="Themed Team"
-              />
-              <div className="format-text">
+            </article>
+
+            <article className="format-premium-card offset">
+              <div className="card-image">
+                <img
+                  src="https://images.unsplash.com/photo-1531497865144-0464ef8fb9a9?auto=format&fit=crop&w=1000&q=80"
+                  alt="Team Building theo chủ đề"
+                />
+              </div>
+              <div className="card-body">
+                <span className="index">04</span>
                 <h3>Team Building theo chủ đề</h3>
+                <p>Concept riêng theo văn hóa và mục tiêu doanh nghiệp.</p>
               </div>
-            </div>
+            </article>
           </div>
         </div>
       </section>
@@ -154,16 +201,22 @@ const TeamBuildingLuxury = () => {
       </section>
 
       {/* GALLERY */}
-      <section className="gallery-container section-gray">
+      {/* GALLERY – EDITORIAL STYLE */}
+      <section className="gallery-editorial">
         <div className="container">
-          <h2>Khoảnh khắc đáng nhớ</h2>
-          <div className="gallery-grid">
+          <div className="gallery-head">
+            <span className="eyebrow">EVENT HIGHLIGHTS</span>
+            <h2>Khoảnh khắc đáng nhớ</h2>
+          </div>
+
+          <div className="gallery-editorial-grid">
             {galleryImages.map((img, i) => (
-              <img
-                key={i}
-                src={`https://images.unsplash.com/${img}?auto=format&fit=crop&w=600&q=80`}
-                alt="Team Building"
-              />
+              <div className={`gallery-item item-${i % 6}`} key={i}>
+                <img
+                  src={`https://images.unsplash.com/${img}?auto=format&fit=crop&w=1000&q=80`}
+                  alt="Team Building"
+                />
+              </div>
             ))}
           </div>
         </div>

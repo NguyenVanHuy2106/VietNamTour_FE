@@ -68,12 +68,12 @@ const CompanyTour = () => {
             return (
               <div
                 key={item.tourid}
-                className="mini-tour-card"
+                className="doan-tour-card"
                 onClick={() => handleGoToDetail(item.tourid, item.tourname)}
               >
-                <div className="mini-card-media">
+                <div className="doan-tour-media">
                   <div
-                    className="mini-img"
+                    className="doan-tour-image"
                     style={{ backgroundImage: "url(" + imageUrl + ")" }}
                   ></div>
                   <div className="mini-price-tag">
