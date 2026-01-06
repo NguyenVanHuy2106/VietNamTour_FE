@@ -26,9 +26,9 @@ const CompanyTour = () => {
     getData();
   }, []);
 
-  const handleGoToDetail = (tourid, tourname) => {
-    const slug = toSlug(tourname);
-    navigate(`/tour/${slug}-${tourid}`);
+  const handleGoToDetail = (slug) => {
+    //const slug = toSlug(tourname);
+    navigate(`/tour/${slug}`);
   };
 
   return (
@@ -69,7 +69,7 @@ const CompanyTour = () => {
               <div
                 key={item.tourid}
                 className="doan-tour-card"
-                onClick={() => handleGoToDetail(item.tourid, item.tourname)}
+                onClick={() => handleGoToDetail(item.slug)}
               >
                 <div className="doan-tour-media">
                   <div

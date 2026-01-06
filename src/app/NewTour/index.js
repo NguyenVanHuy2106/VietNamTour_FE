@@ -57,9 +57,7 @@ const NewTour = () => {
               <div
                 key={item.tourid}
                 className="clean-card"
-                onClick={() =>
-                  navigate(`/tour/${toSlug(item.tourname)}-${item.tourid}`)
-                }
+                onClick={() => navigate(`/tour/${item.slug}`)}
               >
                 <div className="clean-media">
                   <div
