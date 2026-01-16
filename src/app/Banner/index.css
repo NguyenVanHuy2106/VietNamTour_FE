@@ -40,7 +40,7 @@
   width: 100%;
   max-width: 1240px;
   margin: 0 auto;
-  padding: 80px 24px;
+  padding: 0px 20px;
   display: grid;
   grid-template-columns: 1.1fr 0.9fr; /* Giữ tỷ lệ 2 cột */
   gap: 60px;

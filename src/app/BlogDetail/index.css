@@ -96,7 +96,7 @@
 /* Content */
 .content-card {
   background: white;
-  padding: 50px;
+  padding: 20px;
   border-radius: 40px;
   box-shadow: 0 10px 40px rgba(0,0,0,0.03);
 }
@@ -110,7 +110,7 @@
   text-align: justify;
 }
 
-.rich-text-area { font-size: 1.1rem; line-height: 1.9; color: #334155; text-align: justify;         /* Căn đều nội dung 2 bên */
+.rich-text-area { font-size: 1.1rem; line-height: 1.8; color: #334155; text-align: justify;         /* Căn đều nội dung 2 bên */
   text-justify: inter-word; }
 .rich-text-area img { width: 100%; border-radius: 30px; margin: 30px 0; }
 .rich-text-area p {

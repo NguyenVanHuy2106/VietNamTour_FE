@@ -18,11 +18,8 @@ import {
 import "./index.css";
 
 const TourDetail = () => {
-  const { idSlug } = useParams();
   const { Slug } = useParams();
-  //const tourId = idSlug ? idSlug.split("-").pop() : null;
   const navigate = useNavigate();
-  //console.log(Slug);
 
   const [data, setData] = useState({
     tour: {},
@@ -36,69 +33,25 @@ const TourDetail = () => {
   const [loading, setLoading] = useState(true);
   const [activeImg, setActiveImg] = useState("");
 
-  // const getData = async () => {
-  //   try {
-  //     setLoading(true);
-  //     const res = await API.get(`/tour/get/${tourId}`);
-  //     const d = res.data.data;
-
-  //     let initialImg = "";
-  //     if (d.images && d.images.length > 0) {
-  //       const mainImgObj = d.images.find((img) => img.imagetype === 0);
-  //       initialImg = mainImgObj ? mainImgObj.imageurl : d.images[0].imageurl;
-  //     }
-
-  //     setData({
-  //       tour: d.tour || {},
-  //       detail: d.detail || {},
-  //       price: d.price || {},
-  //       highlights: d.highlights || [],
-  //       images: d.images || [],
-  //       fullData: d || {},
-  //     });
-  //     setActiveImg(initialImg);
-
-  //     const rel = await API.post("/tour/relation", {
-  //       tourid: tourId,
-  //       destination: d.tour ? d.tour.destination : "",
-  //     });
-  //     setData((prev) => ({ ...prev, relations: rel.data.data || [] }));
-  //   } catch (error) {
-  //     console.error(error);
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
-
   const getData = async () => {
     try {
       setLoading(true);
-
-      if (!Slug) {
-        console.error("Slug is missing");
-        setLoading(false);
-        return;
-      }
+      if (!Slug) return;
 
       const res = await API.get(`/tour/slug/${Slug}`);
-
-      // Thay d = res.data?.data bằng cách kiểm tra an toàn này:
       const d = res.data && res.data.data ? res.data.data : null;
 
       if (!d || !d.tour) {
-        console.warn("Không tìm thấy dữ liệu tour");
         setLoading(false);
         return;
       }
 
-      // Xử lý hình ảnh
       let initialImg = "";
       if (d.images && d.images.length > 0) {
         const mainImgObj = d.images.find((img) => img.imagetype === 0);
         initialImg = mainImgObj ? mainImgObj.imageurl : d.images[0].imageurl;
       }
 
-      // Cập nhật state chính
       setData({
         tour: d.tour || {},
         detail: d.detail || {},
@@ -110,22 +63,19 @@ const TourDetail = () => {
       });
       setActiveImg(initialImg);
 
-      // Gọi API liên quan
       try {
-        // Kiểm tra kỹ tên trường ID (id hoặc tour_id)
         const tourIdForRel = d.tour.tourid;
         const rel = await API.post("/tour/relation", {
           tourid: tourIdForRel,
           destination: d.tour.destination || "",
         });
-
         const relationData = rel.data && rel.data.data ? rel.data.data : [];
         setData((prev) => ({ ...prev, relations: relationData }));
       } catch (relError) {
-        console.error("Lỗi lấy tour liên quan:", relError);
+        console.error(relError);
       }
     } catch (error) {
-      console.error("Lỗi API chính:", error);
+      console.error(error);
     } finally {
       setLoading(false);
     }
@@ -145,15 +95,55 @@ const TourDetail = () => {
 
   const { tour, price, fullData, images, highlights, detail, relations } = data;
 
+  // Component con để tránh lặp code cho phần thông tin (Specs)
+  const TourSpecs = () => (
+    <div className="specs-card-v4">
+      <div className="spec-line-item">
+        <div className="icon-v4-box pulse-blue">
+          <FaRegClock />
+        </div>
+        <div className="text-v4-box">
+          <label className="label-neon">Thời gian</label>
+          <strong className="text-neon">{fullData.timetype_name}</strong>
+        </div>
+      </div>
+      <div className="spec-line-item">
+        <div className="icon-v4-box pulse-orange">
+          <FaBus />
+        </div>
+        <div className="text-v4-box">
+          <label className="label-neon">Phương tiện</label>
+          <strong className="text-neon">{fullData.vehicletype_name}</strong>
+        </div>
+      </div>
+      <div className="spec-line-item">
+        <div className="icon-v4-box pulse-green">
+          <FaRegBuilding />
+        </div>
+        <div className="text-v4-box">
+          <label className="label-neon">Lưu trú</label>
+          <strong className="text-neon">{fullData.hoteltypename}</strong>
+        </div>
+      </div>
+      <div className="spec-line-item">
+        <div className="icon-v4-box pulse-red">
+          <FaMapMarkerAlt />
+        </div>
+        <div className="text-v4-box">
+          <label className="label-neon">Khởi hành</label>
+          <strong className="text-neon">{fullData.departure_name}</strong>
+        </div>
+      </div>
+    </div>
+  );
+
   return (
     <div className="tour-pro-v3">
       <div className="container">
-        {/* --- PHẦN 1: TIÊU ĐỀ & ĐIỂM NHẤN (HÀNG ĐẦU) --- */}
         <div className="tour-header-pro">
           <div className="row align-items-center">
             <div className="col-lg-12">
               <h1 className="tour-main-title">{tour.tourname}</h1>
-              {/* DI CHUYỂN ĐIỂM NHẤN LÊN ĐÂY */}
               <div className="highlight-ribbon mt-3">
                 {highlights.slice(0, 4).map((h, i) => (
                   <div key={i} className="ribbon-item">
@@ -167,8 +157,9 @@ const TourDetail = () => {
         </div>
 
         <div className="row mt-4">
-          {/* --- CỘT TRÁI: GALLERY & LỊCH TRÌNH --- */}
+          {/* CỘT TRÁI */}
           <div className="col-lg-8">
+            {/* 1. GALLERY */}
             <div className="gallery-box-v3">
               <div className="big-frame">
                 <img src={activeImg} alt="main" className="img-main" />
@@ -191,74 +182,10 @@ const TourDetail = () => {
               </div>
             </div>
 
-            <div className="content-detail-v3 mt-5">
-              <h3 className="section-title-v3">HÀNH TRÌNH CHI TIẾT</h3>
-              <div
-                className="html-render-v3"
-                dangerouslySetInnerHTML={{ __html: detail.content }}
-              />
-            </div>
-          </div>
-
-          {/* --- CỘT PHẢI: BOOKING & TOUR TƯƠNG TỰ --- */}
-          <div className="col-lg-4">
-            <div className="sidebar-v3">
-              <div className="specs-card-v4">
-                {/* Khối Thời gian */}
-                <div className="spec-line-item">
-                  <div className="icon-v4-box pulse-blue">
-                    <FaRegClock />
-                  </div>
-                  <div className="text-v4-box">
-                    <label className="label-neon">Thời gian</label>
-                    <strong className="text-neon">
-                      {fullData.timetype_name}
-                    </strong>
-                  </div>
-                </div>
-
-                {/* Khối Phương tiện */}
-                <div className="spec-line-item">
-                  <div className="icon-v4-box pulse-orange">
-                    <FaBus />
-                  </div>
-                  <div className="text-v4-box">
-                    <label className="label-neon">Phương tiện</label>
-                    <strong className="text-neon">
-                      {fullData.vehicletype_name}
-                    </strong>
-                  </div>
-                </div>
-
-                {/* Khối Lưu trú */}
-                <div className="spec-line-item">
-                  <div className="icon-v4-box pulse-green">
-                    <FaRegBuilding />
-                  </div>
-                  <div className="text-v4-box">
-                    <label className="label-neon">Lưu trú</label>
-                    <strong className="text-neon">
-                      {fullData.hoteltypename}
-                    </strong>
-                  </div>
-                </div>
-
-                {/* Khối Khởi hành */}
-                <div className="spec-line-item">
-                  <div className="icon-v4-box pulse-red">
-                    <FaMapMarkerAlt />
-                  </div>
-                  <div className="text-v4-box">
-                    <label className="label-neon">Khởi hành</label>
-                    <strong className="text-neon">
-                      {fullData.departure_name}
-                    </strong>
-                  </div>
-                </div>
-              </div>
-
-              {/* BOX ĐẶT TOUR */}
-              <div className="booking-card-v3">
+            {/* 2. MOBILE ONLY: Hiển thị Specs và Giá ở đây khi responsive */}
+            <div className="d-block d-lg-none mt-4">
+              <TourSpecs />
+              <div className="booking-card-v3 mt-3">
                 <div className="price-label">Giá trọn gói từ:</div>
                 <div className="price-val-v3">
                   {price.adultprice
@@ -268,12 +195,42 @@ const TourDetail = () => {
                 <button className="btn-book-v3">
                   <FaTicketAlt /> ĐẶT TOUR NGAY
                 </button>
-                <div className="support-tag">
-                  <FaShieldAlt /> Cam kết hoàn tiền nếu dịch vụ không đúng
+              </div>
+            </div>
+
+            {/* 3. HÀNH TRÌNH CHI TIẾT */}
+            <div className="content-detail-v3 mt-5">
+              <h3 className="section-title-v3">HÀNH TRÌNH CHI TIẾT</h3>
+              <div
+                className="html-render-v3"
+                dangerouslySetInnerHTML={{ __html: detail.content }}
+              />
+            </div>
+          </div>
+
+          {/* CỘT PHẢI */}
+          <div className="col-lg-4">
+            <div className="sidebar-v3">
+              {/* DESKTOP ONLY: Chỉ hiện specs và booking ở sidebar khi màn hình lớn */}
+              <div className="d-none d-lg-block">
+                <TourSpecs />
+                <div className="booking-card-v3">
+                  <div className="price-label">Giá trọn gói từ:</div>
+                  <div className="price-val-v3">
+                    {price.adultprice
+                      ? price.adultprice.toLocaleString("vi-VN") + " ₫"
+                      : "Liên hệ"}
+                  </div>
+                  <button className="btn-book-v3">
+                    <FaTicketAlt /> ĐẶT TOUR NGAY
+                  </button>
+                  <div className="support-tag">
+                    <FaShieldAlt /> Cam kết hoàn tiền nếu dịch vụ không đúng
+                  </div>
                 </div>
               </div>
 
-              {/* DI CHUYỂN TOUR TƯƠNG TỰ VÀO ĐÂY */}
+              {/* GỢI Ý TOUR (Hiện cả mobile và desktop) */}
               <div className="related-sidebar-v3 mt-4">
                 <h5 className="side-title-v3">GỢI Ý TOUR KHÁC</h5>
                 {relations &&
@@ -281,9 +238,7 @@ const TourDetail = () => {
                     <div
                       key={rel.tourid}
                       className="rel-mini-card"
-                      onClick={() =>
-                        navigate(`/tour/${toSlug(rel.tourname)}-${rel.tourid}`)
-                      }
+                      onClick={() => navigate(`/tour/${rel.slug}`)}
                     >
                       <div className="mini-img">
                         <img

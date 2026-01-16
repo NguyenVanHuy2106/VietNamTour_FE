@@ -52,9 +52,9 @@ export default function Relation() {
     getDataDOAN();
   }, []);
 
-  const handleGoToDetail = (id, title) => {
-    const slug = toSlug(title);
-    navigate(`/blog/${slug}-${id}`);
+  const handleGoToDetail = (slug) => {
+    //const slug = toSlug(title);
+    navigate(`/blog/${slug}`);
   };
 
   return (
@@ -82,7 +82,7 @@ export default function Relation() {
                   <div
                     key={item.post_id}
                     className="lp-slide-item"
-                    onClick={() => handleGoToDetail(item.post_id, item.title)}
+                    onClick={() => handleGoToDetail(item.slug)}
                   >
                     <div className="rel-v3-big-card">
                       <img
@@ -115,7 +115,7 @@ export default function Relation() {
               <div
                 key={item.post_id}
                 className="rel-v3-small-card"
-                onClick={() => handleGoToDetail(item.post_id, item.title)}
+                onClick={() => handleGoToDetail(item.slug)}
               >
                 <div className="rel-v3-small-img-box">
                   <img src={item.thumbnail_url} alt={item.title} />
