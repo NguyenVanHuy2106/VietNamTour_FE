@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import API from "../../config/APINoToken";
 import { useParams, useNavigate } from "react-router-dom";
 import { toSlug } from "../../Components/ToSlug";
+import { Helmet } from "react-helmet";
 import {
   FaMapMarkerAlt,
   FaCalendarAlt,
@@ -83,7 +84,7 @@ const BlogDetail = () => {
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
     getData();
-  }, []);
+  }, [Slug]);
 
   if (loading)
     return (
@@ -95,9 +96,31 @@ const BlogDetail = () => {
     );
 
   const p = data.post;
+  const currentUrl = window.location.href;
 
   return (
     <div className="lifestyle-layout">
+      <Helmet>
+        <title>{p.title}</title>
+        <meta name="description" content={p.description} />
+        <meta
+          name="keywords"
+          content={data.tags.map((t) => t.tag_name).join(", ")}
+        />
+
+        {/* Facebook Open Graph */}
+        <meta property="og:type" content="article" />
+        <meta property="og:title" content={p.title} />
+        <meta property="og:description" content={p.description} />
+        <meta property="og:image" content={p.thumbnail_url} />
+        <meta property="og:url" content={currentUrl} />
+
+        {/* Twitter Card */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={p.title} />
+        <meta name="twitter:description" content={p.description} />
+        <meta name="twitter:image" content={p.thumbnail_url} />
+      </Helmet>
       {/* Navigation */}
       <nav className="lifestyle-nav">
         <div className="container d-flex justify-content-between align-items-center">
@@ -169,9 +192,7 @@ const BlogDetail = () => {
                   <div
                     key={rel.post_id}
                     className="lifestyle-rel-card"
-                    onClick={() =>
-                      navigate(`/blog/${toSlug(rel.title)}-${rel.post_id}`)
-                    }
+                    onClick={() => navigate(`/blog/${rel.slug}`)}
                   >
                     <img src={rel.thumbnail_url} alt="" />
                     <div className="rel-card-info">

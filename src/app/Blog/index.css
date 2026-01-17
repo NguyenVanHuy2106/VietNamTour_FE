@@ -340,3 +340,49 @@
 .blog-layout {
   padding-top: 50px;
 }
+
+.pagination-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  padding-bottom: 30px;
+}
+
+.pagi-btn, .pagi-number {
+  border: 1px solid #ddd;
+  background: white;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  color: #333;
+}
+
+.pagi-number.active {
+  background: #333; /* Màu đen phong cách tối giản */
+  color: white;
+  border-color: #333;
+}
+
+.pagi-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.pagi-btn:hover:not(:disabled), .pagi-number:hover:not(.active) {
+  background: #f8f8f8;
+  border-color: #000;
+}
+
+.posts-asymmetric-grid-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
