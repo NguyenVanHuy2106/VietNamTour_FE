@@ -77,7 +77,7 @@ const Footer = () => {
                 onClick={() =>
                   window.open(
                     "https://www.facebook.com/vietnamluxtour",
-                    "_blank"
+                    "_blank",
                   )
                 }
                 style={{
@@ -99,7 +99,7 @@ const Footer = () => {
                 onClick={() =>
                   window.open(
                     "https://www.tiktok.com/@vietnamluxtour",
-                    "_blank"
+                    "_blank",
                   )
                 }
                 style={{

@@ -58,6 +58,24 @@ const Hotline = () => {
           {/* <div className="CompanyDetail">
             Email: dulichvasukienvietnam@gmail.com
           </div> */}
+          <div style={{ marginTop: "20px" }}>
+            <a
+              href="http://online.gov.vn/Home/WebDetails/139850"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <img
+                src="https://cdn.myvietnamtour.vn/uploads/vietnamtour.webp"
+                alt="Đã thông báo Bộ Công Thương"
+                style={{
+                  width: "150px", // Thu nhỏ lại một chút cho thanh thoát
+                  height: "auto",
+                  display: "block",
+                  transition: "transform 0.3s", // Thêm hiệu ứng hover cho xịn
+                }}
+              />
+            </a>
+          </div>
         </div>
       </div>
     </div>

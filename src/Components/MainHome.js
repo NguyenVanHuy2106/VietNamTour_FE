@@ -33,9 +33,9 @@ const MainHome = ({ history }) => {
         <Banner />
       </FadeInSection>
 
-      <FadeInSection>
+      {/* <FadeInSection>
         <NewTour />
-      </FadeInSection>
+      </FadeInSection> */}
       <FadeInSection>
         <CompanyTour />
       </FadeInSection>

@@ -101,26 +101,52 @@ const BlogDetail = () => {
   return (
     <div className="lifestyle-layout">
       <Helmet>
+        {/* SEO cơ bản */}
         <title>{p.title}</title>
         <meta name="description" content={p.description} />
         <meta
           name="keywords"
           content={data.tags.map((t) => t.tag_name).join(", ")}
         />
-
+        Favicon (logo tròn trên Google)
+        <link rel="icon" href="https://cdn.myvietnamtour.vn/uploads/1.png" />
+        <link
+          rel="apple-touch-icon"
+          href="https://cdn.myvietnamtour.vn/uploads/1.png"
+        />
         {/* Facebook Open Graph */}
         <meta property="og:type" content="article" />
         <meta property="og:title" content={p.title} />
         <meta property="og:description" content={p.description} />
         <meta property="og:image" content={p.thumbnail_url} />
         <meta property="og:url" content={currentUrl} />
-
         {/* Twitter Card */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={p.title} />
         <meta name="twitter:description" content={p.description} />
         <meta name="twitter:image" content={p.thumbnail_url} />
+        {/* Khai báo Site name với Google */}
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            name: "Việt Nam Tour",
+            alternateName: "Việt Nam Tour",
+            url: "https://myvietnamtour.vn",
+          })}
+        </script>
+        {/* Khai báo thương hiệu */}
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "TravelAgency",
+            name: "Việt Nam Tour",
+            url: "https://myvietnamtour.vn",
+            logo: "https://cdn.myvietnamtour.vn/uploads/1.png",
+          })}
+        </script>
       </Helmet>
+
       {/* Navigation */}
       <nav className="lifestyle-nav">
         <div className="container d-flex justify-content-between align-items-center">
