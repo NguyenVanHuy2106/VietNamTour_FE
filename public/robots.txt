@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /login/
+
+# Dòng này cực kỳ quan trọng để Google tự động tìm thấy bản đồ site của bạn
+Sitemap: https://myvietnamtour.vn/sitemap.xml
