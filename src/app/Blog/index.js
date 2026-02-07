@@ -108,17 +108,19 @@ const Blog = () => {
           <aside className="sidebar-line">
             <div className="filter-group">
               <p className="filter-label">DANH MỤC —</p>
-              {dataCategory.map((cat) => (
-                <div
-                  key={cat.category_id}
-                  className={`cat-item-line ${
-                    categoryid.includes(cat.category_id) ? "active" : ""
-                  }`}
-                  onClick={() => handleCatChange(cat.category_id)}
-                >
-                  <span className="cat-name">{cat.category_name}</span>
-                </div>
-              ))}
+              {dataCategory
+                .filter((cat) => cat.category_id !== 13) // Lọc bỏ ID 13 tại đây
+                .map((cat) => (
+                  <div
+                    key={cat.category_id}
+                    className={`cat-item-line ${
+                      categoryid.includes(cat.category_id) ? "active" : ""
+                    }`}
+                    onClick={() => handleCatChange(cat.category_id)}
+                  >
+                    <span className="cat-name">{cat.category_name}</span>
+                  </div>
+                ))}
             </div>
           </aside>
 

@@ -16,6 +16,7 @@ const BlogDetail = () => {
   //const { idSlug } = useParams();
   const { Slug } = useParams();
   const navigate = useNavigate();
+  const [isOpen, setIsOpen] = useState(true); // Thêm dòng này ở phần khai báo State
   //const postId = idSlug ? idSlug.split("-").pop() : null;
   //console.log(Slug);
 
@@ -26,28 +27,36 @@ const BlogDetail = () => {
     relations: [],
   });
   const [loading, setLoading] = useState(true);
+  const p = data.post;
+  const currentUrl = window.location.href;
 
-  // const getData = async () => {
-  //   try {
-  //     setLoading(true);
-  //     const res = await API.get(`/post/slug/${Slug}`);
-  //     const post = res.data.data || {};
-  //     const rel = await API.post("/post/getRelation", {
-  //       post_id: postId,
-  //       category_id: post.category_id,
-  //     });
-  //     setData({
-  //       post,
-  //       creator: post.creator || {},
-  //       tags: post.tags || [],
-  //       relations: rel.data.data || [],
-  //     });
-  //   } catch (e) {
-  //     console.error(e);
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
+  // --- LOGIC TỰ SINH MỤC LỤC ---
+  const { processedContent, toc } = React.useMemo(() => {
+    if (!p.content) return { processedContent: "", toc: [] };
+
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(p.content, "text/html");
+    const headings = doc.querySelectorAll("h2, h3"); // Quét thẻ h2 và h3
+    const tocData = [];
+
+    headings.forEach((heading, index) => {
+      // Tạo ID không dấu từ text của tiêu đề để làm link anchor
+      const id = heading.id || toSlug(heading.innerText) || `section-${index}`;
+      heading.id = id;
+
+      tocData.push({
+        id: id,
+        text: heading.innerText,
+        level: heading.tagName.toLowerCase(),
+      });
+    });
+
+    return {
+      processedContent: doc.body.innerHTML,
+      toc: tocData,
+    };
+  }, [p.content]);
+
   const getData = async () => {
     try {
       setLoading(true);
@@ -94,9 +103,6 @@ const BlogDetail = () => {
         </span>
       </div>
     );
-
-  const p = data.post;
-  const currentUrl = window.location.href;
 
   return (
     <div className="lifestyle-layout">
@@ -195,10 +201,49 @@ const BlogDetail = () => {
               {/* Description nhỏ lại và tinh tế */}
               <p className="small-description">{p.description}</p>
 
+              {/* HIỂN THỊ MỤC LỤC TẠI ĐÂY */}
+              {toc.length > 0 && (
+                <div className="table-of-contents-box">
+                  <div
+                    className="toc-header"
+                    onClick={() => setIsOpen(!isOpen)}
+                    style={{
+                      cursor: "pointer",
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                    }}
+                  >
+                    <h4 className="toc-title" style={{ margin: 0 }}>
+                      Nội dung chính
+                    </h4>
+                    <span className="toc-toggle-btn">
+                      [{isOpen ? "Ẩn" : "Hiện"}]
+                    </span>
+                  </div>
+
+                  {/* Chỉ hiển thị danh sách khi isOpen là true */}
+                  {isOpen && (
+                    <ul className="toc-list">
+                      {toc.map((item, index) => (
+                        <li key={index} className={`toc-item-${item.level}`}>
+                          <a href={`#${item.id}`}>{item.text}</a>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              )}
+              {/* Sử dụng processedContent thay vì p.content vì nó đã được gắn ID */}
+              <div
+                className="rich-text-area"
+                dangerouslySetInnerHTML={{ __html: processedContent }}
+              />
+              {/* 
               <div
                 className="rich-text-area"
                 dangerouslySetInnerHTML={{ __html: p.content }}
-              />
+              /> */}
 
               <div className="tags-flex">
                 {data.tags.map((t) => (
@@ -213,7 +258,8 @@ const BlogDetail = () => {
           <div className="col-lg-4">
             <div className="sticky-sidebar">
               <div className="related-section">
-                <h3 className="section-title">BÀI VIẾT BẠN SẼ THÍCH</h3>
+                <div className="BVSST">Bài viết bạn sẽ thích</div>
+                {/* <h4 className="section-title">BÀI VIẾT BẠN SẼ THÍCH</h4> */}
                 {data.relations.map((rel) => (
                   <div
                     key={rel.post_id}
@@ -222,7 +268,7 @@ const BlogDetail = () => {
                   >
                     <img src={rel.thumbnail_url} alt="" />
                     <div className="rel-card-info">
-                      <h4>{rel.title}</h4>
+                      <h4 className="related-name">{rel.title}</h4>
                       <small>{rel.created_at}</small>
                     </div>
                   </div>

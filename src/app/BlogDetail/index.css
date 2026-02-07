@@ -59,7 +59,7 @@
 
 .hero-image-frame img {
   width: 100%; border-radius: 30px;
-  height: 450px; object-fit: cover;
+  height: 400px; object-fit: cover;
 }
 
 .location-tag {
@@ -78,7 +78,7 @@
 
 .lifestyle-title {
   font-family: 'Fraunces', serif; /* Font Serif sang trọng nhưng hiện đại */
-  font-size: clamp(2.5rem, 5vw, 3.8rem);
+  font-size: clamp(2.5rem, 5vw, 3rem);
   font-weight: 700;
   line-height: 1.1;
   margin: 20px 0;
@@ -157,8 +157,11 @@
 
 .lifestyle-rel-card img { width: 80px; height: 80px; border-radius: 15px; object-fit: cover; }
 
-.section-title { font-weight: 100; font-size: 0.5rem; margin-bottom: 25px; }
+.section-title { font-weight: 50; font-size: 0.3rem; margin-bottom: 25px; }
 
+.BVSST {
+  font-size: 1.8rem
+}
 /* Loader */
 .travel-loader {
   height: 100vh; display: flex; align-items: center; justify-content: center;
@@ -172,4 +175,123 @@
   object-fit: cover;           /* Giữ tỉ lệ ảnh đẹp hơn */
   display: block;
   margin: 10px auto;           /* Căn giữa ảnh nếu cần */
+}
+.related-name {
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-align: justify;
+  padding-right: 5px;
+}
+
+/* Table of Contents Styling */
+.table-of-contents-box {
+  background: #f8f9fa;
+  border-left: 4px solid #d4a373; /* Màu nhấn lifestyle */
+  padding: 20px;
+  margin: 20px 0 30px 0;
+  border-radius: 4px;
+}
+
+.toc-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.toc-list {
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 0;
+}
+
+.toc-list li {
+  margin-bottom: 8px;
+}
+
+.toc-list a {
+  text-decoration: none;
+  color: #444;
+  transition: 0.3s;
+  font-size: 0.95rem;
+}
+
+.toc-list a:hover {
+  color: #d4a373;
+  padding-left: 5px;
+}
+
+/* Phân cấp H2 và H3 */
+.toc-item-h3 {
+  padding-left: 20px;
+}
+
+.toc-item-h3 a {
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+/* Hiệu ứng cuộn mượt và bù trừ Header */
+html {
+  scroll-behavior: smooth;
+}
+
+[id] {
+  scroll-margin-top: 100px; /* Tránh bị Header đè lên khi nhảy đến mục */
+}
+
+/* Container mục lục */
+.table-of-contents-box {
+  background: #f8f9fa;
+  border-left: 4px solid #d4a373;
+  padding: 15px 20px;
+  margin: 20px 0 30px 0;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+/* Header chứa tiêu đề và nút */
+.toc-header:hover .toc-toggle-btn {
+  color: #d4a373;
+}
+
+.toc-toggle-btn {
+  font-size: 0.85rem;
+  color: #888;
+  font-weight: 500;
+  user-select: none; /* Ngăn bôi đen văn bản khi click nhanh */
+}
+
+/* Danh sách mục lục */
+.toc-list {
+  list-style: none;
+  padding-left: 0;
+  margin-top: 15px; /* Khoảng cách với header khi mở */
+  animation: fadeIn 0.3s ease; /* Hiệu ứng hiện hình */
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.toc-list li {
+  margin-bottom: 8px;
+}
+
+.toc-list a {
+  text-decoration: none;
+  color: #444;
+  font-size: 0.95rem;
+  transition: 0.2s;
+}
+
+.toc-list a:hover {
+  color: #d4a373;
+  padding-left: 5px;
+}
+
+.toc-item-h3 {
+  padding-left: 20px;
 }

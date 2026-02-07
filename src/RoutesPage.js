@@ -21,6 +21,9 @@ import MiceLanding from "./app/Service/Mice";
 import CarRentalPro from "./app/Service/Bus";
 import BookingAll from "./app/Service/Booking";
 import FeedbackPage from "./app/FeedbackPage";
+import ImageGallery from "./app/ImageGallery";
+import ImageList from "./app/ImageList";
+import NewsAndEvent from "./app/NewsAndEvent";
 
 const CityRoutes = () => (
   <Routes>
@@ -29,12 +32,22 @@ const CityRoutes = () => (
       <Route path="tour/:Slug" element={<TourDetail />} />
       <Route path="danh-sach-tour" element={<TourList />} />
       <Route path="blog" element={<Blog />} />
-      <Route path="blog/:Slug" element={<BlogDetail />} />
+      <Route
+        path="blog/:Slug"
+        element={<BlogDetail key={window.location.pathname} />}
+      />
       <Route path="dieu-khoan-su-dung" element={<TermsOfService />} />
       <Route path="chinh-sach-bao-mat" element={<TermPolicy />} />
       <Route path="phuong-thuc-thanh-toan" element={<PaymentMethods />} />
       <Route path="chinh-sach-giao-nhan" element={<DeliveryInfo />} />
       <Route path="danh-gia" element={<FeedbackPage />} />
+      <Route path="hinh-anh" element={<ImageGallery />} />
+      <Route path="hinh-anh/danh-sach-hinh-anh" element={<ImageList />} />
+      <Route path="tin-tuc-su-kien" element={<NewsAndEvent />} />
+      <Route
+        path="tin-tuc-su-kien/:Slug"
+        element={<BlogDetail key={window.location.pathname} />}
+      />
 
       <Route path="dich-vu/team-building" element={<TeamBuilding />} />
       <Route path="dich-vu/hoi-nghi-hoi-thao" element={<Conference />} />
