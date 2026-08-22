@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import API from "../../config/APINoToken";
 import "./index.css";
 
@@ -8,10 +8,10 @@ export default function Customer() {
   const getData = async () => {
     try {
       const response = await API.get("customer/get");
-      // Nhân đôi mảng để tạo hiệu ứng chạy vô tận mượt mà
-      setDataCustomer([...response.data.data, ...response.data.data]);
+
+      setDataCustomer(response.data.data || []);
     } catch (error) {
-      console.error("Lỗi:", error);
+      console.error("Lỗi lấy danh sách đối tác:", error);
     }
   };
 
@@ -19,39 +19,81 @@ export default function Customer() {
     getData();
   }, []);
 
-  return (
-    <section className="premium-customer-section">
-      <div className="container-fluid py-5">
-        <div className="text-center mb-5">
-          <span className="customer-badge">ĐỐI TÁC TIN CẬY</span>
-          <h2 className="customer-main-title">ĐỒNG HÀNH CÙNG THÀNH CÔNG</h2>
-          <div className="title-line"></div>
-        </div>
+  /*
+   * Chỉ hiển thị một số đối tác tiêu biểu.
+   * Có thể đổi 18 thành 15, 20, 24... tùy ý.
+   */
+  const displayCustomers = useMemo(() => {
+    return dataCustomer.slice(0, 25);
+  }, [dataCustomer]);
 
-        {/* TRACK 1: CHẠY SANG TRÁI */}
-        <div className="logo-slider">
-          <div className="logo-track">
-            {dataCustomer.map((item, index) => (
-              <div className="logo-card" key={`track1-${index}`}>
-                <img
-                  src={item.customerlogo}
-                  alt={item.customername}
-                  title={item.customername}
-                />
-              </div>
-            ))}
+  return (
+    <section className="partner-showcase-section">
+      <div className="partner-showcase-container">
+        {/* =========================================
+            LEFT - THÔNG TIN
+        ========================================= */}
+        <div className="partner-showcase-intro">
+          <span className="partner-showcase-eyebrow">ĐỐI TÁC TIÊU BIỂU</span>
+
+          <h2 className="partner-showcase-title">
+            Đồng hành cùng những thương hiệu hàng đầu
+          </h2>
+
+          <p className="partner-showcase-desc">
+            Một số đối tác tiêu biểu đã tin tưởng đồng hành cùng Việt Nam Tour.
+            Bên cạnh đó, chúng tôi còn vinh dự phục vụ nhiều doanh nghiệp, bệnh
+            viện, ngân hàng và tổ chức trên toàn quốc.
+          </p>
+
+          {/* THỐNG KÊ */}
+          <div className="partner-showcase-stats">
+            <div className="partner-stat">
+              <strong>1,000+</strong>
+
+              <span>
+                Khách hàng
+                <br />
+                tin tưởng
+              </span>
+            </div>
+
+            <div className="partner-stat-divider" />
+
+            <div className="partner-stat">
+              <strong>100+</strong>
+
+              <span>
+                Đối tác
+                <br />
+                doanh nghiệp
+              </span>
+            </div>
+          </div>
+
+          {/* GHI CHÚ */}
+          <div className="partner-more-note">
+            Và nhiều đối tác khác đã đồng hành cùng Việt Nam Tour
           </div>
         </div>
 
-        {/* TRACK 2: CHẠY SANG PHẢI (Tạo sự chuyển động ngược chiều phá cách) */}
-        <div className="logo-slider mt-4">
-          <div className="logo-track track-reverse">
-            {dataCustomer.map((item, index) => (
-              <div className="logo-card" key={`track2-${index}`}>
+        {/* =========================================
+            RIGHT - LOGO ĐỐI TÁC
+        ========================================= */}
+        <div className="partner-logo-area">
+          <div className="partner-logo-grid">
+            {displayCustomers.map((item, index) => (
+              <div
+                className="partner-logo-card"
+                key={`${item.customerid ||
+                  item.customer_id ||
+                  "customer"}-${index}`}
+                title={item.customername}
+              >
                 <img
                   src={item.customerlogo}
-                  alt={item.customername}
-                  title={item.customername}
+                  alt={item.customername || "Đối tác Việt Nam Tour"}
+                  loading="lazy"
                 />
               </div>
             ))}

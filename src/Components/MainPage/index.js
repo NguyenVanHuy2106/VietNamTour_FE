@@ -23,7 +23,6 @@ const MainPage = () => {
       <FloatingButtons />
       <FadeInSection>
         <Footer />
-        <Hotline />
       </FadeInSection>
     </div>
   );

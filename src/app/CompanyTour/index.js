@@ -1,12 +1,7 @@
 import React, { useState, useEffect } from "react";
 import API from "../../config/APINoToken";
 import { useNavigate } from "react-router-dom";
-import { toSlug } from "../../Components/ToSlug";
-import {
-  BsArrowRight,
-  BsShieldCheck,
-  BsFillGrid3X3GapFill,
-} from "react-icons/bs";
+import { BsArrowRight, BsShieldCheck } from "react-icons/bs";
 import "./index.css";
 
 const CompanyTour = () => {
@@ -27,76 +22,111 @@ const CompanyTour = () => {
   }, []);
 
   const handleGoToDetail = (slug) => {
-    //const slug = toSlug(tourname);
     navigate(`/tour/${slug}`);
   };
 
+  const handleGoToAll = () => {
+    navigate("/danh-sach-tour", {
+      state: {
+        tourtype: "DOAN",
+      },
+    });
+  };
+
   return (
-    <div className="tour-grid-section">
-      <div className="tour-grid-container">
-        {/* Header tinh tế hơn */}
-        <div className="tour-grid-header">
-          <div className="header-content">
-            <div className="mini-badge">
-              <BsShieldCheck /> ĐƠN VỊ TỔ CHỨC TOUR ĐOÀN CHUYÊN NGHIỆP
+    <section className="company-tour-section">
+      <div className="company-tour-container">
+        {/* HEADER */}
+        <div className="company-tour-header">
+          <div className="company-tour-heading">
+            <div className="company-tour-eyebrow">
+              <BsShieldCheck />
+              <span>TOUR DOANH NGHIỆP</span>
             </div>
-            <h2 className="main-title">Hệ Thống Tour Khách Đoàn</h2>
-            <p className="sub-title">
-              Khám phá hơn 100+ hành trình được thiết kế riêng cho doanh nghiệp
-            </p>
+
+            <div className="company-tour-title-row">
+              <div>
+                <h2>Tour dành cho doanh nghiệp</h2>
+
+                <p>
+                  Những hành trình được thiết kế riêng cho khách đoàn, doanh
+                  nghiệp và các chương trình gắn kết tập thể.
+                </p>
+              </div>
+
+              <button
+                type="button"
+                className="company-tour-view-all"
+                onClick={handleGoToAll}
+              >
+                <span>Xem tất cả</span>
+                <BsArrowRight />
+              </button>
+            </div>
           </div>
-          <button
-            className="btn-discover"
-            onClick={() =>
-              navigate("/danh-sach-tour", { state: { tourtype: "DOAN" } })
-            }
-          >
-            Xem tất cả <BsFillGrid3X3GapFill />
-          </button>
         </div>
 
-        {/* Lưới Tour nhỏ gọn - Show được nhiều ảnh */}
-        <div className="tour-bento-grid">
+        {/* TOUR LIST */}
+        <div className="company-tour-list">
           {dataDOANTour.map((item) => {
             const imageUrl =
               item.images && item.images.length > 0
                 ? item.images[0].imageurl
                 : "";
+
             const adultPrice =
               item.price && item.price.adultprice ? item.price.adultprice : 0;
 
             return (
-              <div
+              <article
                 key={item.tourid}
-                className="doan-tour-card"
+                className="company-tour-card"
                 onClick={() => handleGoToDetail(item.slug)}
               >
-                <div className="doan-tour-media">
+                <div className="company-tour-image-wrap">
                   <div
-                    className="doan-tour-image"
-                    style={{ backgroundImage: "url(" + imageUrl + ")" }}
-                  ></div>
-                  <div className="mini-price-tag">
-                    {Number(adultPrice).toLocaleString("de-DE")}đ
+                    className="company-tour-image"
+                    style={{
+                      backgroundImage: `url(${imageUrl})`,
+                    }}
+                  />
+
+                  <div className="company-tour-image-overlay" />
+
+                  <div className="company-tour-price">
+                    <span>Từ</span>
+                    <strong>
+                      {Number(adultPrice).toLocaleString("vi-VN")}đ
+                    </strong>
                   </div>
                 </div>
 
-                <div className="mini-card-info">
-                  <span className="mini-dest">
+                <div className="company-tour-card-body">
+                  <div className="company-tour-destination">
                     {item.destination_name || "Việt Nam"}
-                  </span>
-                  <h3 className="mini-name">{item.tourname}</h3>
-                  <div className="mini-footer">
-                    <span className="view-text">Chi tiết</span>
-                    <BsArrowRight className="mini-icon" />
+                  </div>
+
+                  <h3>{item.tourname}</h3>
+
+                  <div className="company-tour-card-footer">
+                    <span>Khám phá tour</span>
+                    <BsArrowRight />
                   </div>
                 </div>
-              </div>
+              </article>
             );
           })}
         </div>
+
+        {/* MOBILE CTA */}
+        <div className="company-tour-mobile-footer">
+          <button type="button" onClick={handleGoToAll}>
+            Xem tất cả tour doanh nghiệp
+            <BsArrowRight />
+          </button>
+        </div>
       </div>
-    </div>
+    </section>
   );
 };
 

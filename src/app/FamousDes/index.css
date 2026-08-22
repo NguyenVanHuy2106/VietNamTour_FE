@@ -1,128 +1,634 @@
+/* =========================================================
+   FAMOUS DESTINATIONS
+========================================================= */
+
 .micro-bento-section {
-  padding: 40px 0;
-  background-color: #fff;
+  width: 100%;
+  padding: 58px 0 64px;
+  background: #ffffff;
 }
 
 .micro-container {
-  max-width: 1400px;
+  width: 100%;
+  max-width: 1280px;
+
   margin: 0 auto;
-  padding: 0 20px;
+
+  padding: 0 24px;
+
+  box-sizing: border-box;
 }
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+/* =========================================================
+   HEADER - ĐỒNG BỘ VỚI CÁC SECTION TRƯỚC
+========================================================= */
 
 .micro-header {
-  margin-bottom: 20px;
+  width: 100%;
+  max-width: 760px;
+
+  margin-bottom: 30px;
+
+  text-align: left;
 }
+
+
+/* DÒNG NHỎ MÀU XANH */
+
+.micro-eyebrow {
+  display: block;
+
+  margin-bottom: 10px;
+
+  color: #075fd3;
+
+  font-size: 11px;
+  line-height: 1.2;
+
+  font-weight: 800;
+
+  letter-spacing: 1px;
+
+  text-transform: uppercase;
+
+  text-align: left;
+}
+
+
+/* TIÊU ĐỀ CHÍNH */
 
 .micro-title {
-  font-size: 22px;
+  margin: 0;
+
+  color: #091e42;
+
+  font-size: 34px;
+  line-height: 1.2;
+
   font-weight: 900;
-  color: #1a1a1a;
-  letter-spacing: 1px;
+
+  letter-spacing: -0.8px;
+
+  text-align: left;
 }
 
-.micro-line {
-  width: 40px;
-  height: 3px;
-  background: #0052cc;
-  margin-top: 8px;
+
+/* MÔ TẢ */
+
+.micro-description {
+  max-width: 680px;
+
+  margin: 9px 0 0;
+
+  color: #68768d;
+
+  font-size: 14px;
+  line-height: 1.65;
+
+  font-weight: 400;
+
+  text-align: left;
 }
 
-/* Khu vực hiển thị 38 địa điểm gói gọn */
+
+/* =========================================================
+   GRID DESKTOP
+========================================================= */
+
 .micro-grid-wrapper {
+  width: 100%;
+
   display: grid;
-  /* Chia làm 6 cột nhỏ để chứa được nhiều hình */
-  grid-template-columns: repeat(6, 1fr); 
-  grid-auto-rows: 140px; /* Chiều cao mỗi ô nhỏ lại */
-  gap: 10px;
-  height: 600px; /* Cố định chiều cao tầm 1/2 màn hình */
-  overflow-y: auto; /* Cho phép cuộn bên trong nếu quá 38 hình */
-  padding-right: 10px;
+
+  grid-template-columns:
+    repeat(6, minmax(0, 1fr));
+
+  grid-auto-rows: 150px;
+
+  gap: 12px;
+
+  /*
+   * Quan trọng:
+   * không dùng height cố định
+   * không scroll bên trong
+   */
+  height: auto;
+
+  overflow: visible;
+
+  padding: 0;
 }
 
-/* Tùy chỉnh thanh cuộn cho sang trọng */
-.micro-grid-wrapper::-webkit-scrollbar {
-  width: 5px;
-}
-.micro-grid-wrapper::-webkit-scrollbar-thumb {
-  background: #ebecf0;
-  border-radius: 10px;
-}
 
-/* Các loại kích thước ô */
+/* =========================================================
+   ITEM
+========================================================= */
+
 .micro-item {
   position: relative;
-  border-radius: 12px;
+
+  min-width: 0;
+
   overflow: hidden;
+
+  border-radius: 14px;
+
+  background: #e8edf3;
+
   cursor: pointer;
+
+  box-shadow:
+    0 2px 8px rgba(9, 30, 66, 0.05);
+
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
-/* Ô tiêu điểm siêu to (chiếm 2 cột 2 hàng) */
+.micro-item:hover {
+  transform: translateY(-3px);
+
+  box-shadow:
+    0 12px 24px rgba(9, 30, 66, 0.10);
+}
+
+
+/* =========================================================
+   ITEM SIZE
+========================================================= */
+
 .s-hero {
   grid-column: span 2;
   grid-row: span 2;
 }
 
-/* Ô vừa (chiếm 2 cột 1 hàng) */
 .s-medium {
   grid-column: span 2;
 }
 
-/* Ô mặc định (1 cột 1 hàng) */
 .s-small {
   grid-column: span 1;
 }
 
+
+/* =========================================================
+   CARD
+========================================================= */
+
 .micro-card {
+  position: relative;
+
   width: 100%;
   height: 100%;
 }
+
+
+/* =========================================================
+   IMAGE
+========================================================= */
 
 .micro-img {
+  display: block;
+
   width: 100%;
   height: 100%;
+
   object-fit: cover;
-  transition: 0.5s ease;
-}
 
-.micro-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 50%);
-  display: flex;
-  align-items: flex-end;
-  padding: 12px;
-}
-
-.micro-city-name {
-  color: #fff;
-  font-size: 13px;
-  font-weight: 700;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  transition:
+    transform 0.5s ease;
 }
 
 .micro-item:hover .micro-img {
-  transform: scale(1.1);
+  transform: scale(1.06);
+}
+
+
+/* =========================================================
+   OVERLAY
+========================================================= */
+
+.micro-overlay {
+  position: absolute;
+
+  inset: 0;
+
+  display: flex;
+
+  align-items: flex-end;
+
+  justify-content: flex-start;
+
+  padding: 13px;
+
+  box-sizing: border-box;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(5, 20, 45, 0.02) 25%,
+      rgba(5, 20, 45, 0.08) 50%,
+      rgba(5, 20, 45, 0.78) 100%
+    );
+
+  transition:
+    background 0.3s ease;
 }
 
 .micro-item:hover .micro-overlay {
-  background: rgba(0, 82, 204, 0.4);
+  background:
+    linear-gradient(
+      180deg,
+      rgba(0, 82, 204, 0.06) 20%,
+      rgba(0, 82, 204, 0.20) 55%,
+      rgba(0, 59, 145, 0.78) 100%
+    );
 }
 
-/* Responsive */
-@media (max-width: 1024px) {
+
+/* =========================================================
+   CITY NAME
+========================================================= */
+
+.micro-city-name {
+  display: block;
+
+  width: 100%;
+
+  overflow: hidden;
+
+  color: #ffffff;
+
+  font-size: 13px;
+  line-height: 1.3;
+
+  font-weight: 800;
+
+  white-space: nowrap;
+
+  text-overflow: ellipsis;
+
+  text-align: left;
+
+  text-shadow:
+    0 2px 5px rgba(0, 0, 0, 0.35);
+}
+
+
+/* =========================================================
+   HERO CARD TYPOGRAPHY
+========================================================= */
+
+.s-hero .micro-overlay {
+  padding: 18px;
+}
+
+.s-hero .micro-city-name {
+  font-size: 21px;
+
+  letter-spacing: -0.2px;
+}
+
+.s-medium .micro-city-name {
+  font-size: 14px;
+}
+
+
+/* =========================================================
+   LAPTOP
+========================================================= */
+
+@media (max-width: 1100px) {
+  .micro-bento-section {
+    padding: 50px 0 56px;
+  }
+
+  .micro-container {
+    padding: 0 20px;
+  }
+
   .micro-grid-wrapper {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns:
+      repeat(4, minmax(0, 1fr));
+
+    grid-auto-rows: 145px;
+
+    gap: 10px;
+  }
+
+  .micro-title {
+    font-size: 28px;
   }
 }
+
+
+/* =========================================================
+   TABLET
+========================================================= */
 
 @media (max-width: 768px) {
-  .micro-grid-wrapper {
-    grid-template-columns: repeat(2, 1fr);
-    height: 500px;
+  .micro-bento-section {
+    padding: 42px 0 46px;
   }
-  .s-hero, .s-medium {
+
+  .micro-container {
+    padding: 0 16px;
+  }
+
+  .micro-header {
+    margin-bottom: 22px;
+  }
+
+  .micro-title {
+    font-size: 25px;
+  }
+
+  .micro-grid-wrapper {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+
+    grid-auto-rows: 145px;
+
+    gap: 10px;
+  }
+
+  .s-hero {
     grid-column: span 2;
+    grid-row: span 2;
+  }
+
+  .s-medium {
+    grid-column: span 2;
+  }
+
+  .s-small {
+    grid-column: span 1;
+  }
+
+  .micro-city-name {
+    font-size: 12px;
+  }
+
+  .s-hero .micro-city-name {
+    font-size: 19px;
+  }
+  .micro-header {
+  max-width: 650px;
+  margin-bottom: 24px;
+}
+
+.micro-eyebrow {
+  margin-bottom: 8px;
+
+  font-size: 10px;
+
+  letter-spacing: 0.8px;
+}
+
+.micro-title {
+  font-size: 28px;
+
+  letter-spacing: -0.5px;
+}
+
+.micro-description {
+  max-width: 560px;
+
+  margin-top: 7px;
+
+  font-size: 13px;
+  line-height: 1.6;
+}
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 576px) {
+  .micro-bento-section {
+    padding: 32px 0 38px;
+  }
+
+  .micro-container {
+    padding: 0 14px;
+  }
+
+
+  /* HEADER */
+
+  .micro-header {
+    margin-bottom: 18px;
+  }
+
+  .micro-title {
+    font-size: 22px;
+
+    line-height: 1.2;
+
+    letter-spacing: -0.3px;
+  }
+
+  .micro-line {
+    width: 38px;
+
+    height: 3px;
+
+    margin-top: 8px;
+  }
+
+
+  /* GRID */
+
+  .micro-grid-wrapper {
+    width: 100%;
+
+    display: grid;
+
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+
+    grid-auto-rows: 125px;
+
+    gap: 8px;
+
+    height: auto;
+
+    overflow: visible;
+
+    padding: 0;
+  }
+
+
+  /*
+   * Hero full-width
+   * nhưng không quá cao.
+   */
+
+  .s-hero {
+    grid-column: 1 / -1;
+
+    grid-row: span 2;
+  }
+
+
+  /*
+   * Medium cũng full-width.
+   */
+
+  .s-medium {
+    grid-column: 1 / -1;
+
+    grid-row: span 1;
+  }
+
+
+  /*
+   * Small = 2 card / hàng.
+   */
+
+  .s-small {
+    grid-column: span 1;
+
+    grid-row: span 1;
+  }
+
+
+  /* CARD */
+
+  .micro-item {
+    border-radius: 12px;
+
+    box-shadow:
+      0 2px 7px rgba(9, 30, 66, 0.06);
+  }
+
+
+  /* OVERLAY */
+
+  .micro-overlay {
+    padding: 10px;
+  }
+
+
+  /* TEXT */
+
+  .micro-city-name {
+    font-size: 11px;
+
+    line-height: 1.25;
+  }
+
+  .s-hero .micro-overlay {
+    padding: 14px;
+  }
+
+  .s-hero .micro-city-name {
+    font-size: 18px;
+  }
+
+  .s-medium .micro-city-name {
+    font-size: 13px;
+  }
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 390px) {
+  .micro-bento-section {
+    padding: 28px 0 34px;
+  }
+
+  .micro-container {
+    padding: 0 12px;
+  }
+
+  .micro-title {
+    font-size: 20px;
+  }
+
+  .micro-grid-wrapper {
+    grid-auto-rows: 112px;
+
+    gap: 7px;
+  }
+
+  .micro-city-name {
+    font-size: 10.5px;
+  }
+
+  .s-hero .micro-city-name {
+    font-size: 17px;
+  }
+}
+
+
+/* =========================================================
+   VERY SMALL MOBILE
+========================================================= */
+
+@media (max-width: 340px) {
+  /*
+   * Máy quá nhỏ thì về 1 cột
+   * để tên địa điểm không bị bóp.
+   */
+
+  .micro-grid-wrapper {
+    grid-template-columns: 1fr;
+
+    grid-auto-rows: 160px;
+  }
+
+  .s-hero,
+  .s-medium,
+  .s-small {
+    grid-column: auto;
+
+    grid-row: auto;
+  }
+
+  .micro-city-name,
+  .s-medium .micro-city-name {
+    font-size: 13px;
+  }
+
+  .s-hero .micro-city-name {
+    font-size: 15px;
+  }
+}
+
+
+/* =========================================================
+   TOUCH DEVICE
+========================================================= */
+
+@media (hover: none) {
+  .micro-item:hover {
+    transform: none;
+
+    box-shadow:
+      0 2px 7px rgba(9, 30, 66, 0.06);
+  }
+
+  .micro-item:hover .micro-img {
+    transform: none;
+  }
+
+  .micro-item:hover .micro-overlay {
+    background:
+      linear-gradient(
+        180deg,
+        rgba(5, 20, 45, 0.02) 25%,
+        rgba(5, 20, 45, 0.08) 50%,
+        rgba(5, 20, 45, 0.78) 100%
+      );
   }
 }

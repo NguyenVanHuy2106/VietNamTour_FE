@@ -1,179 +1,1120 @@
-.bento-services-section {
-  padding: 80px 0;
-  background-color: #fcfcfc;
+/* =========================================================
+   SERVICES SECTION
+========================================================= */
+
+.vnt-services-section {
+  width: 100%;
+  padding: 64px 0 70px;
+  background: #ffffff;
 }
 
-.bento-container {
-  max-width: 1210px;
+.vnt-services-container {
+  width: 100%;
+  max-width: 1280px;
   margin: 0 auto;
-  padding: 0 15px;
+  padding: 0 24px;
+  box-sizing: border-box;
 }
 
-/* Header */
-.bento-header-v4 {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  margin-bottom: 50px;
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.vnt-services-header {
+  width: 100%;
+  margin-bottom: 30px;
 }
 
-.v4-badge {
-  color: #0052cc;
-  font-weight: 800;
-  font-size: 12px;
-  letter-spacing: 2px;
+.vnt-services-heading {
+  width: 100%;
+  max-width: 720px;
+  text-align: left;
 }
 
-.v4-title {
-  font-size: 38px;
-  font-weight: 900;
-  color: #172b4d;
-  margin: 10px 0 0;
-}
-
-.v4-desc {
-  max-width: 400px;
-  color: #626f86;
-  font-size: 15px;
-  margin: 0;
-}
-
-/* Bento Grid */
-.bento-grid-v4 {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(3, 245px);
-  gap: 20px;
-}
-
-.bento-item {
-  position: relative;
-  border-radius: 24px;
-  overflow: hidden;
-  cursor: pointer;
-  border: 1px solid #ebecf0;
-}
-
-.bento-item-img {
-  position: absolute;
-  inset: 0;
-  background-size: cover;
-  background-position: center;
-  transition: transform 0.8s ease;
-}
-
-.bento-item:hover .bento-item-img {
-  transform: scale(1.1);
-}
-
-.bento-item-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.3) 100%);
-  transition: opacity 0.4s;
-}
-
-.bento-item:hover .bento-item-overlay {
-  background: linear-gradient(to top, rgba(0, 82, 204, 0.85) 0%, rgba(0, 0, 0, 0.4) 100%);
-}
-
-/* Content */
-.bento-item-content {
-  position: absolute;
-  inset: 0;
-  padding: 25px;
-  display: flex;
-  flex-direction: column;
-  z-index: 2;
-  color: #fff;
-}
-
-.bento-item-top {
-  display: flex;
-  align-items: center;
-  gap: 12px;
+.vnt-services-eyebrow {
+  display: inline-block;
   margin-bottom: 10px;
-}
 
-.bento-icon-v4 {
-  width: 40px;
-  height: 40px;
-  background: rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(10px);
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+  color: #075fd3;
 
-.bento-category {
   font-size: 11px;
   font-weight: 800;
-  letter-spacing: 1.5px;
-  opacity: 0.9;
+
+  letter-spacing: 1px;
+  text-transform: uppercase;
+
+  text-align: left;
 }
 
-.bento-group-title {
-  font-size: 24px;
-  font-weight: 800;
-  margin-bottom: 15px;
-}
-
-.bento-sub-services {
-  list-style: none;
-  padding: 0;
+.vnt-services-heading h2 {
   margin: 0;
+
+  color: #091e42;
+
+  font-size: 34px;
+  font-weight: 900;
+  line-height: 1.2;
+
+  letter-spacing: -0.8px;
+
+  text-align: left;
+}
+
+.vnt-services-heading p {
+  max-width: 650px;
+  margin: 9px 0 0;
+
+  color: #68768d;
+
+  font-size: 15px;
+  line-height: 1.65;
+
+  text-align: left;
+}
+
+
+/* =========================================================
+   DESKTOP BENTO GRID
+========================================================= */
+
+.vnt-services-grid {
+  width: 100%;
+
+  display: grid;
+
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-rows: 235px 235px 220px;
+
+  gap: 18px;
+}
+
+
+/* =========================================================
+   DESKTOP POSITIONS
+========================================================= */
+
+.vnt-service-featured {
+  grid-column: 1 / 3;
+  grid-row: 1 / 3;
+}
+
+.vnt-service-wide {
+  grid-column: 3 / 5;
+  grid-row: 1;
+}
+
+.vnt-service-small {
+  grid-row: 2;
+}
+
+.vnt-service-small:nth-child(3) {
+  grid-column: 3;
+}
+
+.vnt-service-small:nth-child(4) {
+  grid-column: 4;
+}
+
+.vnt-service-full {
+  grid-column: 1 / 5;
+  grid-row: 3;
+}
+
+
+/* =========================================================
+   CARD
+========================================================= */
+
+.vnt-service-card {
+  position: relative;
+
+  min-width: 0;
+
+  overflow: hidden;
+
+  border-radius: 20px;
+
+  background: #e8edf3;
+
+  cursor: pointer;
+
+  isolation: isolate;
+
+  text-align: left;
+
+  box-shadow:
+    0 1px 2px rgba(9, 30, 66, 0.04);
+
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.vnt-service-card:hover {
+  transform: translateY(-4px);
+
+  box-shadow:
+    0 18px 38px rgba(9, 30, 66, 0.13);
+}
+
+
+/* =========================================================
+   IMAGE
+========================================================= */
+
+.vnt-service-image {
+  position: absolute;
+
+  inset: 0;
+
+  z-index: -3;
+
+  width: 100%;
+  height: 100%;
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  transition: transform 0.55s ease;
+}
+
+.vnt-service-card:hover .vnt-service-image {
+  transform: scale(1.055);
+}
+
+
+/* =========================================================
+   OVERLAY
+========================================================= */
+
+.vnt-service-overlay {
+  position: absolute;
+
+  inset: 0;
+
+  z-index: -2;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(4, 22, 52, 0.06) 0%,
+      rgba(4, 22, 52, 0.18) 38%,
+      rgba(4, 22, 52, 0.88) 100%
+    );
+
+  transition: background 0.3s ease;
+}
+
+.vnt-service-card:hover .vnt-service-overlay {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(4, 41, 96, 0.06) 0%,
+      rgba(4, 41, 96, 0.24) 40%,
+      rgba(4, 51, 119, 0.92) 100%
+    );
+}
+
+
+/* =========================================================
+   CONTENT
+========================================================= */
+
+.vnt-service-content {
+  position: relative;
+
+  z-index: 2;
+
+  width: 100%;
+  height: 100%;
+
+  padding: 20px;
+
+  box-sizing: border-box;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  /* QUAN TRỌNG */
+  align-items: flex-start;
+
+  color: #ffffff;
+
+  text-align: left;
+}
+
+
+/* =========================================================
+   TOP
+========================================================= */
+
+.vnt-service-top {
+  width: 100%;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: flex-start;
+
+  gap: 9px;
+
+  text-align: left;
+}
+
+.vnt-service-icon {
+  width: 38px;
+  height: 38px;
+
+  flex: 0 0 38px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  color: #ffffff;
+
+  background: rgba(255, 255, 255, 0.18);
+
+  border: 1px solid rgba(255, 255, 255, 0.2);
+
+  border-radius: 10px;
+
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+
+.vnt-service-category {
+  color: rgba(255, 255, 255, 0.95);
+
+  font-size: 9.5px;
+  font-weight: 800;
+  line-height: 1.2;
+
+  letter-spacing: 1px;
+
+  text-transform: uppercase;
+
+  text-align: left;
+}
+
+
+/* =========================================================
+   BOTTOM
+========================================================= */
+
+.vnt-service-bottom {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+
+  align-items: flex-start;
+  justify-content: flex-start;
+
+  text-align: left;
+}
+
+
+/* =========================================================
+   TITLE - CĂN TRÁI
+========================================================= */
+
+.vnt-service-bottom h3 {
+  display: block;
+
+  width: 100%;
+
+  max-width: 500px;
+
+  margin: 0 0 10px 0 !important;
+
+  padding: 0;
+
+  color: #ffffff;
+
+  font-size: 21px;
+  font-weight: 800;
+  line-height: 1.25;
+
+  letter-spacing: -0.3px;
+
+  text-align: left !important;
+
+  align-self: flex-start;
+}
+
+.vnt-service-featured .vnt-service-bottom h3 {
+  font-size: 28px;
+}
+
+
+/* =========================================================
+   TAGS - CĂN TRÁI
+========================================================= */
+
+.vnt-service-tags {
+  width: 100%;
+
+  list-style: none;
+
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
-  opacity: 0;
-  transform: translateY(10px);
-  transition: all 0.4s;
+
+  justify-content: flex-start !important;
+  align-items: flex-start;
+
+  gap: 6px;
+
+  margin: 0 0 13px 0 !important;
+
+  padding: 0 !important;
+
+  text-align: left;
+
+  align-self: flex-start;
 }
 
-.bento-item:hover .bento-sub-services {
-  opacity: 1;
-  transform: translateY(0);
-}
+.vnt-service-tags li {
+  margin: 0;
 
-.bento-sub-services li {
-  font-size: 13px;
+  padding: 5px 9px;
+
+  color: rgba(255, 255, 255, 0.96);
+
   background: rgba(255, 255, 255, 0.15);
-  padding: 4px 12px;
-  border-radius: 50px;
-  backdrop-filter: blur(5px);
+
+  border: 1px solid rgba(255, 255, 255, 0.15);
+
+  border-radius: 999px;
+
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 1.15;
+
   white-space: nowrap;
+
+  text-align: left;
+
+  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
 }
 
-.bento-item-footer {
-  margin-top: auto;
-}
 
-.explore-link {
-  font-size: 12px;
-  font-weight: 700;
-  display: flex;
+/* =========================================================
+   KHÁM PHÁ CHI TIẾT - CĂN TRÁI
+========================================================= */
+
+.vnt-service-link {
+  width: fit-content;
+
+  display: inline-flex;
+
   align-items: center;
-  gap: 5px;
-  opacity: 0.7;
+  justify-content: flex-start !important;
+
+  gap: 6px;
+
+  margin: 0 auto 0 0 !important;
+
+  padding: 0;
+
+  color: #ffffff;
+
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1;
+
+  opacity: 0.92;
+
+  text-align: left !important;
+
+  align-self: flex-start;
 }
 
-.bento-item:hover .explore-link {
-  opacity: 1;
+.vnt-service-link svg {
+  flex-shrink: 0;
+
+  transition: transform 0.2s ease;
 }
 
-/* Responsive */
-@media (max-width: 992px) {
-  .bento-grid-v4 {
+.vnt-service-card:hover .vnt-service-link svg {
+  transform: translateX(4px);
+}
+
+
+/* =========================================================
+   SMALL CARD DESKTOP
+========================================================= */
+
+.vnt-service-small .vnt-service-content {
+  padding: 17px;
+}
+
+.vnt-service-small .vnt-service-icon {
+  width: 34px;
+  height: 34px;
+
+  flex-basis: 34px;
+}
+
+.vnt-service-small .vnt-service-bottom h3 {
+  font-size: 17px;
+}
+
+.vnt-service-small .vnt-service-tags {
+  gap: 4px;
+
+  margin-bottom: 9px !important;
+}
+
+.vnt-service-small .vnt-service-tags li {
+  padding: 4px 7px;
+
+  font-size: 8.5px;
+}
+
+
+/* =========================================================
+   FULL CARD DESKTOP
+========================================================= */
+
+.vnt-service-full .vnt-service-content {
+  align-items: flex-start;
+}
+
+.vnt-service-full .vnt-service-bottom {
+  width: 100%;
+
+  align-items: flex-start;
+
+  text-align: left;
+}
+
+.vnt-service-full .vnt-service-bottom h3 {
+  font-size: 24px;
+
+  text-align: left !important;
+}
+
+.vnt-service-full .vnt-service-tags {
+  max-width: 720px;
+
+  justify-content: flex-start !important;
+}
+
+
+/* =========================================================
+   MOBILE HINT
+========================================================= */
+
+.vnt-services-mobile-hint {
+  display: none;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 820px) {
+
+  .vnt-services-section {
+    padding: 44px 0 48px;
+  }
+
+  .vnt-services-container {
+    padding: 0 16px;
+  }
+
+  .vnt-services-header {
+    margin-bottom: 24px;
+  }
+
+  .vnt-services-heading h2 {
+    font-size: 27px;
+  }
+
+  .vnt-services-heading p {
+    max-width: 520px;
+
+    font-size: 13px;
+  }
+
+
+  /*
+   * TABLET:
+   * chuyển sang scroll ngang
+   */
+
+  .vnt-services-grid {
     display: flex;
+
+    width: calc(100% + 16px);
+
+    margin-right: -16px;
+
+    gap: 14px;
+
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    padding: 2px 16px 14px 0;
+
+    scroll-snap-type: x mandatory;
+
+    -webkit-overflow-scrolling: touch;
+
+    scrollbar-width: none;
+  }
+
+  .vnt-services-grid::-webkit-scrollbar {
+    display: none;
+  }
+
+
+  /* RESET GRID DESKTOP */
+
+  .vnt-service-featured,
+  .vnt-service-wide,
+  .vnt-service-small,
+  .vnt-service-full {
+    grid-column: auto;
+    grid-row: auto;
+
+    flex: 0 0 72%;
+
+    width: 72%;
+
+    height: 320px;
+
+    min-width: 0;
+
+    scroll-snap-align: start;
+  }
+
+
+  .vnt-service-content,
+  .vnt-service-small .vnt-service-content,
+  .vnt-service-full .vnt-service-content {
+    padding: 18px;
+
+    align-items: flex-start;
+
+    text-align: left;
+  }
+
+
+  .vnt-service-bottom {
+    width: 100%;
+
+    align-items: flex-start;
+
+    text-align: left;
+  }
+
+
+  .vnt-service-bottom h3,
+  .vnt-service-small .vnt-service-bottom h3,
+  .vnt-service-full .vnt-service-bottom h3 {
+    width: 100%;
+
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+
+    font-size: 20px;
+
+    text-align: left !important;
+  }
+
+
+  .vnt-service-tags {
+    width: 100%;
+
+    justify-content: flex-start !important;
+
+    text-align: left;
+  }
+
+
+  .vnt-service-link {
+    margin-left: 0 !important;
+    margin-right: auto !important;
+
+    justify-content: flex-start !important;
+
+    text-align: left !important;
+  }
+
+
+  .vnt-services-mobile-hint {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: flex-start;
+
+    gap: 5px;
+
+    margin-top: 5px;
+
+    color: #758195;
+
+    font-size: 10px;
+    font-weight: 600;
+  }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 576px) {
+
+  .vnt-services-section {
+    padding: 34px 0 38px;
+  }
+
+  .vnt-services-container {
+    padding: 0 14px;
+  }
+
+
+  /* =====================================================
+     HEADER
+  ===================================================== */
+
+  .vnt-services-header {
+    margin-bottom: 19px;
+
+    text-align: left;
+  }
+
+  .vnt-services-heading {
+    width: 100%;
+
+    text-align: left;
+  }
+
+  .vnt-services-eyebrow {
+    margin-bottom: 7px;
+
+    font-size: 9px;
+
+    letter-spacing: 0.6px;
+
+    text-align: left;
+  }
+
+  .vnt-services-heading h2 {
+    font-size: 23px;
+
+    line-height: 1.2;
+
+    letter-spacing: -0.4px;
+
+    text-align: left;
+  }
+
+  .vnt-services-heading p {
+    max-width: 330px;
+
+    margin-top: 6px;
+
+    font-size: 12px;
+
+    line-height: 1.5;
+
+    text-align: left;
+  }
+
+
+  /* =====================================================
+     HORIZONTAL SCROLL
+  ===================================================== */
+
+  .vnt-services-grid {
+    display: flex;
+
+    width: calc(100% + 14px);
+
+    margin-right: -14px;
+
+    gap: 10px;
+
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    padding:
+      2px
+      14px
+      12px
+      0;
+
+    scroll-snap-type: x mandatory;
+
+    scroll-padding-left: 0;
+
+    -webkit-overflow-scrolling: touch;
+
+    scrollbar-width: none;
+  }
+
+  .vnt-services-grid::-webkit-scrollbar {
+    display: none;
+  }
+
+
+  /* =====================================================
+     CARD MOBILE
+  ===================================================== */
+
+  .vnt-service-featured,
+  .vnt-service-wide,
+  .vnt-service-small,
+  .vnt-service-full {
+    flex:
+      0
+      0
+      82%;
+
+    width: 82%;
+
+    height: 285px;
+
+    min-width: 0;
+
+    border-radius: 16px;
+
+    scroll-snap-align: start;
+
+    scroll-snap-stop: normal;
+  }
+
+
+  /*
+   * Card sau sẽ ló ra khoảng 18%
+   * để người dùng biết còn card bên phải
+   */
+
+
+  /* =====================================================
+     CONTENT
+  ===================================================== */
+
+  .vnt-service-content,
+  .vnt-service-small .vnt-service-content,
+  .vnt-service-full .vnt-service-content {
+    width: 100%;
+    height: 100%;
+
+    padding: 17px;
+
+    display: flex;
+
     flex-direction: column;
-    height: auto;
+
+    justify-content: space-between;
+
+    align-items: flex-start;
+
+    text-align: left;
   }
-  .bento-item {
-    height: 300px;
+
+
+  /* =====================================================
+     TOP
+  ===================================================== */
+
+  .vnt-service-top {
+    width: 100%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: flex-start;
+
+    gap: 8px;
+
+    text-align: left;
   }
-  .bento-sub-services {
+
+  .vnt-service-icon,
+  .vnt-service-small .vnt-service-icon {
+    width: 34px;
+    height: 34px;
+
+    flex: 0 0 34px;
+
+    border-radius: 9px;
+  }
+
+  .vnt-service-icon svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .vnt-service-category {
+    font-size: 8.5px;
+
+    letter-spacing: 0.7px;
+
+    text-align: left;
+  }
+
+
+  /* =====================================================
+     BOTTOM
+  ===================================================== */
+
+  .vnt-service-bottom {
+    width: 100%;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: flex-start !important;
+
+    text-align: left !important;
+  }
+
+
+  /* =====================================================
+     TITLE MOBILE
+  ===================================================== */
+
+  .vnt-service-bottom h3,
+  .vnt-service-small .vnt-service-bottom h3,
+  .vnt-service-full .vnt-service-bottom h3 {
+    display: block;
+
+    width: 100%;
+
+    max-width: 100%;
+
+    margin:
+      0
+      0
+      9px
+      0 !important;
+
+    padding: 0;
+
+    font-size: 20px;
+
+    line-height: 1.2;
+
+    text-align: left !important;
+
+    align-self: flex-start !important;
+  }
+
+
+  .vnt-service-featured .vnt-service-bottom h3 {
+    font-size: 22px;
+
+    text-align: left !important;
+  }
+
+
+  /* =====================================================
+     TAGS MOBILE
+  ===================================================== */
+
+  .vnt-service-tags,
+  .vnt-service-small .vnt-service-tags {
+    width: 100%;
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    justify-content: flex-start !important;
+
+    align-items: flex-start;
+
+    gap: 5px;
+
+    margin:
+      0
+      0
+      11px
+      0 !important;
+
+    padding: 0 !important;
+
+    text-align: left !important;
+
+    align-self: flex-start !important;
+  }
+
+  .vnt-service-tags li,
+  .vnt-service-small .vnt-service-tags li {
+    margin: 0;
+
+    padding: 5px 8px;
+
+    font-size: 9px;
+
+    line-height: 1.15;
+
+    text-align: left;
+  }
+
+
+  /* =====================================================
+     KHÁM PHÁ CHI TIẾT MOBILE
+  ===================================================== */
+
+  .vnt-service-link {
+    width: fit-content;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: flex-start !important;
+
+    gap: 5px;
+
+    margin:
+      0
+      auto
+      0
+      0 !important;
+
+    padding: 0;
+
+    font-size: 10px;
+
     opacity: 1;
+
+    text-align: left !important;
+
+    align-self: flex-start !important;
+  }
+
+  .vnt-service-link svg {
+    width: 13px;
+    height: 13px;
+  }
+
+
+  /* =====================================================
+     SWIPE HINT
+  ===================================================== */
+
+  .vnt-services-mobile-hint {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: flex-start;
+
+    gap: 5px;
+
+    margin-top: 3px;
+
+    color: #7a869a;
+
+    font-size: 9.5px;
+
+    font-weight: 600;
+
+    text-align: left;
+  }
+}
+
+
+/* =========================================================
+   SMALL PHONE
+========================================================= */
+
+@media (max-width: 390px) {
+
+  .vnt-services-container {
+    padding: 0 12px;
+  }
+
+  .vnt-services-grid {
+    width: calc(100% + 12px);
+
+    margin-right: -12px;
+
+    padding-right: 12px;
+  }
+
+  .vnt-service-featured,
+  .vnt-service-wide,
+  .vnt-service-small,
+  .vnt-service-full {
+    flex-basis: 84%;
+
+    width: 84%;
+
+    height: 270px;
+  }
+
+  .vnt-service-content,
+  .vnt-service-small .vnt-service-content,
+  .vnt-service-full .vnt-service-content {
+    padding: 15px;
+  }
+
+  .vnt-service-bottom h3,
+  .vnt-service-small .vnt-service-bottom h3,
+  .vnt-service-full .vnt-service-bottom h3 {
+    font-size: 18px;
+
+    text-align: left !important;
+  }
+
+  .vnt-service-featured .vnt-service-bottom h3 {
+    font-size: 20px;
+  }
+
+  .vnt-service-tags {
+    justify-content: flex-start !important;
+  }
+
+  .vnt-service-tags li {
+    font-size: 8.5px;
+  }
+
+  .vnt-service-link {
+    margin-left: 0 !important;
+    margin-right: auto !important;
+
+    text-align: left !important;
+  }
+}
+
+
+/* =========================================================
+   TOUCH DEVICE
+========================================================= */
+
+@media (hover: none) {
+
+  .vnt-service-card:hover {
+    transform: none;
+
+    box-shadow:
+      0 1px 2px
+      rgba(9, 30, 66, 0.04);
+  }
+
+  .vnt-service-card:hover .vnt-service-image {
+    transform: none;
+  }
+
+  .vnt-service-card:hover .vnt-service-link svg {
     transform: none;
   }
 }

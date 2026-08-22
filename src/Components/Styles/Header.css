@@ -1,296 +1,1038 @@
-.header-wrap {
-  position: relative;
-}
+/* =========================================================
+   HEADER
+========================================================= */
 
-.navbar-fixed-top {
+.vnt-header {
   position: fixed;
 
+  top: 0;
+  left: 0;
   right: 0;
 
-  left: 0;
+  z-index: 9999;
 
-  z-index: 999;
-}
-
-.header-wrapper {
   width: 100%;
-  margin: 0px auto 0;
-  padding-top: 10px;
+
+  background:
+    rgba(255, 255, 255, 0.96);
+
+  border-bottom:
+    1px solid
+    rgba(9, 30, 66, 0.055);
+
+  transition:
+    background 0.25s ease,
+    box-shadow 0.25s ease,
+    backdrop-filter 0.25s ease;
+
+  font-family:
+    "Inter",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+}
+
+
+/* =========================================================
+   SCROLLED
+========================================================= */
+
+.vnt-header-scrolled {
+  background:
+    rgba(255, 255, 255, 0.91);
+
+  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(18px);
+
+  box-shadow:
+    0 8px 30px
+    rgba(9, 30, 66, 0.08);
+}
+
+
+/* =========================================================
+   INNER
+========================================================= */
+
+.vnt-header-inner {
+  width: 100%;
+
+  max-width: 1280px;
+
+  min-height: 76px;
+
+  margin: 0 auto;
+
+  padding:
+    0
+    24px;
+
+  box-sizing: border-box;
+
+  display: grid;
+
+  grid-template-columns:
+    auto
+    minmax(0, 1fr)
+    auto;
+
+  align-items: center;
+
+  gap: 38px;
+}
+
+
+/* =========================================================
+   BRAND
+========================================================= */
+
+.vnt-header-brand {
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  flex-shrink: 0;
+
+  text-decoration: none;
+}
+
+
+/* =========================================================
+   LOGO
+========================================================= */
+
+.vnt-header-logo {
+  display: block;
+
+  width: 55px;
+  height: 55px;
+
+  object-fit: contain;
+
+  flex-shrink: 0;
+}
+
+
+/* =========================================================
+   BRAND TEXT
+========================================================= */
+
+.vnt-header-brand-text {
   display: flex;
-  justify-content: center;
-  background: #fff;
-  height: 84px;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 9px 0px;
-}
 
-.header-left {
-  display: flex;
-}
-
-.first-line {
-  display: flex;
-  cursor: pointer;
-}
-
-.first-line p {
-  font-size: 13px;
-  color: rgb(84, 84, 84);
-}
-
-#logo {
-  height: 25px;
-  width: 150px;
-  padding-top: 6px;
-}
-
-.select-city {
-  width: 171px;
-  height: 36px;
-  background-color: #f4f4f4;
-  margin-left: 35px;
-}
-
-.select-experience {
-  background-color: #f4f4f4;
-  margin-left: 5px;
-  display: flex;
-}
-
-.select-experience input {
-  border: none;
-  background: #f4f4f4;
-  width: 580px;
-  height: 35px;
-  outline: none;
-  padding-left: 25px;
-}
-
-.select-experience i {
-  color: #cbcbcb;
-  font-size: 15px;
-  padding-top: 12px;
-  padding-right: 20px;
-}
-
-.second-line {
-  display: flex;
-  cursor: pointer;
-  padding-top: 5px;
-  justify-content: space-between;
-}
-
-.second-line p {
-  color: #545454;
-  font-size: 13px;
-  margin-right: 30px;
-}
-
-.second-line p:hover {
-  color: #ec1943;
-}
-
-.best-picked {
-  display: flex;
-}
-
-.support {
-  display: flex;
-  margin-left: 120px;
-  justify-content: flex-end;
-}
-
-.arrow-down {
-  padding-left: 5px;
-}
-
-.header-right {
-  display: flex;
   flex-direction: column;
-  align-items: flex-end;
-  margin-left: 25px;
+
+  gap: 3px;
+
+  text-align: left;
 }
 
-.sign-in {
+
+.vnt-header-brand-text strong {
+  color: #075bb5;
+
+  font-size: 16px;
+
+  line-height: 1;
+
+  font-weight: 900;
+
+  letter-spacing: 0.15px;
+
+  white-space: nowrap;
+}
+
+
+.vnt-header-brand-text span {
+  color: #79879c;
+
+  font-size: 7.5px;
+
+  line-height: 1;
+
+  font-weight: 750;
+
+  letter-spacing: 0.8px;
+
+  white-space: nowrap;
+}
+
+
+/* =========================================================
+   DESKTOP NAV
+========================================================= */
+
+.vnt-header-nav {
+  min-width: 0;
+
   display: flex;
-  justify-content: flex-end;
+
   align-items: center;
-  cursor: pointer;
+
+  justify-content: center;
+
+  gap: 4px;
 }
 
-.sign-in-user {
-  color: #e8e8e8;
-  font-size: 20px;
-}
 
-.lastnamearya-img img {
-  width: 20px;
-  border-radius: 50%;
-}
+/* =========================================================
+   NAV ITEM
+========================================================= */
 
-.header-right p {
-  color: #545454;
-  font-size: 13px;
-}
-
-.download-app {
-  display: flex;
-  align-items: center;
-  margin-top: -3px;
-  min-width: 120px;
-  justify-content: flex-end;
-  cursor: pointer;
-}
-
-.download-app p {
-  margin-left: 5px;
-}
-
-#mobile-app {
-  max-width: 22px;
-  display: inline-block;
-  vertical-align: middle;
-  -webkit-filter: invert(200%);
-  filter: invert(200%);
-  height: 22px;
-}
-
-/* Slideshow */
-
-#slideshow {
+.vnt-header-nav-item {
   position: relative;
-  height: 450px;
+
+  min-height: 42px;
+
+  display: inline-flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  padding:
+    0
+    13px;
+
+  color: #26374f;
+
+  background: transparent;
+
+  border: 0;
+
+  border-radius: 9px;
+
+  font-family: inherit;
+
+  font-size: 13px;
+
+  line-height: 1;
+
+  font-weight: 700;
+
+  white-space: nowrap;
+
+  cursor: pointer;
+
+  transition:
+    color 0.2s ease,
+    background 0.2s ease;
 }
 
-#slideshow > .img-crop {
+
+/* underline */
+
+.vnt-header-nav-item::after {
+  content: "";
+
   position: absolute;
+
+  left: 50%;
+  bottom: 3px;
+
+  width: 0;
+
+  height: 2px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #075fd3,
+      #12bceb
+    );
+
+  border-radius: 999px;
+
+  transform: translateX(-50%);
+
+  transition:
+    width 0.2s ease;
 }
 
-.test {
-  font-family: Avenir, proxima-nova, arial, sans-serif;
-  color: #545454;
+
+@media (hover: hover) {
+
+  .vnt-header-nav-item:hover {
+    color: #075fd3;
+
+    background:
+      rgba(7, 95, 211, 0.045);
+  }
+
+
+  .vnt-header-nav-item:hover::after {
+    width: 22px;
+  }
 }
 
-/* Search Bar */
 
-.search-bar-div {
-  position: relative;
+/* =========================================================
+   RIGHT ACTION
+========================================================= */
+
+.vnt-header-actions {
   display: flex;
-  justify-content: center;
-  margin-top: -28px;
+
+  align-items: center;
+
+  gap: 10px;
 }
 
-.search-bar {
-  position: relative;
+
+/* =========================================================
+   HOTLINE
+========================================================= */
+
+.vnt-header-hotline {
   display: flex;
-  justify-content: center;
+
+  align-items: center;
+
+  gap: 9px;
+
+  color: inherit;
+
+  text-decoration: none;
+
+  white-space: nowrap;
 }
 
-.select-city-large {
-  width: 216px;
-  height: 54px;
-  border-radius: 3px;
-  box-shadow: 0 5px 22px 0 rgba(0, 0, 0, 0.2);
-  background: white;
+
+.vnt-header-hotline-icon {
+  width: 35px;
+  height: 35px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  color: #075fd3;
+
+  background: #edf5ff;
+
+  border-radius: 10px;
+
+  font-size: 12px;
+}
+
+
+.vnt-header-hotline > div:last-child {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 2px;
+
+  text-align: left;
+}
+
+
+.vnt-header-hotline span {
+  color: #8894a6;
+
+  font-size: 8.5px;
+
+  line-height: 1;
+
+  font-weight: 600;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.4px;
+}
+
+
+.vnt-header-hotline strong {
+  color: #15243a;
+
+  font-size: 12px;
+
+  line-height: 1;
+
+  font-weight: 850;
+}
+
+
+/* =========================================================
+   TOUR BUTTON
+========================================================= */
+
+.vnt-header-tour-btn {
+  min-height: 42px;
+
+  display: inline-flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 7px;
+
+  padding:
+    0
+    15px;
+
+  color: #ffffff;
+
+  background:
+    linear-gradient(
+      135deg,
+      #075fd3,
+      #0789df
+    );
+
+  border: 0;
+
+  border-radius: 10px;
+
+  box-shadow:
+    0 7px 16px
+    rgba(7, 95, 211, 0.18);
+
+  font-family: inherit;
+
+  font-size: 11px;
+
+  line-height: 1;
+
+  font-weight: 800;
+
   cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+
+.vnt-header-tour-btn svg {
+  font-size: 9px;
+}
+
+
+@media (hover: hover) {
+
+  .vnt-header-tour-btn:hover {
+    transform: translateY(-1px);
+
+    box-shadow:
+      0 10px 22px
+      rgba(7, 95, 211, 0.25);
+  }
+}
+
+
+/* =========================================================
+   MOBILE ACTIONS
+========================================================= */
+
+.vnt-header-mobile-actions {
+  display: none;
+
+  align-items: center;
+
+  gap: 7px;
+}
+
+
+/* =========================================================
+   HEADER SPACER
+========================================================= */
+
+.vnt-header-spacer {
+  width: 100%;
+
+  height: 76px;
+}
+
+
+/* =========================================================
+   MOBILE OVERLAY
+========================================================= */
+
+.vnt-mobile-menu-overlay {
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 9997;
+
+  visibility: hidden;
+
+  opacity: 0;
+
+  background:
+    rgba(3, 18, 40, 0.48);
+
+  -webkit-backdrop-filter: blur(3px);
+  backdrop-filter: blur(3px);
+
+  transition:
+    opacity 0.25s ease,
+    visibility 0.25s ease;
+}
+
+
+.vnt-mobile-menu-overlay.show {
+  visibility: visible;
+
+  opacity: 1;
+}
+
+
+/* =========================================================
+   MOBILE MENU
+========================================================= */
+
+.vnt-mobile-menu {
+  position: fixed;
+
+  top: 0;
+  right: 0;
+
+  z-index: 9998;
+
+  width: min(88vw, 360px);
+
+  height: 100dvh;
+
+  padding: 22px 18px;
+
+  box-sizing: border-box;
+
+  overflow-y: auto;
+
+  background: #ffffff;
+
+  transform: translateX(105%);
+
+  box-shadow:
+    -20px 0 50px
+    rgba(9, 30, 66, 0.16);
+
+  transition:
+    transform 0.3s
+    cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+
+.vnt-mobile-menu.open {
+  transform: translateX(0);
+}
+
+
+/* =========================================================
+   MOBILE MENU HEADER
+========================================================= */
+
+.vnt-mobile-menu-header {
+  min-height: 45px;
+
   display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  padding-bottom: 15px;
+
+  border-bottom:
+    1px solid #edf1f5;
 }
 
-.select-city-large i {
-  color: #9a9a9a;
-  padding-top: 20px;
-  padding-left: 30px;
-  font-size: 15px;
+
+.vnt-mobile-menu-header > span {
+  color: #075fd3;
+
+  font-size: 10px;
+
+  font-weight: 850;
+
+  letter-spacing: 1px;
 }
 
-.select-experience-large {
-  border-radius: 3px;
-  box-shadow: 0 5px 22px 0 rgba(0, 0, 0, 0.15);
-  margin-left: 5px;
-  background: white;
+
+.vnt-mobile-menu-header button {
+  width: 36px;
+  height: 36px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  padding: 0;
+
+  color: #26374f;
+
+  background: #f3f6fa;
+
+  border: 0;
+
+  border-radius: 9px;
+
+  cursor: pointer;
 }
 
-.select-experience-large input {
-  border: none;
+
+/* =========================================================
+   MOBILE NAV
+========================================================= */
+
+.vnt-mobile-nav {
+  display: flex;
+
+  flex-direction: column;
+
+  margin-top: 12px;
+}
+
+
+.vnt-mobile-nav button {
+  width: 100%;
+
+  min-height: 52px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 20px;
+
+  padding:
+    0
+    3px;
+
+  color: #172b4d;
+
+  background: transparent;
+
+  border: 0;
+
+  border-bottom:
+    1px solid #f0f2f5;
+
+  font-family: inherit;
+
   font-size: 13px;
-  padding-left: 20px;
-  width: 280px;
-  height: 52px;
-  outline: none;
-  -webkit-transition: width 0.3s ease-out;
-  -moz-transition: width 0.3s ease-out;
-  -o-transition: width 0.3s ease-out;
-  transition: width 0.3s ease-out;
-}
 
-.select-experience-large input:focus-within {
-  width: 450px;
-}
+  font-weight: 750;
 
-.select-experience-large i {
-  padding-right: 20px;
-  color: #cbcbcb;
-}
+  text-align: left;
 
-#go {
-  font-size: 16.2px;
-  line-height: 22.68px;
-  font-weight: 500;
-  width: 110px;
-  height: 54px;
-  border-radius: 3px;
-  border: none;
-  outline: none;
-  color: white;
-  background: linear-gradient(
-    -45deg,
-    #eb294b,
-    #e73c7e,
-    #dd2953,
-    #cd853f,
-    #ce1232,
-    #eb294b,
-    #e73c7e
-  );
-  background-size: 400% 400%;
-  -webkit-animation: Gradient 15s ease infinite;
-  -moz-animation: Gradient 15s ease infinite;
-  animation: Gradient 10s ease infinite;
-  margin-left: 5px;
   cursor: pointer;
 }
 
-@-webkit-keyframes Gradient {
-  0% {
-    background-position: 0% 50%;
+
+.vnt-mobile-nav button svg {
+  color: #a7b1be;
+
+  font-size: 9px;
+}
+
+
+/* =========================================================
+   MOBILE CONTACT CTA
+========================================================= */
+
+.vnt-mobile-menu-contact {
+  margin-top: 24px;
+
+  padding: 18px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #edf6ff,
+      #f5fbff
+    );
+
+  border:
+    1px solid #dceafb;
+
+  border-radius: 15px;
+
+  text-align: left;
+}
+
+
+.vnt-mobile-menu-contact > span {
+  display: block;
+
+  color: #075fd3;
+
+  font-size: 8px;
+
+  font-weight: 850;
+
+  letter-spacing: 0.8px;
+}
+
+
+.vnt-mobile-menu-contact h3 {
+  max-width: 250px;
+
+  margin:
+    7px
+    0
+    0;
+
+  color: #102344;
+
+  font-size: 17px;
+
+  line-height: 1.3;
+
+  font-weight: 850;
+}
+
+
+.vnt-mobile-menu-contact > p {
+  margin:
+    8px
+    0
+    0;
+
+  color: #68768d;
+
+  font-size: 10.5px;
+
+  line-height: 1.5;
+}
+
+
+.vnt-mobile-menu-contact > a {
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  margin-top: 14px;
+
+  color: #075fd3;
+
+  text-decoration: none;
+}
+
+
+.vnt-mobile-menu-contact > a > svg {
+  width: 34px;
+  height: 34px;
+
+  padding: 9px;
+
+  box-sizing: border-box;
+
+  color: #ffffff;
+
+  background: #075fd3;
+
+  border-radius: 9px;
+}
+
+
+.vnt-mobile-menu-contact > a > div {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 2px;
+}
+
+
+.vnt-mobile-menu-contact > a span {
+  color: #7b899c;
+
+  font-size: 8px;
+
+  text-transform: uppercase;
+}
+
+
+.vnt-mobile-menu-contact > a strong {
+  color: #075fd3;
+
+  font-size: 14px;
+
+  font-weight: 900;
+}
+
+
+/* =========================================================
+   LAPTOP
+========================================================= */
+
+@media (max-width: 1150px) {
+
+  .vnt-header-inner {
+    padding:
+      0
+      20px;
+
+    gap: 22px;
   }
-  50% {
-    background-position: 100% 50%;
+
+
+  .vnt-header-brand-text {
+    display: none;
   }
-  100% {
-    background-position: 0% 50%;
+
+
+  .vnt-header-nav {
+    gap: 1px;
+  }
+
+
+  .vnt-header-nav-item {
+    padding:
+      0
+      10px;
+
+    font-size: 12px;
+  }
+
+}
+
+
+/* =========================================================
+   TABLET / MOBILE HEADER
+========================================================= */
+
+@media (max-width: 900px) {
+
+  .vnt-header-inner {
+    min-height: 68px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding:
+      0
+      16px;
+  }
+
+
+  .vnt-header-logo {
+    width: 48px;
+
+    height: 48px;
+  }
+
+
+  .vnt-header-brand-text {
+    display: flex;
+  }
+
+
+  .vnt-header-brand-text strong {
+    font-size: 14px;
+  }
+
+
+  .vnt-header-brand-text span {
+    font-size: 6.5px;
+  }
+
+
+  .vnt-header-nav,
+  .vnt-header-actions {
+    display: none;
+  }
+
+
+  .vnt-header-mobile-actions {
+    display: flex;
+  }
+
+
+  .vnt-header-mobile-phone,
+  .vnt-header-menu-btn {
+    width: 38px;
+
+    height: 38px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 0;
+
+    border-radius: 10px;
+  }
+
+
+  .vnt-header-mobile-phone {
+    color: #075fd3;
+
+    background: #edf5ff;
+
+    text-decoration: none;
+
+    font-size: 12px;
+  }
+
+
+  .vnt-header-menu-btn {
+    color: #172b4d;
+
+    background: #f3f6f9;
+
+    border:
+      1px solid #e6ebf1;
+
+    font-size: 14px;
+
+    cursor: pointer;
+  }
+
+
+  .vnt-header-menu-btn.active {
+    color: #ffffff;
+
+    background: #075fd3;
+
+    border-color: #075fd3;
+  }
+
+
+  .vnt-header-spacer {
+    height: 68px;
   }
 }
 
-@-moz-keyframes Gradient {
-  0% {
-    background-position: 0% 50%;
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 576px) {
+
+  .vnt-header-inner {
+    min-height: 62px;
+
+    padding:
+      0
+      13px;
   }
-  50% {
-    background-position: 100% 50%;
+
+
+  .vnt-header-spacer {
+    height: 62px;
   }
-  100% {
-    background-position: 0% 50%;
+
+
+  .vnt-header-brand {
+    gap: 7px;
+  }
+
+
+  .vnt-header-logo {
+    width: 44px;
+
+    height: 44px;
+  }
+
+
+  .vnt-header-brand-text strong {
+    font-size: 13px;
+  }
+
+
+  .vnt-header-brand-text span {
+    margin-top: 1px;
+
+    font-size: 6px;
+
+    letter-spacing: 0.55px;
+  }
+
+
+  .vnt-header-mobile-actions {
+    gap: 6px;
+  }
+
+
+  .vnt-header-mobile-phone,
+  .vnt-header-menu-btn {
+    width: 36px;
+
+    height: 36px;
+
+    border-radius: 9px;
+  }
+
+
+  .vnt-mobile-menu {
+    width: min(88vw, 350px);
+
+    padding:
+      18px
+      16px;
+  }
+
+
+  .vnt-mobile-nav button {
+    min-height: 50px;
+
+    font-size: 12.5px;
   }
 }
 
-@keyframes Gradient {
-  0% {
-    background-position: 0% 50%;
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 390px) {
+
+  .vnt-header-inner {
+    padding:
+      0
+      11px;
   }
-  50% {
-    background-position: 100% 50%;
+
+
+  .vnt-header-brand-text span {
+    display: none;
   }
-  100% {
-    background-position: 0% 50%;
+
+
+  .vnt-header-brand-text strong {
+    font-size: 12.5px;
   }
+
+
+  .vnt-header-logo {
+    width: 42px;
+
+    height: 42px;
+  }
+
+}
+
+
+/* =========================================================
+   VERY SMALL MOBILE
+========================================================= */
+
+@media (max-width: 340px) {
+
+  .vnt-header-brand-text {
+    display: none;
+  }
+
 }

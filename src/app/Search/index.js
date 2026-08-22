@@ -7,6 +7,7 @@ import {
   Ship,
   ArrowRight,
 } from "lucide-react";
+
 import "./index.css";
 
 const Search = () => {
@@ -15,7 +16,7 @@ const Search = () => {
       id: "mice",
       category: "DOANH NGHIỆP",
       title: "Team Building, MICE & Sự Kiện",
-      icon: <Users size={24} />,
+      icon: <Users size={22} />,
       services: [
         "Team Building",
         "Tổ chức Event",
@@ -24,45 +25,45 @@ const Search = () => {
       ],
       image:
         "https://cms.cybershow.vn/wp-content/uploads/2020/02/company-trip-prudential-118-scaled.jpg",
-      gridArea: "1 / 1 / 3 / 3", // Ô này lớn nhất (2x2)
+      type: "featured",
     },
     {
       id: "tour",
       category: "KHÁM PHÁ",
       title: "Du Lịch Truyền Thống",
-      icon: <Map size={24} />,
-      services: ["Du lịch trong nước", "Du lịch hành hương, Trekking"],
+      icon: <Map size={22} />,
+      services: ["Du lịch trong nước", "Hành hương", "Trekking"],
       image:
         "https://images.unsplash.com/photo-1528127269322-539801943592?q=80&w=2070&auto=format&fit=crop",
-      gridArea: "1 / 3 / 2 / 5", // Ô nằm ngang (1x2)
+      type: "wide",
     },
     {
       id: "edu",
       category: "TRẢI NGHIỆM",
       title: "Học Tập & Trải Nghiệm",
-      icon: <GraduationCap size={24} />,
-      services: ["Trải nghiệm học tấp", "Ngoại khoá, dã ngoại"],
+      icon: <GraduationCap size={22} />,
+      services: ["Trải nghiệm học tập", "Ngoại khoá", "Dã ngoại"],
       image:
         "https://bizweb.dktcdn.net/100/072/558/files/tour-hoc-sinh-5.jpg?v=1583379965455",
-      gridArea: "2 / 3 / 3 / 4", // Ô 1x1
+      type: "small",
     },
     {
       id: "luxury",
       category: "SANG TRỌNG",
       title: "Du Thuyền Cao Cấp",
-      icon: <Ship size={24} />,
+      icon: <Ship size={22} />,
       services: ["Nghỉ dưỡng trên vịnh", "Tiệc du thuyền"],
       image:
         "https://travelhalong.com.vn/UserFiles/images/Du%20thuy%E1%BB%81n%205%20sao/Scarlet%20Pearl/DJI_0013%20-%20Copy.jpg",
-      gridArea: "2 / 4 / 3 / 5", // Ô 1x1
+      type: "small",
     },
     {
       id: "support",
       category: "TIỆN ÍCH",
-      title: "Dịch Vụ booking",
-      icon: <Ticket size={24} />,
+      title: "Dịch Vụ Booking",
+      icon: <Ticket size={22} />,
       services: [
-        "Vé máy bay nội địa & quốc tế",
+        "Vé máy bay",
         "Combo du lịch",
         "Khách sạn",
         "Vé tham quan",
@@ -70,59 +71,75 @@ const Search = () => {
       ],
       image:
         "https://static.vinwonders.com/production/2025/02/canh-dep-sai-gon-banner.jpg",
-      gridArea: "3 / 1 / 4 / 5", // Ô dài cuối trang (1x4)
+      type: "full",
     },
   ];
 
   return (
-    <section className="bento-services-section">
-      <div className="bento-container">
-        <div className="bento-header-v4">
-          <div className="text-left">
-            <span className="v4-badge">HỆ SINH THÁI LỮ HÀNH</span>
-            <h2 className="v4-title">Dịch vụ đa trải nghiệm</h2>
+    <section className="vnt-services-section">
+      <div className="vnt-services-container">
+        {/* HEADER */}
+        <div className="vnt-services-header">
+          <div className="vnt-services-heading">
+            <span className="vnt-services-eyebrow">HỆ SINH THÁI LỮ HÀNH</span>
+
+            <h2>Dịch vụ đa trải nghiệm</h2>
+
+            <p>
+              Giải pháp du lịch toàn diện dành cho cá nhân, doanh nghiệp và tổ
+              chức với hệ thống dịch vụ chuyên nghiệp.
+            </p>
           </div>
-          <p className="v4-desc">
-            Cung cấp giải pháp du lịch toàn diện từ cá nhân đến doanh nghiệp với
-            tiêu chuẩn chất lượng cao nhất.
-          </p>
         </div>
 
-        <div className="bento-grid-v4">
+        {/* SERVICES */}
+        <div className="vnt-services-grid">
           {serviceGroups.map((group) => (
-            <div
+            <article
               key={group.id}
-              className="bento-item"
-              style={{ gridArea: group.gridArea }}
+              className={`vnt-service-card vnt-service-${group.type}`}
             >
               <div
-                className="bento-item-img"
-                style={{ backgroundImage: `url(${group.image})` }}
-              ></div>
-              <div className="bento-item-overlay"></div>
+                className="vnt-service-image"
+                style={{
+                  backgroundImage: `url(${group.image})`,
+                }}
+              />
 
-              <div className="bento-item-content">
-                <div className="bento-item-top">
-                  <div className="bento-icon-v4">{group.icon}</div>
-                  <span className="bento-category">{group.category}</span>
+              <div className="vnt-service-overlay" />
+
+              <div className="vnt-service-content">
+                {/* TOP */}
+                <div className="vnt-service-top">
+                  <div className="vnt-service-icon">{group.icon}</div>
+
+                  <span className="vnt-service-category">{group.category}</span>
                 </div>
 
-                <h3 className="bento-group-title">{group.title}</h3>
+                {/* BOTTOM */}
+                <div className="vnt-service-bottom">
+                  <h3>{group.title}</h3>
 
-                <ul className="bento-sub-services">
-                  {group.services.map((s, i) => (
-                    <li key={i}>{s}</li>
-                  ))}
-                </ul>
+                  <ul className="vnt-service-tags">
+                    {group.services.map((service, index) => (
+                      <li key={index}>{service}</li>
+                    ))}
+                  </ul>
 
-                <div className="bento-item-footer">
-                  <span className="explore-link">
-                    Khám phá chi tiết <ArrowRight size={16} />
-                  </span>
+                  <div className="vnt-service-link">
+                    <span>Khám phá chi tiết</span>
+                    <ArrowRight size={15} />
+                  </div>
                 </div>
               </div>
-            </div>
+            </article>
           ))}
+        </div>
+
+        {/* MOBILE HINT */}
+        <div className="vnt-services-mobile-hint">
+          <span>Vuốt để khám phá thêm</span>
+          <ArrowRight size={14} />
         </div>
       </div>
     </section>

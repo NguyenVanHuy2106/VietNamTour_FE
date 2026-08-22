@@ -1,135 +1,258 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Select from "react-select";
-import Background from "./Background";
-import Logo from "../Images/headout.png";
-import MobileApp from "../Images/mobile-app.gif";
+import { FaBars, FaTimes, FaPhoneAlt, FaChevronRight } from "react-icons/fa";
+
 import "../Styles/Header.css";
 
-const Header = ({ backgroundImagesData, navigationData, selectedCity }) => {
-  const [experience, setExperience] = useState("");
+const Header = ({ navigationData = [] }) => {
   const navigate = useNavigate();
 
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  /* =========================================================
+     MENU MẶC ĐỊNH
+     Nếu API navigationData có dữ liệu thì sẽ dùng API
+  ========================================================= */
+  const defaultNavigation = [
+    {
+      id: "home",
+      name: "Trang chủ",
+      path: "/",
+    },
+    {
+      id: "tour",
+      name: "Tour du lịch",
+      path: "/danh-sach-tour",
+    },
+    {
+      id: "corporate",
+      name: "Tour khách đoàn",
+      path: "/danh-sach-tour",
+    },
+    {
+      id: "blog",
+      name: "Cẩm nang",
+      path: "/blog",
+    },
+  ];
+
+  const menuItems =
+    navigationData && navigationData.length > 0
+      ? navigationData
+      : defaultNavigation;
+
+  /* =========================================================
+     SCROLL
+  ========================================================= */
   useEffect(() => {
-    window.scrollTo(0, 0);
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+
+    handleScroll();
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, []);
 
-  return (
-    <>
-      <HeaderNav
-        changeExperience={setExperience}
-        experience={experience}
-        selectedCity={selectedCity}
-        navigationData={navigationData}
-      />
-      <Background backgroundImagesData={backgroundImagesData} />
-      <div className="search-bar-div">
-        <div className="select-city-large">
-          <i className="fas fa-map-marker" />
-          <Searchbar
-            style={customStyles}
-            navigate={navigate}
-            selectedCity={selectedCity}
-          />
-        </div>
-        <div className="select-experience-large">
-          <input
-            type="text"
-            placeholder="Search for experiences"
-            onChange={(e) => setExperience(e.target.value)}
-            value={experience}
-          />
-          <i className="fas fa-search" />
-        </div>
-        <button id="go">Let's Go</button>
-      </div>
-    </>
-  );
-};
+  /* =========================================================
+     KHÓA SCROLL KHI MỞ MOBILE MENU
+  ========================================================= */
+  useEffect(() => {
+    if (mobileOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
 
-const HeaderNav = ({ changeExperience, experience, navigationData = [] }) => {
-  return (
-    <div className="header-wrap">
-      <div className="header-wrapper navbar-fixed-top">
-        <div className="header-left">
-          <div className="nav">
-            <div className="first-line">
-              <Link to="/">
-                <img id="logo" src={Logo} alt="Headout" />
-              </Link>
-              <div className="select-experience">
-                <input
-                  type="text"
-                  placeholder="Search for experiences"
-                  onChange={(e) => changeExperience(e.target.value)}
-                  value={experience}
-                />
-                <i className="fas fa-search" />
-              </div>
-            </div>
-            <div className="second-line">
-              <div className="best-picked">
-                {navigationData.map(({ id, name }) => (
-                  <p key={id}>{name}</p>
-                ))}
-              </div>
-            </div>
-          </div>
-          <div className="header-right">
-            <Link to="/app">
-              <div className="download-app">
-                <img src={MobileApp} id="mobile-app" alt="Download our App" />
-                <p style={{ color: "#24a1b2" }}>Download App</p>
-              </div>
-            </Link>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [mobileOpen]);
 
-const Searchbar = ({ style, navigate, selectedCity }) => {
-  const [selectedOption, setSelectedOption] = useState(null);
+  /* =========================================================
+     RESOLVE PATH
+  ========================================================= */
+  const getMenuPath = (item) => {
+    if (item.path) {
+      return item.path;
+    }
 
-  const handleChange = (selectedOption) => {
-    setSelectedOption(selectedOption);
-    navigate(`/cities/${selectedOption.value}`);
+    if (item.url) {
+      return item.url;
+    }
+
+    if (item.slug) {
+      return `/${item.slug}`;
+    }
+
+    return null;
+  };
+
+  /* =========================================================
+     HANDLE MENU
+  ========================================================= */
+  const handleMenuClick = (item) => {
+    const path = getMenuPath(item);
+
+    if (path) {
+      navigate(path);
+    }
+
+    setMobileOpen(false);
   };
 
   return (
-    <Select
-      styles={style}
-      placeholder={selectedCity || "Select City"}
-      value={selectedOption}
-      onChange={handleChange}
-      options={options}
-      className="city-select-dropdown"
-    />
+    <>
+      <header className={`vnt-header ${scrolled ? "vnt-header-scrolled" : ""}`}>
+        <div className="vnt-header-inner">
+          {/* =================================================
+              LOGO
+          ================================================= */}
+          <Link
+            to="/"
+            className="vnt-header-brand"
+            onClick={() => setMobileOpen(false)}
+          >
+            <img
+              src="https://cdn.myvietnamtour.vn/uploads/logovnt.png"
+              alt="Việt Nam Tour"
+              className="vnt-header-logo"
+            />
+
+            <div className="vnt-header-brand-text">
+              <strong>VIỆT NAM TOUR</strong>
+
+              <span>KHÁM PHÁ VẺ ĐẸP VIỆT</span>
+            </div>
+          </Link>
+
+          {/* =================================================
+              DESKTOP NAV
+          ================================================= */}
+          <nav className="vnt-header-nav">
+            {menuItems.map((item, index) => (
+              <button
+                key={item.id || index}
+                type="button"
+                className="vnt-header-nav-item"
+                onClick={() => handleMenuClick(item)}
+              >
+                {item.name}
+              </button>
+            ))}
+          </nav>
+
+          {/* =================================================
+              DESKTOP RIGHT
+          ================================================= */}
+          <div className="vnt-header-actions">
+            <a href="tel:0373954963" className="vnt-header-hotline">
+              <div className="vnt-header-hotline-icon">
+                <FaPhoneAlt />
+              </div>
+
+              <div>
+                <span>Tư vấn ngay</span>
+                <strong>0373 954 963</strong>
+              </div>
+            </a>
+
+            <button
+              type="button"
+              className="vnt-header-tour-btn"
+              onClick={() => navigate("/danh-sach-tour")}
+            >
+              Xem tour
+              <FaChevronRight />
+            </button>
+          </div>
+
+          {/* =================================================
+              MOBILE ACTIONS
+          ================================================= */}
+          <div className="vnt-header-mobile-actions">
+            <a
+              href="tel:0373954963"
+              className="vnt-header-mobile-phone"
+              aria-label="Gọi Việt Nam Tour"
+            >
+              <FaPhoneAlt />
+            </a>
+
+            <button
+              type="button"
+              className={`vnt-header-menu-btn ${mobileOpen ? "active" : ""}`}
+              onClick={() => setMobileOpen(!mobileOpen)}
+              aria-label={mobileOpen ? "Đóng menu" : "Mở menu"}
+            >
+              {mobileOpen ? <FaTimes /> : <FaBars />}
+            </button>
+          </div>
+        </div>
+      </header>
+
+      {/* =====================================================
+          MOBILE MENU
+      ===================================================== */}
+      <div
+        className={`vnt-mobile-menu-overlay ${mobileOpen ? "show" : ""}`}
+        onClick={() => setMobileOpen(false)}
+      />
+
+      <div className={`vnt-mobile-menu ${mobileOpen ? "open" : ""}`}>
+        <div className="vnt-mobile-menu-header">
+          <span>MENU</span>
+
+          <button type="button" onClick={() => setMobileOpen(false)}>
+            <FaTimes />
+          </button>
+        </div>
+
+        <nav className="vnt-mobile-nav">
+          {menuItems.map((item, index) => (
+            <button
+              key={item.id || index}
+              type="button"
+              onClick={() => handleMenuClick(item)}
+            >
+              <span>{item.name}</span>
+
+              <FaChevronRight />
+            </button>
+          ))}
+        </nav>
+
+        {/* MOBILE CTA */}
+        <div className="vnt-mobile-menu-contact">
+          <span>VIỆT NAM TOUR</span>
+
+          <h3>Bạn cần tư vấn hành trình?</h3>
+
+          <p>
+            Đội ngũ Việt Nam Tour sẵn sàng hỗ trợ tour cá nhân, khách đoàn, MICE
+            và sự kiện.
+          </p>
+
+          <a href="tel:0373954963">
+            <FaPhoneAlt />
+
+            <div>
+              <span>Hotline tư vấn</span>
+              <strong>0373 954 963</strong>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      {/* Spacer vì header fixed */}
+      <div className="vnt-header-spacer" />
+    </>
   );
-};
-
-const options = [
-  { value: "new-york", label: "New York" },
-  { value: "las-vegas", label: "Las Vegas" },
-  { value: "rome", label: "Rome" },
-  { value: "paris", label: "Paris" },
-  { value: "london", label: "London" },
-];
-
-const customStyles = {
-  option: (provided, state) => ({
-    ...provided,
-    color: state.isSelected ? "red" : "#727272",
-    padding: 10,
-    cursor: "pointer",
-  }),
-  control: () => ({
-    width: 150,
-    display: "flex",
-    fontSize: "14px",
-    paddingLeft: "5px",
-  }),
 };
 
 export default Header;

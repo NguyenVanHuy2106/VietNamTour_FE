@@ -1,133 +1,499 @@
+/* =========================================================
+   COLLECTION SECTION
+========================================================= */
+
 .coll-v4-section {
-  padding: 50px 0;
-  background-color: #fcfcfc;
+  width: 100%;
+  padding: 54px 0 60px;
+  background: #ffffff;
 }
 
 .coll-v4-container {
-  max-width: 1250px;
+  width: 100%;
+  max-width: 1280px;
+
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 24px;
+
+  box-sizing: border-box;
 }
 
-/* Header */
+
+/* =========================================================
+   HEADER
+========================================================= */
+
 .coll-v4-header {
+  width: 100%;
+  max-width: 720px;
+
+  margin: 0 auto 26px;
+
   text-align: center;
-  margin-bottom: 50px;
+}
+
+.coll-v4-eyebrow {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 6px;
+
+  margin-bottom: 8px;
+
+  color: #075fd3;
+
+  font-size: 9.5px;
+  font-weight: 800;
+  line-height: 1;
+
+  letter-spacing: 0.8px;
+
+  text-transform: uppercase;
 }
 
 .coll-v4-title {
-  font-size: 32px;
-  font-weight: 800;
-  color: #1a1a1a;
-  letter-spacing: 2px;
-  margin-bottom: 10px;
-}
+  margin: 0;
 
-.coll-v4-line {
-  width: 50px;
-  height: 3px;
-  background: #0052cc;
-  margin: 0 auto 20px;
+  color: #091e42;
+
+  font-size: 32px;
+  font-weight: 900;
+  line-height: 1.2;
+
+  letter-spacing: -0.7px;
 }
 
 .coll-v4-subtitle {
-  color: #666;
-  font-size: 16px;
+  max-width: 620px;
+
+  margin: 8px auto 0;
+
+  color: #68768d;
+
+  font-size: 13px;
+  line-height: 1.6;
 }
 
-/* MASONRY SYSTEM - Quan trọng nhất */
-.coll-v4-masonry {
-  column-count: 4; /* Chia làm 4 cột */
-  column-gap: 20px; /* Khoảng cách giữa các cột */
+
+/* =========================================================
+   GALLERY GRID
+========================================================= */
+
+.coll-v4-gallery {
   width: 100%;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(5, minmax(0, 1fr));
+
+  gap: 8px;
 }
+
+
+/* =========================================================
+   ITEM
+========================================================= */
 
 .coll-v4-item {
-  display: inline-block; /* Quan trọng: Ngăn ảnh bị cắt đôi giữa các cột */
-  width: 100%;
-  margin-bottom: 13px; /* Khoảng cách dưới mỗi ảnh */
   position: relative;
-  border-radius: 16px;
+
+  width: 100%;
+
+  aspect-ratio: 4 / 3;
+
   overflow: hidden;
-  cursor: pointer;
-  background-color: #eee;
-  transition: all 0.3s ease;
+
+  background: #e9eef4;
+
+  border-radius: 10px;
+
+  cursor: zoom-in;
+
+  box-shadow:
+    0 2px 7px rgba(9, 30, 66, 0.04);
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
 }
+
+
+/* bỏ toàn bộ size lớn nhỏ cũ */
+
+.coll-v4-item-normal,
+.coll-v4-item-wide,
+.coll-v4-item-large {
+  grid-column: auto;
+  grid-row: auto;
+}
+
+
+/* =========================================================
+   IMAGE
+========================================================= */
 
 .coll-v4-item img {
-  width: 100%;
-  height: auto;
   display: block;
-  transition: transform 0.5s ease;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  object-position: center;
+
+  transition: transform 0.4s ease;
 }
 
-/* Overlay khi hover */
+
+/* =========================================================
+   OVERLAY
+========================================================= */
+
 .coll-v4-overlay {
   position: absolute;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: rgba(0, 82, 204, 0.4);
+
+  inset: 0;
+
   display: flex;
-  flex-direction: column;
+
   align-items: center;
   justify-content: center;
+
+  background: rgba(0, 57, 132, 0.32);
+
   opacity: 0;
-  transition: opacity 0.3s ease;
-  color: white;
-  gap: 10px;
-  font-weight: 600;
+
+  transition: opacity 0.25s ease;
 }
 
-.coll-v4-item:hover .coll-v4-overlay {
-  opacity: 1;
+.coll-v4-view {
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 5px;
+
+  padding: 6px 9px;
+
+  color: #ffffff;
+
+  background:
+    rgba(255, 255, 255, 0.16);
+
+  border:
+    1px solid rgba(255, 255, 255, 0.22);
+
+  border-radius: 999px;
+
+  font-size: 9px;
+  font-weight: 700;
+
+  -webkit-backdrop-filter: blur(7px);
+  backdrop-filter: blur(7px);
 }
 
-.coll-v4-item:hover img {
-  transform: scale(1.05);
+
+/* =========================================================
+   HOVER
+========================================================= */
+
+@media (hover: hover) {
+  .coll-v4-item:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+      0 8px 18px rgba(9, 30, 66, 0.09);
+  }
+
+  .coll-v4-item:hover img {
+    transform: scale(1.04);
+  }
+
+  .coll-v4-item:hover .coll-v4-overlay {
+    opacity: 1;
+  }
 }
 
-/* MODAL */
+
+/* =========================================================
+   MODAL
+========================================================= */
+
 .coll-v4-modal {
   position: fixed;
+
   inset: 0;
-  background: rgba(0, 0, 0, 0.9);
+
+  z-index: 10000;
+
   display: flex;
+
   align-items: center;
   justify-content: center;
-  z-index: 10000;
-  padding: 20px;
-  backdrop-filter: blur(5px);
+
+  padding: 24px;
+
+  background:
+    rgba(3, 12, 25, 0.92);
+
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+.coll-v4-modal-content {
+  max-width: 1150px;
+  max-height: 88vh;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+}
+
+.coll-v4-zoom-img {
+  display: block;
+
+  max-width: 100%;
+  max-height: 88vh;
+
+  object-fit: contain;
+
+  border-radius: 8px;
+
+  box-shadow:
+    0 25px 70px rgba(0, 0, 0, 0.45);
 }
 
 .coll-v4-modal-close {
   position: absolute;
-  top: 20px; right: 20px;
-  color: white;
+
+  top: 20px;
+  right: 22px;
+
+  width: 42px;
+  height: 42px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+
+  color: #ffffff;
+
+  background:
+    rgba(255, 255, 255, 0.12);
+
+  border:
+    1px solid rgba(255, 255, 255, 0.18);
+
+  border-radius: 50%;
+
   cursor: pointer;
 }
 
-.coll-v4-zoom-img {
-  max-width: 95%;
-  max-height: 90vh;
-  border-radius: 12px;
-  box-shadow: 0 0 30px rgba(0,0,0,0.5);
-  animation: scaleUp 0.3s ease-out;
+
+/* =========================================================
+   LAPTOP
+========================================================= */
+
+@media (max-width: 1100px) {
+  .coll-v4-section {
+    padding: 48px 0 54px;
+  }
+
+  .coll-v4-container {
+    padding: 0 20px;
+  }
+
+  .coll-v4-title {
+    font-size: 29px;
+  }
+
+  .coll-v4-gallery {
+    grid-template-columns:
+      repeat(4, minmax(0, 1fr));
+
+    gap: 8px;
+  }
 }
 
-@keyframes scaleUp {
-  from { transform: scale(0.8); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
-}
 
-/* Mobile Responsive */
-@media (max-width: 1024px) {
-  .coll-v4-masonry { column-count: 3; }
-}
+/* =========================================================
+   TABLET
+========================================================= */
 
 @media (max-width: 768px) {
-  .coll-v4-masonry { column-count: 2; }
+  .coll-v4-section {
+    padding: 40px 0 46px;
+  }
+
+  .coll-v4-container {
+    padding: 0 16px;
+  }
+
+  .coll-v4-header {
+    margin-bottom: 22px;
+  }
+
+  .coll-v4-title {
+    font-size: 26px;
+  }
+
+  .coll-v4-subtitle {
+    max-width: 520px;
+
+    font-size: 12.5px;
+  }
+
+  .coll-v4-gallery {
+    grid-template-columns:
+      repeat(3, minmax(0, 1fr));
+
+    gap: 7px;
+  }
+
+  .coll-v4-item {
+    border-radius: 9px;
+  }
 }
 
-@media (max-width: 480px) {
-  .coll-v4-masonry { column-count: 1; }
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 576px) {
+  .coll-v4-section {
+    padding: 32px 0 36px;
+  }
+
+  .coll-v4-container {
+    padding: 0 14px;
+  }
+
+  .coll-v4-header {
+    max-width: 340px;
+
+    margin:
+      0
+      auto
+      18px;
+  }
+
+  .coll-v4-eyebrow {
+    margin-bottom: 6px;
+
+    font-size: 8.5px;
+
+    letter-spacing: 0.45px;
+  }
+
+  .coll-v4-title {
+    font-size: 22px;
+
+    line-height: 1.2;
+  }
+
+  .coll-v4-subtitle {
+    max-width: 320px;
+
+    margin-top: 6px;
+
+    font-size: 11.5px;
+
+    line-height: 1.5;
+  }
+
+  .coll-v4-gallery {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+
+    gap: 6px;
+  }
+
+  .coll-v4-item {
+    /*
+     * Mobile ảnh hơi thấp hơn một chút,
+     * giúp gallery gọn.
+     */
+    aspect-ratio: 1.25 / 1;
+
+    border-radius: 8px;
+
+    box-shadow:
+      0 2px 6px rgba(9, 30, 66, 0.04);
+  }
+
+  .coll-v4-overlay {
+    display: none;
+  }
+
+  .coll-v4-modal {
+    padding: 12px;
+  }
+
+  .coll-v4-modal-close {
+    top: 12px;
+    right: 12px;
+
+    width: 38px;
+    height: 38px;
+  }
+
+  .coll-v4-zoom-img {
+    max-height: 85vh;
+
+    border-radius: 6px;
+  }
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 390px) {
+  .coll-v4-section {
+    padding: 28px 0 32px;
+  }
+
+  .coll-v4-container {
+    padding: 0 12px;
+  }
+
+  .coll-v4-title {
+    font-size: 20px;
+  }
+
+  .coll-v4-subtitle {
+    font-size: 11px;
+  }
+
+  .coll-v4-gallery {
+    gap: 5px;
+  }
+}
+
+
+/* =========================================================
+   TOUCH
+========================================================= */
+
+@media (hover: none) {
+  .coll-v4-item:hover {
+    transform: none;
+
+    box-shadow:
+      0 2px 6px rgba(9, 30, 66, 0.04);
+  }
+
+  .coll-v4-item:hover img {
+    transform: none;
+  }
 }

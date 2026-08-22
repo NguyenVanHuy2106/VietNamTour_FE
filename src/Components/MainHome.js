@@ -21,6 +21,7 @@ import CustomerFeedBack from "../app/CustomerFeedBack";
 import Collections from "../app/Collections";
 import Banner from "../app/Banner";
 import Relation from "../app/Relation";
+import HomeCTA from "../app/HomeCTA";
 
 const MainHome = ({ history }) => {
   useEffect(() => {
@@ -55,8 +56,11 @@ const MainHome = ({ history }) => {
         <CustomerFeedBack />
       </FadeInSection>
       <FadeInSection>
-        <Collections />
+        <HomeCTA />
       </FadeInSection>
+      {/* <FadeInSection>
+        <Collections />
+      </FadeInSection> */}
       {/* <FloatingButtons /> */}
     </div>
   );

@@ -1,48 +1,21 @@
-import React, { useState, useEffect, useRef } from "react";
-import API from "../../config/APINoToken";
-import Slider from "react-slick";
-import { Phone, Users, Star, ArrowRight, Send } from "lucide-react";
-import "./index.css";
+import React, { useState, useRef } from "react";
+import { Phone, Star, ArrowRight, Send } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import emailjs from "@emailjs/browser"; // Import thư viện
+import emailjs from "@emailjs/browser";
 
-const Banner = ({ collectionsData }) => {
-  const [dataBanner, setDataBanner] = useState([]);
-  const [loading, setLoading] = useState(false); // State để quản lý nút gửi
+import "./index.css";
+
+const Banner = () => {
+  const [loading, setLoading] = useState(false);
+
   const navigate = useNavigate();
-  const formRef = useRef(); // Khởi tạo ref để tham chiếu đến form
+  const formRef = useRef(null);
 
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 3000,
-    swipe: true,
-    draggable: true,
-  };
-
-  const getData = async () => {
-    try {
-      const response = await API.get("banner/get");
-      setDataBanner(response.data.data);
-    } catch (error) {
-      console.error(
-        "Lỗi khi lấy danh sách khách hàng",
-        error.response || error
-      );
-    }
-  };
-
-  useEffect(() => {
-    getData();
-  }, []);
-
-  // HÀM XỬ LÝ GỬI EMAIL
   const sendEmail = (e) => {
     e.preventDefault();
+
+    if (loading) return;
+
     setLoading(true);
 
     const SERVICE_ID = "service_opt3z9s";
@@ -51,143 +24,152 @@ const Banner = ({ collectionsData }) => {
 
     emailjs
       .sendForm(SERVICE_ID, TEMPLATE_ID, formRef.current, PUBLIC_KEY)
-      .then(
-        (result) => {
-          // Hiện thông báo thành công
-          alert(
-            "Gửi yêu cầu thành công! Chúng tôi sẽ gọi lại cho bạn sớm nhất."
-          );
+      .then(() => {
+        alert("Gửi yêu cầu thành công! Chúng tôi sẽ gọi lại cho bạn sớm nhất.");
 
-          // SỬA TẠI ĐÂY: Dùng formRef.current thay vì e.target
-          if (formRef.current) {
-            formRef.current.reset();
-          }
-        },
-        (error) => {
-          alert("Gửi thất bại, vui lòng kiểm tra lại thông tin hoặc kết nối.");
-          console.log("Chi tiết lỗi:", error.text);
+        if (formRef.current) {
+          formRef.current.reset();
         }
-      )
+      })
+      .catch((error) => {
+        console.error("Chi tiết lỗi:", error);
+
+        alert("Gửi thất bại, vui lòng kiểm tra lại thông tin hoặc kết nối.");
+      })
       .finally(() => {
         setLoading(false);
       });
   };
 
   return (
-    <div>
-      <section className="vnt-hero-wrapper">
-        <div className="vnt-hero-bg-shape"></div>
+    <section className="vnt-hero-wrapper">
+      {/* BACKGROUND */}
+      <div className="vnt-hero-bg-shape" />
 
-        <div className="vnt-hero-container">
-          {/* CỘT TRÁI: NỘI DUNG NARRATIVE */}
-          <div className="vnt-hero-content">
-            <div className="vnt-hero-badge">
-              <Star size={14} fill="currentColor" />
-              <span>Đối tác lữ hành tin cậy tại Việt Nam</span>
-            </div>
-
-            <h1 className="vnt-hero-title">
-              TOUR DU LỊCH TRONG NƯỚC <br />
-              <span className="vnt-text-highlight">
-                TRỌN GÓI • CHUYÊN NGHIỆP • ĐẲNG CẤP
-              </span>
-            </h1>
-
-            <p className="vnt-hero-desc">
-              Giải pháp du lịch toàn diện được thiết kế riêng cho từng cá nhân,
-              gia đình và doanh nghiệp. Trải nghiệm hành trình nghỉ dưỡng, gắn
-              kết và tái tạo năng lượng hoàn hảo nhất.
-            </p>
-
-            <div className="vnt-hero-btns">
-              <a href="/danh-sach-tour" className="vnt-btn vnt-btn-main">
-                Khám phá hành trình <ArrowRight size={18} />
-              </a>
-              <a href="tel:0373954963" className="vnt-btn vnt-btn-outline">
-                <Phone size={18} /> Gọi tư vấn ngay
-              </a>
-            </div>
-
-            <div className="vnt-hero-trust">
-              <div className="vnt-trust-item">
-                <strong>5,000+</strong>
-                <span>Khách hàng tin tưởng</span>
-              </div>
-              <div className="vnt-trust-divider"></div>
-              <div className="vnt-trust-item">
-                <strong>Nhiều năm</strong>
-                <span>Kinh nghiệm lữ hành</span>
-              </div>
-            </div>
+      <div className="vnt-hero-container">
+        {/* =========================
+            CỘT TRÁI - NỘI DUNG
+        ========================= */}
+        <div className="vnt-hero-content">
+          <div className="vnt-hero-badge">
+            <Star size={14} fill="currentColor" />
+            <span>Đối tác lữ hành tin cậy tại Việt Nam</span>
           </div>
 
-          {/* CỘT PHẢI: FORM ĐĂNG KÝ VIP */}
-          <div className="vnt-hero-form-box">
-            <div className="vnt-glass-card">
-              <div className="vnt-card-header">
-                <h3>LIÊN HỆ TƯ VẤN</h3>
-                <p>Để lại thông tin, chúng tôi sẽ gọi lại ngay!</p>
-              </div>
+          <h1 className="vnt-hero-title">
+            TOUR DU LỊCH TRONG NƯỚC
+            <span className="vnt-text-highlight">
+              TRỌN GÓI • CHUYÊN NGHIỆP • ĐẲNG CẤP
+            </span>
+          </h1>
 
-              {/* Gán ref và hàm sendEmail vào đây */}
-              <form
-                className="vnt-form-main"
-                ref={formRef}
-                onSubmit={sendEmail}
-              >
-                <div className="vnt-input-group">
-                  {/* Thêm name="user_name" để EmailJS bắt được dữ liệu */}
-                  <input
-                    name="user_name"
-                    type="text"
-                    placeholder="Họ và tên của bạn"
-                    required
-                  />
-                </div>
-                <div className="vnt-input-group">
-                  {/* Thêm name="user_phone" */}
-                  <input
-                    name="user_phone"
-                    type="tel"
-                    placeholder="Số điện thoại liên hệ"
-                    required
-                  />
-                </div>
-                <div className="vnt-input-group">
-                  {/* Thêm name="user_service" */}
-                  <select name="user_service" defaultValue="" required>
-                    <option value="" disabled>
-                      Chọn loại hình dịch vụ
-                    </option>
-                    <option value="Du lịch Doanh Nghiệp">
-                      Du lịch Doanh Nghiệp / Tour Đoàn
-                    </option>
-                    <option value="Du lịch Gia Đình">
-                      Du lịch Gia Đình / Nhóm Nhỏ
-                    </option>
-                    <option value="Nghỉ dưỡng Cao Cấp">
-                      Nghỉ dưỡng Cao Cấp / Khách VIP
-                    </option>
-                  </select>
-                </div>
-                {/* Vô hiệu hóa nút khi đang gửi để tránh khách bấm nhiều lần */}
-                <button
-                  type="submit"
-                  className="vnt-btn-submit"
-                  disabled={loading}
-                >
-                  {loading ? "ĐANG GỬI..." : "GỬI YÊU CẦU"} <Send size={18} />
-                </button>
-              </form>
+          <p className="vnt-hero-desc">
+            Giải pháp du lịch toàn diện được thiết kế riêng cho cá nhân, gia
+            đình và doanh nghiệp. Tận hưởng những hành trình nghỉ dưỡng, gắn kết
+            và tái tạo năng lượng trọn vẹn.
+          </p>
 
-              <p className="vnt-form-footer">
-                🛡️ Cam kết bảo mật thông tin khách hàng 100%
-              </p>
+          {/* CTA */}
+          <div className="vnt-hero-btns">
+            <a href="/danh-sach-tour" className="vnt-btn vnt-btn-main">
+              <span>Khám phá hành trình</span>
+              <ArrowRight size={18} />
+            </a>
+
+            <a href="tel:0373954963" className="vnt-btn vnt-btn-outline">
+              <Phone size={18} />
+              <span>Gọi tư vấn ngay</span>
+            </a>
+          </div>
+
+          {/* TRUST */}
+          <div className="vnt-hero-trust">
+            <div className="vnt-trust-item">
+              <strong>5,000+</strong>
+              <span>Khách hàng tin tưởng</span>
+            </div>
+
+            <div className="vnt-trust-divider" />
+
+            <div className="vnt-trust-item">
+              <strong>Nhiều năm</strong>
+              <span>Kinh nghiệm lữ hành</span>
             </div>
           </div>
         </div>
-      </section>
-    </div>
+
+        {/* =========================
+            CỘT PHẢI - FORM
+        ========================= */}
+        <div className="vnt-hero-form-box">
+          <div className="vnt-glass-card">
+            <div className="vnt-card-header">
+              <h2>LIÊN HỆ TƯ VẤN</h2>
+
+              <p>Để lại thông tin, Việt Nam Tour sẽ liên hệ tư vấn cho bạn.</p>
+            </div>
+
+            <form className="vnt-form-main" ref={formRef} onSubmit={sendEmail}>
+              <div className="vnt-input-group">
+                <input
+                  name="user_name"
+                  type="text"
+                  placeholder="Họ và tên của bạn"
+                  autoComplete="name"
+                  required
+                />
+              </div>
+
+              <div className="vnt-input-group">
+                <input
+                  name="user_phone"
+                  type="tel"
+                  inputMode="tel"
+                  placeholder="Số điện thoại liên hệ"
+                  autoComplete="tel"
+                  required
+                />
+              </div>
+
+              <div className="vnt-input-group">
+                <select name="user_service" defaultValue="" required>
+                  <option value="" disabled>
+                    Chọn loại hình dịch vụ
+                  </option>
+
+                  <option value="Du lịch Doanh Nghiệp">
+                    Du lịch Doanh Nghiệp / Tour Đoàn
+                  </option>
+
+                  <option value="Du lịch Gia Đình">
+                    Du lịch Gia Đình / Nhóm Nhỏ
+                  </option>
+
+                  <option value="Nghỉ dưỡng Cao Cấp">
+                    Nghỉ dưỡng Cao Cấp / Khách VIP
+                  </option>
+                </select>
+              </div>
+
+              <button
+                type="submit"
+                className="vnt-btn-submit"
+                disabled={loading}
+              >
+                <span>{loading ? "ĐANG GỬI..." : "GỬI YÊU CẦU"}</span>
+
+                {!loading && <Send size={18} />}
+              </button>
+            </form>
+
+            <p className="vnt-form-footer">
+              🛡️ Cam kết bảo mật thông tin khách hàng
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
   );
 };
+
 export default Banner;

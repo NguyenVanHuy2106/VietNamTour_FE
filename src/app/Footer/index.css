@@ -1,125 +1,1391 @@
-.footer-modern {
-  background: #1d61ad;
-  color: #ffffff;
-  font-family: 'Helvetica Neue', sans-serif;
-  padding: 40px 20px 20px;
+/* =========================================================
+   FOOTER
+========================================================= */
 
-}
+.vnt-footer {
+  position: relative;
 
-.footer-main {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  max-width: 1200px;
-  margin: 0 auto;
-  gap: 40px;
-}
+  width: 100%;
 
-/* Left Section */
-.footer-left {
-  flex: 1 1 300px;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-.footer-left h3 {
   margin: 0;
-  font-size: 24px;
-  color: #FFFFFF;
-}
 
-.footer-left p {
-  line-height: 1.6;
   color: #ffffff;
+
+  background:
+    linear-gradient(
+      135deg,
+      #082b5c 0%,
+      #0b3d7a 48%,
+      #07559d 100%
+    );
+
+  font-family:
+    "Inter",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+
+  overflow: hidden;
 }
 
-.subscribe-box {
+
+/* =========================================================
+   BACKGROUND GLOW
+========================================================= */
+
+.vnt-footer::before {
+  content: "";
+
+  position: absolute;
+
+  width: 520px;
+  height: 520px;
+
+  top: -240px;
+  right: -220px;
+
+  border-radius: 50%;
+
+  background:
+    rgba(0, 197, 255, 0.08);
+
+  filter: blur(100px);
+
+  pointer-events: none;
+}
+
+
+/* =========================================================
+   CONTAINER
+========================================================= */
+
+.vnt-footer-container {
+  position: relative;
+
+  z-index: 2;
+
+  width: 100%;
+
+  max-width: 1280px;
+
+  margin: 0 auto;
+
+  padding:
+    58px
+    24px
+    22px;
+
+  box-sizing: border-box;
+}
+
+
+/* =========================================================
+   TOP
+========================================================= */
+
+.vnt-footer-top {
+  display: grid;
+
+  grid-template-columns:
+    minmax(320px, 0.9fr)
+    minmax(0, 1.35fr);
+
+  gap: 68px;
+
+  align-items: start;
+}
+
+
+/* =========================================================
+   BRAND
+========================================================= */
+
+.vnt-footer-brand {
+  width: 100%;
+
+  max-width: 470px;
+
+  text-align: left;
+}
+
+
+.vnt-footer-brand-head {
   display: flex;
-  gap: 10px;
+
+  align-items: center;
+
+  gap: 14px;
 }
 
-.subscribe-box input {
-  flex: 1;
-  padding: 10px 15px;
-  border-radius: 6px;
-  border: none;
-  outline: none;
+
+.vnt-footer-logo {
+  width: 76px;
+  height: 76px;
+
+  object-fit: contain;
+
+  flex-shrink: 0;
 }
 
-.subscribe-box button {
-  background: #ffb400;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 6px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: 0.3s;
+
+.vnt-footer-brand-head h2 {
+  margin: 0;
+
+  color: #ffffff;
+
+  font-size: 26px;
+
+  line-height: 1.08;
+
+  font-weight: 900;
+
+  letter-spacing: 0.3px;
+
+  text-align: left;
 }
 
-.subscribe-box button:hover {
-  background: #FFFFFF;
+
+.vnt-footer-brand-head span {
+  display: block;
+
+  margin-top: 6px;
+
+  color:
+    rgba(255, 255, 255, 0.62);
+
+  font-size: 12px;
+
+  line-height: 1.2;
+
+  font-weight: 700;
+
+  letter-spacing: 1px;
+
+  text-transform: uppercase;
 }
 
-/* Right Section */
-.footer-right {
-  flex: 2 1 600px;
+
+.vnt-footer-brand-desc {
+  max-width: 440px;
+
+  margin: 18px 0 0;
+
+  color:
+    rgba(255, 255, 255, 0.76);
+
+  font-size: 15px;
+
+  line-height: 1.7;
+
+  text-align: left;
+}
+
+
+/* =========================================================
+   QUICK CONTACT
+========================================================= */
+
+.vnt-footer-contact-list {
   display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
+
+  flex-direction: column;
+
+  gap: 11px;
+
+  margin-top: 22px;
 }
 
-.footer-card {
-  flex: 1 1 180px;
-  background: #154b8a;
-  padding: 20px;
-  border-radius: 10px;
-  transition: 0.3s;
+
+.vnt-footer-contact {
+  width: fit-content;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 11px;
+
+  color: #ffffff;
+
+  text-decoration: none;
 }
 
-.footer-card h4 {
-  margin-bottom: 15px;
-  color: #FFFFFF;
+
+.vnt-footer-contact > svg {
+  width: 36px;
+
+  height: 36px;
+
+  padding: 9px;
+
+  box-sizing: border-box;
+
+  color: #9ce3ff;
+
+  background:
+    rgba(255, 255, 255, 0.09);
+
+  border:
+    1px solid
+    rgba(255, 255, 255, 0.11);
+
+  border-radius: 9px;
 }
 
-.footer-card ul {
+
+.vnt-footer-contact div {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 3px;
+
+  text-align: left;
+}
+
+
+.vnt-footer-contact span {
+  color:
+    rgba(255, 255, 255, 0.54);
+
+  font-size: 10px;
+
+  font-weight: 700;
+
+  letter-spacing: 0.5px;
+
+  text-transform: uppercase;
+}
+
+
+.vnt-footer-contact strong {
+  color: #ffffff;
+
+  font-size: 13.5px;
+
+  line-height: 1.35;
+
+  font-weight: 750;
+}
+
+
+/* =========================================================
+   LINK COLUMNS
+========================================================= */
+
+.vnt-footer-links {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+
+  gap: 36px;
+}
+
+
+.vnt-footer-column {
+  min-width: 0;
+
+  text-align: left;
+}
+
+
+.vnt-footer-column h3 {
+  position: relative;
+
+  margin: 0 0 18px;
+
+  padding-bottom: 11px;
+
+  color: #ffffff;
+
+  font-size: 14px;
+
+  line-height: 1.2;
+
+  font-weight: 800;
+}
+
+
+.vnt-footer-column h3::after {
+  content: "";
+
+  position: absolute;
+
+  left: 0;
+  bottom: 0;
+
+  width: 26px;
+  height: 2px;
+
+  background: #63cfff;
+
+  border-radius: 999px;
+}
+
+
+.vnt-footer-column ul {
   list-style: none;
+
+  margin: 0;
+
   padding: 0;
 }
 
-.footer-card ul li {
-  margin-bottom: 10px;
+
+.vnt-footer-column li {
+  width: fit-content;
+
+  margin-bottom: 11px;
+
+  color:
+    rgba(255, 255, 255, 0.69);
+
+  font-size: 13px;
+
+  line-height: 1.5;
+
+  font-weight: 500;
+
   cursor: pointer;
+
+  transition:
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+
+@media (hover: hover) {
+
+  .vnt-footer-column li:hover {
+    color: #ffffff;
+
+    transform: translateX(3px);
+  }
+
+}
+
+
+/* =========================================================
+   COMPANY / LEGAL AREA
+========================================================= */
+
+.vnt-footer-company-area {
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1.15fr)
+    minmax(0, 0.85fr);
+
+  gap: 14px;
+
+  margin-top: 42px;
+
+  padding-top: 26px;
+
+  border-top:
+    1px solid
+    rgba(255, 255, 255, 0.10);
+}
+
+
+/* =========================================================
+   COMPANY CARDS
+========================================================= */
+
+.vnt-footer-company-card,
+.vnt-footer-office-card {
+  padding: 21px;
+
+  box-sizing: border-box;
+
+  background:
+    rgba(255, 255, 255, 0.055);
+
+  border:
+    1px solid
+    rgba(255, 255, 255, 0.09);
+
+  border-radius: 14px;
+
+  text-align: left;
+}
+
+
+.vnt-footer-company-card h3 {
+  max-width: 600px;
+
+  margin: 10px 0 0;
+
   color: #ffffff;
-  transition: 0.3s;
+
+  font-size: 14px;
+
+  line-height: 1.5;
+
+  font-weight: 800;
+
+  text-align: left;
 }
 
-.footer-card ul li:hover {
-  color: #ffb400;
-}
 
-/* Social Card */
-.social-card .social-icons {
+/* =========================================================
+   BLOCK TITLE
+========================================================= */
+
+.vnt-footer-block-title {
   display: flex;
-  gap: 15px;
-  margin-top: 10px;
+
+  align-items: center;
+
+  gap: 7px;
+
+  color: #79d9ff;
+
+  font-size: 10.5px;
+
+  line-height: 1.2;
+
+  font-weight: 800;
+
+  letter-spacing: 0.7px;
+
+  text-transform: uppercase;
+
+  text-align: left;
 }
 
-.social-card .social-icons img {
+
+.vnt-footer-block-title svg {
+  flex-shrink: 0;
+}
+
+
+/* =========================================================
+   COMPANY DETAILS
+========================================================= */
+
+.vnt-footer-company-details {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 10px;
+
+  margin-top: 14px;
+}
+
+
+.vnt-footer-detail-row {
+  display: flex;
+
+  align-items: flex-start;
+
+  gap: 9px;
+
+  color:
+    rgba(255, 255, 255, 0.67);
+
+  font-size: 12px;
+
+  line-height: 1.55;
+
+  text-align: left;
+}
+
+
+.vnt-footer-detail-row > svg {
+  flex: 0 0 13px;
+
+  width: 13px;
+
+  margin-top: 3px;
+
+  color:
+    rgba(115, 215, 255, 0.85);
+}
+
+
+.vnt-footer-detail-row strong {
+  color:
+    rgba(255, 255, 255, 0.92);
+
+  font-weight: 700;
+}
+
+
+/* =========================================================
+   BỘ CÔNG THƯƠNG
+========================================================= */
+
+.vnt-footer-bct {
+  display: inline-block;
+
+  margin-top: 16px;
+
+  text-decoration: none;
+}
+
+
+.vnt-footer-bct img {
+  display: block;
+
+  width: 145px;
+
+  height: auto;
+
+  object-fit: contain;
+
+  transition:
+    transform 0.2s ease,
+    opacity 0.2s ease;
+}
+
+
+@media (hover: hover) {
+
+  .vnt-footer-bct:hover img {
+    transform: translateY(-2px);
+
+    opacity: 0.92;
+  }
+
+}
+
+
+/* =========================================================
+   NEWSLETTER / SOCIAL
+========================================================= */
+
+.vnt-footer-middle {
+  margin-top: 28px;
+
+  padding: 22px 0;
+
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1fr)
+    auto;
+
+  gap: 40px;
+
+  align-items: center;
+
+  border-top:
+    1px solid
+    rgba(255, 255, 255, 0.10);
+
+  /* BỎ GẠCH DƯỚI */
+  border-bottom: none;
+}
+
+
+
+/* =========================================================
+   NEWSLETTER
+========================================================= */
+
+.vnt-footer-newsletter {
+  display: flex;
+
+  align-items: center;
+
+  gap: 28px;
+}
+
+
+.vnt-footer-newsletter-text {
+  min-width: 220px;
+
+  text-align: left;
+}
+
+
+.vnt-footer-newsletter-text > span {
+  display: block;
+
+  margin-bottom: 6px;
+
+  color: #79d7ff;
+
+  font-size: 9.5px;
+
+  line-height: 1;
+
+  font-weight: 800;
+
+  letter-spacing: 0.8px;
+
+  text-transform: uppercase;
+}
+
+
+.vnt-footer-newsletter-text h3 {
+  max-width: 300px;
+
+  margin: 0;
+
+  color: #ffffff;
+
+  font-size: 15px;
+
+  line-height: 1.45;
+
+  font-weight: 750;
+}
+
+
+/* =========================================================
+   SUBSCRIBE
+========================================================= */
+
+.vnt-footer-subscribe {
+  width: 100%;
+
+  max-width: 390px;
+
+  display: flex;
+
+  align-items: center;
+
+  padding: 4px;
+
+  background:
+    rgba(255, 255, 255, 0.09);
+
+  border:
+    1px solid
+    rgba(255, 255, 255, 0.13);
+
+  border-radius: 10px;
+}
+
+
+.vnt-footer-subscribe input {
+  min-width: 0;
+
+  flex: 1;
+
+  height: 42px;
+
+  padding: 0 12px;
+
+  color: #ffffff;
+
+  background: transparent;
+
+  border: 0;
+
+  outline: none;
+
+  font-size: 12.5px;
+}
+
+
+.vnt-footer-subscribe input::placeholder {
+  color:
+    rgba(255, 255, 255, 0.42);
+}
+
+
+.vnt-footer-subscribe button {
+  height: 38px;
+
+  padding: 0 16px;
+
+  color: #07529c;
+
+  background: #ffffff;
+
+  border: 0;
+
+  border-radius: 7px;
+
+  font-size: 11px;
+
+  font-weight: 800;
+
+  cursor: pointer;
+}
+
+
+/* =========================================================
+   SOCIAL
+========================================================= */
+
+.vnt-footer-social {
+  min-width: 180px;
+
+  text-align: right;
+}
+
+
+.vnt-footer-social > span {
+  display: block;
+
+  margin-bottom: 10px;
+
+  color:
+    rgba(255, 255, 255, 0.54);
+
+  font-size: 10.5px;
+
+  font-weight: 600;
+}
+
+
+.vnt-footer-social-icons {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: flex-end;
+
+  gap: 8px;
+}
+
+
+.vnt-footer-social-icons button {
   width: 36px;
   height: 36px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  color: #ffffff;
+
+  background:
+    rgba(255, 255, 255, 0.09);
+
+  border:
+    1px solid
+    rgba(255, 255, 255, 0.13);
+
+  border-radius: 50%;
+
   cursor: pointer;
-  transition: 0.3s;
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
 }
 
-.social-card .social-icons img:hover {
-  transform: scale(1.2);
+
+@media (hover: hover) {
+
+  .vnt-footer-social-icons button:hover {
+    transform: translateY(-2px);
+
+    background:
+      rgba(255, 255, 255, 0.18);
+  }
+
 }
 
-/* Footer Bottom */
-.footer-bottom {
-  text-align: center;
-  margin-top: 40px;
-  font-size: 14px;
-  color: #777;
+
+/* =========================================================
+   BOTTOM
+========================================================= */
+
+.vnt-footer-bottom {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 20px;
+
+  padding-top: 18px;
+}
+
+
+.vnt-footer-copyright span {
+  color:
+    rgba(255, 255, 255, 0.42);
+
+  font-size: 10.5px;
+}
+
+
+.vnt-footer-bottom-links {
+  display: flex;
+
+  align-items: center;
+
+  gap: 18px;
+}
+
+
+.vnt-footer-bottom-links span {
+  color:
+    rgba(255, 255, 255, 0.50);
+
+  font-size: 10.5px;
+
+  cursor: pointer;
+}
+
+
+/* =========================================================
+   LAPTOP
+========================================================= */
+
+@media (max-width: 1100px) {
+
+  .vnt-footer-container {
+    padding:
+      50px
+      20px
+      22px;
+  }
+
+
+  .vnt-footer-top {
+    grid-template-columns:
+      minmax(280px, 0.85fr)
+      minmax(0, 1.15fr);
+
+    gap: 42px;
+  }
+
+
+  .vnt-footer-links {
+    gap: 24px;
+  }
+
+
+  .vnt-footer-company-area {
+    grid-template-columns:
+      1fr
+      1fr;
+  }
+
+
+  .vnt-footer-brand-head h2 {
+    font-size: 24px;
+  }
+
+
+  .vnt-footer-brand-desc {
+    font-size: 14px;
+  }
+
+
+  .vnt-footer-column h3 {
+    font-size: 13.5px;
+  }
+
+
+  .vnt-footer-column li {
+    font-size: 12.5px;
+  }
+
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 820px) {
+
+  .vnt-footer-container {
+    padding:
+      44px
+      16px
+      20px;
+  }
+
+
+  .vnt-footer-top {
+    grid-template-columns: 1fr;
+
+    gap: 32px;
+  }
+
+
+  .vnt-footer-brand {
+    max-width: 620px;
+  }
+
+
+  .vnt-footer-links {
+    grid-template-columns:
+      repeat(3, minmax(0, 1fr));
+
+    gap: 22px;
+  }
+
+
+  .vnt-footer-company-area {
+    grid-template-columns: 1fr;
+
+    gap: 10px;
+  }
+
+
+  .vnt-footer-middle {
+    grid-template-columns: 1fr;
+
+    gap: 20px;
+  }
+
+
+  .vnt-footer-newsletter {
+    justify-content: space-between;
+  }
+
+
+  .vnt-footer-social {
+    min-width: 0;
+
+    text-align: left;
+  }
+
+
+  .vnt-footer-social-icons {
+    justify-content: flex-start;
+  }
+
+
+  .vnt-footer-brand-head h2 {
+    font-size: 23px;
+  }
+
+
+  .vnt-footer-brand-head span {
+    font-size: 11px;
+  }
+
+
+  .vnt-footer-brand-desc {
+    font-size: 14px;
+  }
+
+
+  .vnt-footer-contact strong {
+    font-size: 13px;
+  }
+
+
+  .vnt-footer-column h3 {
+    font-size: 13px;
+  }
+
+
+  .vnt-footer-column li {
+    font-size: 12px;
+  }
+
+
+  .vnt-footer-company-card h3 {
+    font-size: 13.5px;
+  }
+
+
+  .vnt-footer-detail-row {
+    font-size: 11.5px;
+  }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 576px) {
+
+  .vnt-footer-container {
+    padding:
+      34px
+      14px
+      16px;
+  }
+
+
+  /* =====================================================
+     BRAND
+  ===================================================== */
+
+  .vnt-footer-top {
+    gap: 26px;
+  }
+
+
+  .vnt-footer-brand-head {
+    gap: 10px;
+  }
+
+
+  .vnt-footer-logo {
+    width: 62px;
+
+    height: 62px;
+  }
+
+
+  .vnt-footer-brand-head h2 {
+    font-size: 21px;
+  }
+
+
+  .vnt-footer-brand-head span {
+    margin-top: 4px;
+
+    font-size: 9.5px;
+
+    line-height: 1.3;
+  }
+
+
+  .vnt-footer-brand-desc {
+    max-width: 350px;
+
+    margin-top: 12px;
+
+    font-size: 12.5px;
+
+    line-height: 1.6;
+  }
+
+
+  /* =====================================================
+     CONTACT
+  ===================================================== */
+
+  .vnt-footer-contact-list {
+    gap: 9px;
+
+    margin-top: 16px;
+  }
+
+
+  .vnt-footer-contact > svg {
+    width: 33px;
+
+    height: 33px;
+
+    padding: 8px;
+  }
+
+
+  .vnt-footer-contact span {
+    font-size: 8.5px;
+  }
+
+
+  .vnt-footer-contact strong {
+    max-width: 280px;
+
+    font-size: 11.5px;
+
+    line-height: 1.4;
+
+    overflow-wrap: anywhere;
+  }
+
+
+  /* =====================================================
+     LINKS
+  ===================================================== */
+
+  .vnt-footer-links {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+
+    gap:
+      24px
+      17px;
+  }
+
+
+  .vnt-footer-column:nth-child(3) {
+    grid-column: 1 / -1;
+  }
+
+
+  .vnt-footer-column h3 {
+    margin-bottom: 13px;
+
+    padding-bottom: 8px;
+
+    font-size: 12.5px;
+  }
+
+
+  .vnt-footer-column h3::after {
+    width: 21px;
+  }
+
+
+  .vnt-footer-column li {
+    margin-bottom: 9px;
+
+    font-size: 11.5px;
+
+    line-height: 1.5;
+  }
+
+
+  /* =====================================================
+     COMPANY AREA
+  ===================================================== */
+
+  .vnt-footer-company-area {
+    margin-top: 28px;
+
+    padding-top: 20px;
+  }
+
+
+  .vnt-footer-company-card,
+  .vnt-footer-office-card {
+    padding: 15px;
+
+    border-radius: 11px;
+  }
+
+
+  .vnt-footer-block-title {
+    font-size: 9px;
+  }
+
+
+  .vnt-footer-company-card h3 {
+    margin-top: 8px;
+
+    font-size: 11.5px;
+
+    line-height: 1.5;
+  }
+
+
+  .vnt-footer-company-details {
+    gap: 8px;
+
+    margin-top: 11px;
+  }
+
+
+  .vnt-footer-detail-row {
+    gap: 7px;
+
+    font-size: 10.5px;
+
+    line-height: 1.55;
+  }
+
+
+  .vnt-footer-detail-row > svg {
+    flex-basis: 11px;
+
+    width: 11px;
+  }
+
+
+  .vnt-footer-bct {
+    margin-top: 13px;
+  }
+
+
+  .vnt-footer-bct img {
+    width: 125px;
+  }
+
+
+  /* =====================================================
+     NEWSLETTER
+  ===================================================== */
+
+  .vnt-footer-middle {
+    margin-top: 24px;
+
+    padding:
+      19px
+      0;
+  }
+
+
+  .vnt-footer-newsletter {
+    display: block;
+  }
+
+
+  .vnt-footer-newsletter-text {
+    min-width: 0;
+  }
+
+
+  .vnt-footer-newsletter-text > span {
+    font-size: 8.5px;
+  }
+
+
+  .vnt-footer-newsletter-text h3 {
+    max-width: 290px;
+
+    font-size: 13px;
+
+    line-height: 1.45;
+  }
+
+
+  .vnt-footer-subscribe {
+    max-width: none;
+
+    margin-top: 11px;
+  }
+
+
+  .vnt-footer-subscribe input {
+    height: 40px;
+
+    font-size: 11px;
+  }
+
+
+  .vnt-footer-subscribe button {
+    height: 36px;
+
+    padding: 0 13px;
+
+    font-size: 10px;
+  }
+
+
+  /* =====================================================
+     SOCIAL
+  ===================================================== */
+
+  .vnt-footer-social > span {
+    margin-bottom: 8px;
+
+    font-size: 9.5px;
+  }
+
+
+  .vnt-footer-social-icons button {
+    width: 34px;
+
+    height: 34px;
+  }
+
+
+  /* =====================================================
+     BOTTOM
+  ===================================================== */
+
+  .vnt-footer-bottom {
+    display: block;
+
+    padding-top: 16px;
+  }
+
+
+  .vnt-footer-copyright span {
+    font-size: 9px;
+  }
+
+
+  .vnt-footer-bottom-links {
+    margin-top: 10px;
+
+    gap: 14px;
+  }
+
+
+  .vnt-footer-bottom-links span {
+    font-size: 9px;
+  }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 390px) {
+
+  .vnt-footer-container {
+    padding:
+      30px
+      12px
+      15px;
+  }
+
+
+  .vnt-footer-logo {
+    width: 58px;
+
+    height: 58px;
+  }
+
+
+  .vnt-footer-brand-head h2 {
+    font-size: 20px;
+  }
+
+
+  .vnt-footer-brand-desc {
+    font-size: 12px;
+  }
+
+
+  .vnt-footer-links {
+    gap:
+      21px
+      13px;
+  }
+
+
+  .vnt-footer-column h3 {
+    font-size: 12px;
+  }
+
+
+  .vnt-footer-column li {
+    font-size: 11px;
+  }
+
+
+  .vnt-footer-detail-row {
+    font-size: 10px;
+  }
+
+}
+
+
+/* =========================================================
+   VERY SMALL PHONE
+========================================================= */
+
+@media (max-width: 340px) {
+
+  .vnt-footer-links {
+    grid-template-columns: 1fr;
+  }
+
+
+  .vnt-footer-column:nth-child(3) {
+    grid-column: auto;
+  }
+
+
+  .vnt-footer-brand-head h2 {
+    font-size: 19px;
+  }
+
+
+  .vnt-footer-brand-desc {
+    font-size: 11.5px;
+  }
+
 }

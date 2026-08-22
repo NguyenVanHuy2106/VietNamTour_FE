@@ -9,8 +9,16 @@ const FamousDes = () => {
     <section className="micro-bento-section">
       <div className="micro-container">
         <div className="micro-header">
-          <h2 className="micro-title">ĐIỂM ĐẾN NỔI TIẾNG</h2>
-          <div className="micro-line"></div>
+          <span className="micro-eyebrow">
+            KHÁM PHÁ VIỆT NAM CÙNG CHÚNG TÔI
+          </span>
+
+          <h2 className="micro-title">Điểm đến nổi tiếng</h2>
+
+          <p className="micro-description">
+            Khám phá những điểm đến được yêu thích nhất Việt Nam, từ biển xanh,
+            cao nguyên đến những thành phố giàu bản sắc.
+          </p>
         </div>
 
         <div className="micro-grid-wrapper">
@@ -57,8 +65,7 @@ const FamousData = [
     type: "southeast",
     value: 1,
     city: "Tp Hồ Chí Minh",
-    url:
-      "https://encrypted-tbn1.gstatic.com/licensed-image?q=tbn:ANd9GcSw8aKdHx4e4q9zweMCcRHJF3sEy2G2nGtWMfeDmPBvVsnVwI7OL9IolJiARGs3iCEUUkilb-Rq1_lL2nKlajiqA_e-ddSpDixG9IgBdA",
+    url: "https://cdn.myvietnamtour.vn/chay-bo-1556362714811167854805.jpg",
   },
   {
     id: 2,
@@ -138,8 +145,7 @@ const FamousData = [
     type: "central",
     value: 12,
     city: "Hội An",
-    url:
-      "https://encrypted-tbn1.gstatic.com/licensed-image?q=tbn:ANd9GcSw8aKdHx4e4q9zweMCcRHJF3sEy2G2nGtWMfeDmPBvVsnVwI7OL9IolJiARGs3iCEUUkilb-Rq1_lL2nKlajiqA_e-ddSpDixG9IgBdA",
+    url: "https://cdn.myvietnamtour.vn/Ho%CC%A3%CC%82i%20an.jpg",
   },
   {
     id: 14,
