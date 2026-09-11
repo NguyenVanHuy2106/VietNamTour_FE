@@ -1,405 +1,367 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo, useState } from "react";
+import API from "../../../config/APINoToken";
 import { Helmet } from "react-helmet";
+
 import {
   ArrowRight,
+  Award,
+  Briefcase,
   Check,
-  ChevronRight,
+  ChevronDown,
+  ClipboardList,
+  Flag,
+  HeartHandshake,
+  Lightbulb,
+  PackageCheck,
   Phone,
-  Sparkles,
-  Target,
-  Users,
-  Trophy,
+  Puzzle,
+  Settings,
   ShieldCheck,
-  Palette,
-  Play,
+  Target,
+  Trophy,
+  Users,
+  Zap,
 } from "lucide-react";
 
 import "./index.css";
 
-const TeamBuildingLuxury = () => {
+export default function TeamBuilding() {
+  const [openFaq, setOpenFaq] = useState(-1);
+  const [dataCustomer, setDataCustomer] = useState([]);
+
+  const [builder, setBuilder] = useState({
+    people: "100 - 300",
+    location: "Phan Thiết",
+    goal: "Gắn kết",
+    style: "Năng lượng",
+  });
+
   useEffect(() => {
-    window.scrollTo(0, 0);
+    getCustomer();
   }, []);
 
-  /* =========================================================
-     FORMATS
-  ========================================================= */
-  const formats = [
-    {
-      id: "01",
-      title: "Team Building ngoài trời",
-      description:
-        "Không gian mở, năng lượng cao và phù hợp với những chương trình cần tạo sự kết nối mạnh giữa các thành viên.",
-      image:
-        "https://images.unsplash.com/photo-1528605248644-14dd04022da1?auto=format&fit=crop&w=1400&q=85",
-    },
-    {
-      id: "02",
-      title: "Team Building trong nhà",
-      description:
-        "Linh hoạt tại khách sạn, hội trường hoặc trung tâm sự kiện, phù hợp với nhiều quy mô và điều kiện tổ chức.",
-      image:
-        "https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&w=1400&q=85",
-    },
-    {
-      id: "03",
-      title: "Team Building kết hợp Gala",
-      description:
-        "Kết nối hoạt động tập thể với Gala Dinner, vinh danh, truyền thông và những khoảnh khắc đáng nhớ.",
-      image:
-        "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1400&q=85",
-    },
-    {
-      id: "04",
-      title: "Team Building theo chủ đề",
-      description:
-        "Concept được phát triển dựa trên văn hóa, thông điệp và mục tiêu riêng của từng doanh nghiệp.",
-      image:
-        "https://images.unsplash.com/photo-1531497865144-0464ef8fb9a9?auto=format&fit=crop&w=1400&q=85",
-    },
-  ];
+  const getCustomer = async () => {
+    try {
+      const response = await API.get("customer/get");
 
-  /* =========================================================
-     PROCESS
-  ========================================================= */
-  const process = [
-    {
-      id: "01",
-      title: "Hiểu doanh nghiệp",
-      description:
-        "Tiếp nhận nhu cầu, quy mô đoàn, mục tiêu chương trình, ngân sách và văn hóa doanh nghiệp.",
-    },
-    {
-      id: "02",
-      title: "Thiết kế concept",
-      description:
-        "Xây dựng chủ đề, thông điệp, trò chơi và kịch bản phù hợp với mục tiêu của chương trình.",
-    },
-    {
-      id: "03",
-      title: "Chuẩn bị & vận hành",
-      description:
-        "Đồng bộ nhân sự, đạo cụ, âm thanh, sân khấu, kỹ thuật và phương án dự phòng trước ngày tổ chức.",
-    },
-    {
-      id: "04",
-      title: "Triển khai chương trình",
-      description:
-        "MC, hoạt náo viên và đội ngũ điều hành phối hợp xuyên suốt để kiểm soát trải nghiệm của đoàn.",
-    },
-    {
-      id: "05",
-      title: "Tổng kết & truyền thông",
-      description:
-        "Bàn giao hình ảnh, video và tư liệu chương trình phục vụ truyền thông nội bộ sau sự kiện.",
-    },
-  ];
+      setDataCustomer(response.data.data || []);
+    } catch (error) {
+      console.error("Lỗi lấy khách hàng:", error);
+    }
+  };
 
-  /* =========================================================
-     GALLERY
-  ========================================================= */
-  const galleryImages = [
-    {
-      src:
-        "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1500&q=85",
-      className: "tbl-gallery-large",
-    },
-    {
-      src:
-        "https://images.unsplash.com/photo-1528605248644-14dd04022da1?auto=format&fit=crop&w=1200&q=85",
-      className: "tbl-gallery-medium",
-    },
-    {
-      src:
-        "https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&w=1200&q=85",
-      className: "tbl-gallery-medium",
-    },
-    {
-      src:
-        "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1200&q=85",
-      className: "tbl-gallery-small",
-    },
-    {
-      src:
-        "https://images.unsplash.com/photo-1531497865144-0464ef8fb9a9?auto=format&fit=crop&w=1200&q=85",
-      className: "tbl-gallery-small",
-    },
-    {
-      src:
-        "https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&w=1200&q=85",
-      className: "tbl-gallery-small",
-    },
-  ];
+  const displayCustomers = useMemo(() => {
+    return dataCustomer.slice(0, 10);
+  }, [dataCustomer]);
 
-  /* =========================================================
-     SCROLL TO CONTACT
-  ========================================================= */
   const scrollToContact = () => {
-    const contactSection = document.getElementById("team-building-contact");
+    const element = document.getElementById("tb-contact");
 
-    if (contactSection) {
-      contactSection.scrollIntoView({
+    if (element) {
+      element.scrollIntoView({
         behavior: "smooth",
         block: "start",
       });
     }
   };
 
+  const scrollToProjects = () => {
+    const element = document.getElementById("tb-projects");
+
+    if (element) {
+      element.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+  };
+
+  const formats = [
+    {
+      title: "BEACH TEAM BUILDING",
+      desc: "Bãi biển · Resort · Khu du lịch",
+      sub: "30 - 1.000+ người",
+      image:
+        "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=900&q=90",
+    },
+    {
+      title: "AMAZING RACE",
+      desc: "Khám phá điểm đến theo trạm thử thách",
+      sub: "50 - 500+ người",
+      image:
+        "https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?auto=format&fit=crop&w=900&q=90",
+    },
+    {
+      title: "CORPORATE TEAM BUILDING",
+      desc: "Teamwork · Leadership · Communication",
+      sub: "Theo mục tiêu doanh nghiệp",
+      image:
+        "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=900&q=90",
+    },
+    {
+      title: "CSR TEAM BUILDING",
+      desc: "Gắn kết đội ngũ kết hợp hoạt động cộng đồng",
+      sub: "Gắn kết · Ý nghĩa",
+      image:
+        "https://images.unsplash.com/photo-1559027615-cd4628902d4a?auto=format&fit=crop&w=900&q=90",
+    },
+    {
+      title: "TREKKING / ADVENTURE",
+      desc: "Chinh phục · Thử thách · Vượt giới hạn",
+      sub: "Đội ngũ năng động",
+      image:
+        "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=900&q=90",
+    },
+    {
+      title: "INDOOR TEAM BUILDING",
+      desc: "Ballroom · Hội trường · Resort",
+      sub: "Không phụ thuộc thời tiết",
+      image:
+        "https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&w=900&q=90",
+    },
+  ];
+
+  const concepts = [
+    {
+      title: "ONE TEAM\nONE DREAM",
+      desc: "Cùng một mục tiêu\nCùng một hành trình",
+      fit: "Annual Trip / Company Trip",
+      image:
+        "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=900&q=90",
+    },
+    {
+      title: "BREAK THE LIMIT",
+      desc: "Phá vỡ giới hạn\nBứt tốc tương lai",
+      fit: "Kick Off / Sales Team",
+      image:
+        "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=900&q=90",
+    },
+    {
+      title: "TOGETHER\nWE GROW",
+      desc: "Gắn kết nội lực\nCùng nhau phát triển",
+      fit: "Doanh nghiệp đông nhân sự",
+      image:
+        "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=900&q=90",
+    },
+    {
+      title: "WE ARE ONE",
+      desc: "Khác biệt từng cá nhân\nĐồng lòng một tập thể",
+      fit: "Doanh nghiệp nhiều phòng ban",
+      image:
+        "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=900&q=90",
+    },
+    {
+      title: "BEYOND\nTHE FUTURE",
+      desc: "Kết nối hôm nay\nKiến tạo ngày mai",
+      fit: "Ngân hàng / Corporate",
+      image:
+        "https://images.unsplash.com/photo-1531497865144-0464ef8fb9a9?auto=format&fit=crop&w=900&q=90",
+    },
+  ];
+
+  const faq = [
+    {
+      question: "Bao nhiêu người thì tổ chức Team Building được?",
+      answer:
+        "Từ khoảng 20 - 30 người đã có thể tổ chức. Việt Nam Tour sẽ điều chỉnh số đội, số trạm và nhân sự vận hành phù hợp với quy mô đoàn.",
+    },
+    {
+      question: "Việt Nam Tour có lo địa điểm không?",
+      answer:
+        "Có. Việt Nam Tour có thể tư vấn bãi biển, resort, khu du lịch, sân cỏ hoặc hội trường phù hợp.",
+    },
+    {
+      question: "Có thiết kế kịch bản riêng cho công ty không?",
+      answer:
+        "Có. Concept, key message, storyline, trò chơi và hình ảnh chương trình có thể thiết kế riêng theo doanh nghiệp.",
+    },
+    {
+      question: "Có thể tổ chức Team Building mà không mua tour không?",
+      answer:
+        "Có. Khách hàng có thể sử dụng riêng dịch vụ Team Building hoặc kết hợp tour, Gala Dinner và sự kiện.",
+    },
+  ];
+
   return (
     <>
       <Helmet>
         <title>Team Building doanh nghiệp | Việt Nam Tour</title>
-
-        <meta
-          name="description"
-          content="Tổ chức Team Building doanh nghiệp chuyên nghiệp, concept riêng, vận hành đồng bộ và kết hợp Gala Dinner, MICE, nghỉ dưỡng cùng Việt Nam Tour."
-        />
       </Helmet>
 
-      <main className="tbl-page">
+      <main className="tbx">
         {/* =====================================================
             HERO
         ===================================================== */}
-        <section className="tbl-hero">
-          <div className="tbl-hero-image" />
 
-          <div className="tbl-hero-overlay" />
-
-          <div className="tbl-hero-glow tbl-hero-glow-one" />
-
-          <div className="tbl-hero-glow tbl-hero-glow-two" />
-
-          <div className="tbl-container tbl-hero-container">
-            {/* LEFT */}
-            <div className="tbl-hero-content">
-              <div className="tbl-eyebrow tbl-eyebrow-light">
-                <Sparkles size={15} />
-                TEAM BUILDING FOR BUSINESS
-              </div>
-
-              <h1>
-                Không chỉ là một trò chơi.
-                <span>
-                  Đây là hành trình kết nối
-                  <br />
-                  một tập thể.
-                </span>
-              </h1>
-
-              <p className="tbl-hero-description">
-                Việt Nam Tour thiết kế và vận hành chương trình Team Building
-                dành riêng cho doanh nghiệp, tổ chức và đơn vị có nhu cầu gắn
-                kết đội ngũ, truyền tải văn hóa và tạo dấu ấn tập thể.
-              </p>
-
-              <div className="tbl-hero-actions">
-                <button
-                  type="button"
-                  className="tbl-btn tbl-btn-primary"
-                  onClick={scrollToContact}
-                >
-                  Nhận proposal chương trình
-                  <ArrowRight size={17} />
-                </button>
-
-                <a href="tel:0373954963" className="tbl-btn tbl-btn-glass">
-                  <Phone size={16} />
-                  0373 954 963
-                </a>
-              </div>
-
-              <div className="tbl-hero-trust">
-                <div>
-                  <Check size={14} />
-
-                  <span>Concept theo mục tiêu doanh nghiệp</span>
-                </div>
-
-                <div>
-                  <Check size={14} />
-
-                  <span>Vận hành chương trình đồng bộ</span>
-                </div>
-
-                <div>
-                  <Check size={14} />
-
-                  <span>Hỗ trợ hình ảnh & truyền thông</span>
-                </div>
-              </div>
-            </div>
-
-            {/* RIGHT CARD */}
-            <div className="tbl-hero-card">
-              <span className="tbl-hero-card-label">
-                GIẢI PHÁP TEAM BUILDING
-              </span>
-
-              <h3>
-                Mỗi doanh nghiệp
-                <br />
-                cần một kịch bản khác nhau.
-              </h3>
-
-              <div className="tbl-hero-card-list">
-                <div>
-                  <Target size={18} />
-
-                  <span>Mục tiêu chương trình</span>
-                </div>
-
-                <div>
-                  <Users size={18} />
-
-                  <span>Văn hóa đội ngũ</span>
-                </div>
-
-                <div>
-                  <Palette size={18} />
-
-                  <span>Concept thương hiệu</span>
-                </div>
-              </div>
-
-              <button
-                type="button"
-                onClick={scrollToContact}
-                className="tbl-hero-card-link"
-              >
-                Trao đổi với chuyên viên
-                <ChevronRight size={15} />
-              </button>
-            </div>
+        <section className="tbx-hero">
+          <div className="tbx-hero-image">
+            <img
+              src="https://cdn.myvietnamtour.vn/IMG_0350%202.jpg"
+              alt="Team Building"
+            />
           </div>
 
-          <div className="tbl-hero-bottom-fade" />
+          <div className="tbx-hero-mask" />
+
+          <div className="tbx-container tbx-hero-inner">
+            <div className="tbx-hero-content">
+              <span className="tbx-hero-label">TEAM BUILDING</span>
+
+              <h1>
+                BIẾN MỘT TẬP THỂ
+                <br />
+                <span>THÀNH MỘT ĐỘI NGŨ.</span>
+              </h1>
+
+              <p>
+                Việt Nam Tour thiết kế & tổ chức chương trình{" "}
+                <strong>Team Building</strong> trọn gói dành riêng cho doanh
+                nghiệp từ <strong>30 - 1.000+ thành viên.</strong>
+              </p>
+
+              <div className="tbx-hero-meta">
+                <span>KỊCH BẢN RIÊNG</span>
+                <i>•</i>
+                <span>MC</span>
+                <i>•</i>
+                <span>GAME</span>
+                <i>•</i>
+                <span>ĐẠO CỤ</span>
+                <i>•</i>
+                <span>ÂM THANH</span>
+                <i>•</i>
+                <span>BACKDROP</span>
+                <i>•</i>
+                <span>QUAY CHỤP</span>
+              </div>
+
+              <div className="tbx-hero-actions">
+                <button
+                  type="button"
+                  className="tbx-btn-primary"
+                  onClick={scrollToContact}
+                >
+                  NHẬN Ý TƯỞNG TEAM BUILDING
+                </button>
+
+                <button
+                  type="button"
+                  className="tbx-btn-secondary"
+                  onClick={scrollToProjects}
+                >
+                  XEM CHƯƠNG TRÌNH ĐÃ TỔ CHỨC
+                </button>
+              </div>
+            </div>
+          </div>
         </section>
+
+        {/* =====================================================
+            STATS
+        ===================================================== */}
+
+        <div className="tbx-stats">
+          <div className="tbx-container tbx-stats-grid">
+            <div>
+              <Award />
+              <p>
+                <strong>100+</strong>
+                <span>CHƯƠNG TRÌNH</span>
+              </p>
+            </div>
+
+            <div>
+              <Users />
+              <p>
+                <strong>30 - 1.000+</strong>
+                <span>THÀNH VIÊN</span>
+              </p>
+            </div>
+
+            <div>
+              <ClipboardList />
+              <p>
+                <strong>KỊCH BẢN</strong>
+                <span>THEO DOANH NGHIỆP</span>
+              </p>
+            </div>
+
+            <div>
+              <ShieldCheck />
+              <p>
+                <strong>TỔ CHỨC</strong>
+                <span>TOÀN QUỐC</span>
+              </p>
+            </div>
+          </div>
+        </div>
 
         {/* =====================================================
             INTRO
         ===================================================== */}
-        <section className="tbl-intro">
-          <div className="tbl-container tbl-intro-grid">
-            {/* IMAGE */}
-            <div className="tbl-intro-media">
+
+        <section className="tbx-section tbx-intro">
+          <div className="tbx-container tbx-intro-grid">
+            <div className="tbx-intro-image">
               <img
-                src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1500&q=85"
-                alt="Team Building doanh nghiệp"
+                src="https://images.unsplash.com/photo-1528605248644-14dd04022da1?auto=format&fit=crop&w=1500&q=90"
+                alt=""
               />
-
-              <div className="tbl-intro-media-overlay" />
-
-              <div className="tbl-intro-floating">
-                <span>TEAM BUILDING</span>
-
-                <strong>
-                  Thiết kế theo
-                  <br />
-                  dấu ấn doanh nghiệp
-                </strong>
-              </div>
             </div>
 
-            {/* CONTENT */}
-            <div className="tbl-intro-content">
-              <div className="tbl-eyebrow">
-                <span />
-                KHÔNG CÓ KỊCH BẢN ĐẠI TRÀ
-              </div>
+            <div className="tbx-intro-content">
+              <span className="tbx-eyebrow">TEAM BUILDING</span>
 
               <h2>
-                Một chương trình tốt phải
-                <span> đúng với con người bên trong doanh nghiệp.</span>
+                KHÔNG PHẢI
+                <br />
+                <span>CHỈ LÀ MỘT BUỔI CHƠI.</span>
               </h2>
 
-              <p className="tbl-section-description">
-                Thay vì sử dụng một bộ trò chơi cho mọi khách hàng, chúng tôi
-                bắt đầu từ mục tiêu của chương trình: gắn kết, truyền thông văn
-                hóa, tái tạo năng lượng, phát triển tinh thần lãnh đạo hay đơn
-                giản là tạo nên một ngày thật đáng nhớ cho tập thể.
+              <p className="tbx-intro-question">
+                Một chương trình tốt phải trả lời được doanh nghiệp muốn đạt
+                điều gì?
               </p>
 
-              <div className="tbl-value-list">
-                <div className="tbl-value-item">
-                  <span>01</span>
-
-                  <div>
-                    <h3>Đúng mục tiêu</h3>
-
-                    <p>
-                      Nội dung chương trình được xây dựng xoay quanh điều doanh
-                      nghiệp thực sự muốn đạt được.
-                    </p>
-                  </div>
+              <div className="tbx-intro-values">
+                <div>
+                  <Users />
+                  Gắn kết nhân sự
                 </div>
 
-                <div className="tbl-value-item">
-                  <span>02</span>
-
-                  <div>
-                    <h3>Đúng tinh thần</h3>
-
-                    <p>
-                      Từ cách dẫn dắt, trò chơi đến hình ảnh đều bám theo văn
-                      hóa và tính cách của tập thể.
-                    </p>
-                  </div>
+                <div>
+                  <HeartHandshake />
+                  Tri ân đội ngũ
                 </div>
 
-                <div className="tbl-value-item">
-                  <span>03</span>
+                <div>
+                  <Briefcase />
+                  Truyền tải văn hóa doanh nghiệp
+                </div>
 
-                  <div>
-                    <h3>Đúng trải nghiệm</h3>
+                <div>
+                  <Zap />
+                  Tái tạo năng lượng
+                </div>
 
-                    <p>
-                      Chương trình được vận hành theo một flow liền mạch, hạn
-                      chế tối đa cảm giác rời rạc giữa các hoạt động.
-                    </p>
-                  </div>
+                <div>
+                  <Target />
+                  Kick-off mục tiêu mới
+                </div>
+
+                <div>
+                  <Puzzle />
+                  Kết nối các phòng ban
                 </div>
               </div>
-            </div>
-          </div>
-        </section>
 
-        {/* =====================================================
-            CAPABILITY
-        ===================================================== */}
-        <section className="tbl-capability">
-          <div className="tbl-container">
-            <div className="tbl-capability-grid">
-              <div>
-                <Target />
-
-                <span>Chiến lược</span>
-
-                <strong>Thông điệp rõ ràng</strong>
-              </div>
-
-              <div>
-                <Palette />
-
-                <span>Sáng tạo</span>
-
-                <strong>Concept riêng biệt</strong>
-              </div>
-
-              <div>
-                <ShieldCheck />
-
-                <span>Vận hành</span>
-
-                <strong>Kiểm soát đồng bộ</strong>
-              </div>
-
-              <div>
-                <Trophy />
-
-                <span>Trải nghiệm</span>
-
-                <strong>Dấu ấn đáng nhớ</strong>
-              </div>
+              <p className="tbx-intro-note">
+                <strong>
+                  Việt Nam Tour bắt đầu từ mục tiêu của doanh nghiệp,
+                </strong>
+                <br />
+                sau đó mới xây dựng concept, storyline và hệ thống thử thách.
+              </p>
             </div>
           </div>
         </section>
@@ -407,49 +369,32 @@ const TeamBuildingLuxury = () => {
         {/* =====================================================
             FORMATS
         ===================================================== */}
-        <section className="tbl-formats">
-          <div className="tbl-container">
-            <div className="tbl-section-heading tbl-section-heading-row">
-              <div>
-                <div className="tbl-eyebrow">
-                  <span />
-                  PROGRAM FORMATS
-                </div>
 
-                <h2>
-                  Một mục tiêu.
-                  <br />
-                  <span>Nhiều cách để tạo kết nối.</span>
-                </h2>
-              </div>
-
-              <p>
-                Tùy quy mô đoàn, địa điểm và mục tiêu nội bộ, chương trình có
-                thể được triển khai theo nhiều format khác nhau.
-              </p>
+        <section className="tbx-section tbx-format-section">
+          <div className="tbx-container">
+            <div className="tbx-center-heading">
+              <h2>CHỌN HÌNH THỨC TEAM BUILDING</h2>
             </div>
 
-            <div className="tbl-format-list">
-              {formats.map((item) => (
-                <article className="tbl-format-item" key={item.id}>
-                  <div className="tbl-format-number">{item.id}</div>
+            <div className="tbx-format-grid">
+              {formats.map((item, index) => (
+                <article key={index} className="tbx-format-card">
+                  <img src={item.image} alt={item.title} />
 
-                  <div className="tbl-format-image">
-                    <img src={item.image} alt={item.title} />
-                  </div>
-
-                  <div className="tbl-format-content">
+                  <div>
                     <h3>{item.title}</h3>
-
-                    <p>{item.description}</p>
-
-                    <button type="button" onClick={scrollToContact}>
-                      Tư vấn format này
-                      <ArrowRight size={14} />
-                    </button>
+                    <p>{item.desc}</p>
+                    <strong>{item.sub}</strong>
                   </div>
                 </article>
               ))}
+            </div>
+
+            <div className="tbx-center-button">
+              <button type="button" onClick={scrollToContact}>
+                TƯ VẤN HÌNH THỨC PHÙ HỢP
+                <ArrowRight />
+              </button>
             </div>
           </div>
         </section>
@@ -457,184 +402,633 @@ const TeamBuildingLuxury = () => {
         {/* =====================================================
             PROCESS
         ===================================================== */}
-        <section className="tbl-process">
-          <div className="tbl-container">
-            <div className="tbl-section-heading tbl-process-heading">
-              <div className="tbl-eyebrow tbl-eyebrow-light">
-                <span />
-                OUR PROCESS
+
+        <section className="tbx-section tbx-process">
+          <div className="tbx-container">
+            <div className="tbx-process-heading">
+              <h2>
+                DOANH NGHIỆP ĐƯA MỤC TIÊU
+                <br />
+                VIỆT NAM TOUR BIẾN NÓ
+                <span> THÀNH CUỘC CHƠI.</span>
+              </h2>
+            </div>
+
+            <div className="tbx-process-grid">
+              <article>
+                <ClipboardList />
+                <h3>BRIEF</h3>
+
+                <p>
+                  Mục tiêu
+                  <br />
+                  Số lượng
+                  <br />
+                  Độ tuổi
+                  <br />
+                  Văn hóa
+                </p>
+              </article>
+
+              <ArrowRight className="tbx-arrow" />
+
+              <article className="orange">
+                <Lightbulb />
+                <h3>BIG IDEA</h3>
+
+                <p>
+                  Concept
+                  <br />
+                  Key message
+                  <br />
+                  Storyline
+                </p>
+              </article>
+
+              <ArrowRight className="tbx-arrow" />
+
+              <article>
+                <Puzzle />
+                <h3>GAME DESIGN</h3>
+
+                <p>
+                  Trạm thử thách
+                  <br />
+                  Luật chơi
+                  <br />
+                  Đạo cụ
+                </p>
+              </article>
+
+              <ArrowRight className="tbx-arrow" />
+
+              <article className="orange">
+                <Settings />
+                <h3>PRODUCTION</h3>
+
+                <p>
+                  Backdrop
+                  <br />
+                  Âm thanh
+                  <br />
+                  MC · Nhân sự
+                </p>
+              </article>
+
+              <ArrowRight className="tbx-arrow" />
+
+              <article>
+                <Flag />
+                <h3>SHOWTIME</h3>
+
+                <p>
+                  Vận hành
+                  <br />
+                  Quay chụp
+                  <br />
+                  Tổng kết
+                </p>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        {/* =====================================================
+            CONCEPT
+        ===================================================== */}
+
+        <section className="tbx-section tbx-concepts">
+          <div className="tbx-container">
+            <div className="tbx-center-heading">
+              <h2>
+                KỊCH BẢN TEAM BUILDING
+                <span> – CONCEPT LIBRARY</span>
+              </h2>
+            </div>
+
+            <div className="tbx-concept-grid">
+              {concepts.map((item, index) => (
+                <article key={index}>
+                  <img src={item.image} alt={item.title} />
+
+                  <div className="tbx-concept-overlay" />
+
+                  <section>
+                    <h3>
+                      {item.title.split("\n").map((line, i) => (
+                        <React.Fragment key={i}>
+                          {line}
+                          <br />
+                        </React.Fragment>
+                      ))}
+                    </h3>
+
+                    <p>
+                      {item.desc.split("\n").map((line, i) => (
+                        <React.Fragment key={i}>
+                          {line}
+                          <br />
+                        </React.Fragment>
+                      ))}
+                    </p>
+
+                    <strong>Phù hợp: {item.fit}</strong>
+                  </section>
+                </article>
+              ))}
+            </div>
+
+            <div className="tbx-center-button">
+              <button type="button">
+                XEM THÊM CONCEPT
+                <ArrowRight />
+              </button>
+            </div>
+          </div>
+        </section>
+
+        {/* =====================================================
+            BENEFIT + PACKAGE
+        ===================================================== */}
+
+        <section className="tbx-section tbx-package">
+          <div className="tbx-container tbx-package-layout">
+            <div className="tbx-benefit">
+              <h2>
+                MỖI TRÒ CHƠI
+                <br />
+                ĐỀU CÓ MỘT LÝ DO.
+              </h2>
+
+              <div className="tbx-benefit-grid">
+                <div>
+                  <HeartHandshake />
+                  <p>
+                    <strong>Communication</strong>
+                    <span>Truyền đạt & phối hợp</span>
+                  </p>
+                </div>
+
+                <div>
+                  <Zap />
+                  <p>
+                    <strong>Speed</strong>
+                    <span>Khả năng phản ứng</span>
+                  </p>
+                </div>
+
+                <div>
+                  <Users />
+                  <p>
+                    <strong>Collaboration</strong>
+                    <span>Phân chia vai trò</span>
+                  </p>
+                </div>
+
+                <div>
+                  <Lightbulb />
+                  <p>
+                    <strong>Problem Solving</strong>
+                    <span>Giải quyết vấn đề</span>
+                  </p>
+                </div>
+
+                <div>
+                  <Target />
+                  <p>
+                    <strong>Strategy</strong>
+                    <span>Lập kế hoạch</span>
+                  </p>
+                </div>
+
+                <div>
+                  <Trophy />
+                  <p>
+                    <strong>Leadership</strong>
+                    <span>Khả năng dẫn dắt</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="tbx-package-side">
+              <h2>TEAM BUILDING PACKAGE</h2>
+
+              <div className="tbx-package-grid">
+                <article>
+                  <header>
+                    <h3>ESSENTIAL</h3>
+                    <span>Chương trình gọn nhẹ</span>
+                  </header>
+
+                  <ul>
+                    <li>
+                      <Check /> MC
+                    </li>
+                    <li>
+                      <Check /> Game master
+                    </li>
+                    <li>
+                      <Check /> Đạo cụ
+                    </li>
+                    <li>
+                      <Check /> Backdrop
+                    </li>
+                    <li>
+                      <Check /> Nhân sự vận hành
+                    </li>
+                  </ul>
+
+                  <button type="button" onClick={scrollToContact}>
+                    NHẬN BÁO GIÁ
+                  </button>
+                </article>
+
+                <article className="featured">
+                  <div className="tbx-recommend">ĐỀ XUẤT</div>
+
+                  <header>
+                    <h3>SIGNATURE</h3>
+                    <span>Đủ dấu ấn thương hiệu</span>
+                  </header>
+
+                  <ul>
+                    <li>
+                      <Check /> Concept riêng
+                    </li>
+                    <li>
+                      <Check /> Storyline
+                    </li>
+                    <li>
+                      <Check /> MC chuyên nghiệp
+                    </li>
+                    <li>
+                      <Check /> Game master
+                    </li>
+                    <li>
+                      <Check /> Đạo cụ custom
+                    </li>
+                    <li>
+                      <Check /> Âm thanh
+                    </li>
+                    <li>
+                      <Check /> Backdrop
+                    </li>
+                  </ul>
+
+                  <button type="button" onClick={scrollToContact}>
+                    NHẬN BÁO GIÁ
+                  </button>
+                </article>
+
+                <article>
+                  <header>
+                    <h3>CUSTOMIZED</h3>
+                    <span>Thiết kế theo doanh nghiệp</span>
+                  </header>
+
+                  <ul>
+                    <li>
+                      <Check /> Concept độc quyền
+                    </li>
+                    <li>
+                      <Check /> Đạo cụ riêng
+                    </li>
+                    <li>
+                      <Check /> Sân khấu / LED
+                    </li>
+                    <li>
+                      <Check /> Media production
+                    </li>
+                    <li>
+                      <Check /> Gala integration
+                    </li>
+                  </ul>
+
+                  <button type="button" onClick={scrollToContact}>
+                    NHẬN BÁO GIÁ
+                  </button>
+                </article>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* =====================================================
+            BUILDER
+        ===================================================== */}
+
+        <section className="tbx-section tbx-builder" id="tb-contact">
+          <div className="tbx-container tbx-builder-grid">
+            <div className="tbx-builder-left">
+              <h2>TẠO TEAM BUILDING CỦA BẠN</h2>
+
+              <p>Điền thông tin để nhận kịch bản phù hợp miễn phí!</p>
+
+              <div className="tbx-choice">
+                <label>SỐ LƯỢNG THÀNH VIÊN</label>
+
+                <div>
+                  {[
+                    "30 - 50",
+                    "50 - 100",
+                    "100 - 300",
+                    "300 - 500",
+                    "500+",
+                  ].map((item) => (
+                    <button
+                      key={item}
+                      type="button"
+                      className={builder.people === item ? "active" : ""}
+                      onClick={() =>
+                        setBuilder({
+                          ...builder,
+                          people: item,
+                        })
+                      }
+                    >
+                      {item}
+                    </button>
+                  ))}
+                </div>
               </div>
 
+              <div className="tbx-choice">
+                <label>ĐỊA ĐIỂM TỔ CHỨC</label>
+
+                <div>
+                  {[
+                    "Vũng Tàu",
+                    "Phan Thiết",
+                    "Đà Lạt",
+                    "Nha Trang",
+                    "Khác",
+                  ].map((item) => (
+                    <button
+                      key={item}
+                      type="button"
+                      className={builder.location === item ? "active" : ""}
+                      onClick={() =>
+                        setBuilder({
+                          ...builder,
+                          location: item,
+                        })
+                      }
+                    >
+                      {item}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div className="tbx-choice">
+                <label>MỤC TIÊU CHÍNH</label>
+
+                <div>
+                  {["Gắn kết", "Kick Off", "Tri ân", "Văn hóa", "Vui chơi"].map(
+                    (item) => (
+                      <button
+                        key={item}
+                        type="button"
+                        className={builder.goal === item ? "active" : ""}
+                        onClick={() =>
+                          setBuilder({
+                            ...builder,
+                            goal: item,
+                          })
+                        }
+                      >
+                        {item}
+                      </button>
+                    ),
+                  )}
+                </div>
+              </div>
+
+              <div className="tbx-style-title">PHONG CÁCH CHƯƠNG TRÌNH</div>
+
+              <div className="tbx-style-grid">
+                {[
+                  ["🔥", "Máu lửa"],
+                  ["⚙", "Chiến thuật"],
+                  ["☀", "Chinh phục"],
+                  ["💙", "Vui nhộn"],
+                  ["✨", "Sang trọng"],
+                  ["💗", "Ý nghĩa"],
+                ].map((item) => (
+                  <button
+                    type="button"
+                    key={item[1]}
+                    className={builder.style === item[1] ? "active" : ""}
+                    onClick={() =>
+                      setBuilder({
+                        ...builder,
+                        style: item[1],
+                      })
+                    }
+                  >
+                    <span>{item[0]}</span>
+                    <strong>{item[1]}</strong>
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div className="tbx-contact-box">
+              <div>
+                <label>Họ và tên của bạn?</label>
+                <input type="text" placeholder="Nhập họ tên" />
+
+                <label>Số điện thoại?</label>
+                <input type="tel" placeholder="Nhập số điện thoại" />
+
+                <button type="button">NHẬN KỊCH BẢN PHÙ HỢP</button>
+
+                <small>Chúng tôi cam kết bảo mật thông tin của bạn.</small>
+              </div>
+
+              <img
+                src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=900&q=90"
+                alt=""
+              />
+            </div>
+          </div>
+        </section>
+
+        {/* =====================================================
+            PROJECT
+        ===================================================== */}
+
+        <section className="tbx-section tbx-projects" id="tb-projects">
+          <div className="tbx-container">
+            <h2>DỰ ÁN ĐÃ TỔ CHỨC</h2>
+
+            <div className="tbx-project-grid">
+              <article className="big">
+                <img
+                  src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=1500&q=90"
+                  alt=""
+                />
+
+                <div />
+
+                <section>
+                  <span>TEAM BUILDING · 350 KHÁCH</span>
+                  <h3>TOGETHER WE GROW</h3>
+                  <p>Corporate Trip · Team Building · Gala Dinner</p>
+
+                  <button type="button">
+                    XEM CASE STUDY
+                    <ArrowRight />
+                  </button>
+                </section>
+              </article>
+
+              <div className="mini">
+                <img
+                  src="https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&w=800&q=90"
+                  alt=""
+                />
+
+                <img
+                  src="https://images.unsplash.com/photo-1528605248644-14dd04022da1?auto=format&fit=crop&w=800&q=90"
+                  alt=""
+                />
+              </div>
+
+              <article className="big">
+                <img
+                  src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1500&q=90"
+                  alt=""
+                />
+
+                <div />
+
+                <section>
+                  <span>TEAM BUILDING · 120 KHÁCH</span>
+                  <h3>BREAK THE LIMIT</h3>
+
+                  <button type="button">
+                    XEM CASE STUDY
+                    <ArrowRight />
+                  </button>
+                </section>
+              </article>
+            </div>
+
+            {displayCustomers.length > 0 && (
+              <>
+                <div className="tbx-client-title">
+                  ĐƯỢC LỰA CHỌN BỞI CÁC TỔ CHỨC & DOANH NGHIỆP
+                </div>
+
+                <div className="tbx-client-grid">
+                  {displayCustomers.map((item, index) => (
+                    <div
+                      className="tbx-client-item"
+                      key={`${item.customerid ||
+                        item.customer_id ||
+                        "customer"}-${index}`}
+                    >
+                      <img
+                        src={item.customerlogo}
+                        alt={item.customername || "Đối tác"}
+                      />
+                    </div>
+                  ))}
+                </div>
+              </>
+            )}
+          </div>
+        </section>
+
+        {/* =====================================================
+            PREP
+        ===================================================== */}
+
+        <section className="tbx-section tbx-prep">
+          <div className="tbx-container tbx-prep-grid">
+            <div>
               <h2>
-                Từ một ý tưởng
-                <span> đến một chương trình hoàn chỉnh.</span>
+                1 GIỜ TEAM BUILDING
+                <br />
+                LÀ HÀNG CHỤC GIỜ
+                <br />
+                CHUẨN BỊ.
               </h2>
 
               <p>
-                Mỗi giai đoạn đều có mục tiêu rõ ràng để đảm bảo trải nghiệm của
-                khách hàng được kiểm soát xuyên suốt.
+                “Khách hàng chỉ cần xuất hiện.
+                <br />
+                Phần còn lại để Việt Nam Tour chuẩn bị.”
               </p>
             </div>
 
-            <div className="tbl-process-list">
-              {process.map((item, index) => (
-                <div className="tbl-process-item" key={item.id}>
-                  <div className="tbl-process-step">
-                    <span>{item.id}</span>
+            <div className="tbx-prep-items">
+              {[
+                ["Test đạo cụ", PackageCheck],
+                ["Vẽ sơ game", Puzzle],
+                ["Dựng backdrop", Target],
+                ["Họp MC", Users],
+                ["Chia nhân sự", Briefcase],
+                ["Set âm thanh", Zap],
+                ["Brief game master", ClipboardList],
+              ].map((item, index) => {
+                const Icon = item[1];
+
+                return (
+                  <div key={index}>
+                    <Icon />
+                    <span>{item[0]}</span>
                   </div>
-
-                  <div className="tbl-process-content">
-                    <span className="tbl-process-label">BƯỚC {item.id}</span>
-
-                    <h3>{item.title}</h3>
-
-                    <p>{item.description}</p>
-                  </div>
-
-                  {index !== process.length - 1 && (
-                    <div className="tbl-process-line" />
-                  )}
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         </section>
 
         {/* =====================================================
-            GALLERY
+            FAQ
         ===================================================== */}
-        <section className="tbl-gallery">
-          <div className="tbl-container">
-            <div className="tbl-section-heading tbl-section-heading-row">
-              <div>
-                <div className="tbl-eyebrow">
-                  <span />
-                  EVENT HIGHLIGHTS
-                </div>
 
-                <h2>
-                  Những khoảnh khắc
-                  <span> tạo nên tinh thần tập thể.</span>
-                </h2>
-              </div>
-
-              <p>
-                Mỗi chương trình là một câu chuyện khác nhau về con người, năng
-                lượng và sự kết nối.
-              </p>
+        <section className="tbx-section tbx-faq">
+          <div className="tbx-container">
+            <div className="tbx-center-heading">
+              <h2>CÂU HỎI THƯỜNG GẶP</h2>
             </div>
 
-            <div className="tbl-gallery-grid">
-              {galleryImages.map((item, index) => (
-                <div
-                  className={`tbl-gallery-item ${item.className}`}
+            <div className="tbx-faq-grid">
+              {faq.map((item, index) => (
+                <article
                   key={index}
+                  className={openFaq === index ? "open" : ""}
                 >
-                  <img src={item.src} alt={`Team Building ${index + 1}`} />
+                  <button
+                    type="button"
+                    onClick={() => setOpenFaq(openFaq === index ? -1 : index)}
+                  >
+                    <span>{item.question}</span>
+                    <ChevronDown />
+                  </button>
 
-                  <div className="tbl-gallery-hover">
-                    <Play size={18} fill="currentColor" />
-                  </div>
-                </div>
+                  {openFaq === index && <p>{item.answer}</p>}
+                </article>
               ))}
             </div>
           </div>
         </section>
 
-        {/* =====================================================
-            QUOTE
-        ===================================================== */}
-        <section className="tbl-quote">
-          <div className="tbl-quote-bg" />
-
-          <div className="tbl-quote-overlay" />
-
-          <div className="tbl-container tbl-quote-content">
-            <span>VIỆT NAM TOUR</span>
-
-            <blockquote>
-              “Một chương trình Team Building tốt không kết thúc khi trò chơi
-              kết thúc. Giá trị thật sự nằm ở cách mọi người nhìn nhau khác đi
-              sau hành trình.”
-            </blockquote>
-          </div>
-        </section>
-
-        {/* =====================================================
-            CONTACT CTA
-        ===================================================== */}
-        <section className="tbl-contact" id="team-building-contact">
-          <div className="tbl-container">
-            <div className="tbl-contact-card">
-              <div className="tbl-contact-glow" />
-
-              <div className="tbl-contact-content">
-                <div className="tbl-eyebrow tbl-eyebrow-light">
-                  <Sparkles size={14} />
-                  START YOUR PROGRAM
-                </div>
-
-                <h2>
-                  Đang lên kế hoạch
-                  <br />
-                  <span>Team Building cho doanh nghiệp?</span>
-                </h2>
-
-                <p>
-                  Chia sẻ quy mô đoàn, địa điểm dự kiến và mục tiêu chương
-                  trình. Việt Nam Tour sẽ tư vấn phương án phù hợp cho bạn.
-                </p>
-
-                <div className="tbl-contact-actions">
-                  <a href="tel:0373954963" className="tbl-btn tbl-btn-white">
-                    <Phone size={16} />
-                    0373 954 963
-                  </a>
-
-                  <a
-                    href="mailto:dulichvasukienvietnam@gmail.com"
-                    className="tbl-btn tbl-btn-outline-white"
-                  >
-                    Nhận proposal qua Email
-                    <ArrowRight size={16} />
-                  </a>
-                </div>
-              </div>
-
-              <div className="tbl-contact-side">
-                <span>TEAM BUILDING</span>
-
-                <strong>
-                  Concept
-                  <br />
-                  Planning
-                  <br />
-                  Operation
-                </strong>
-
-                <p>Việt Nam Tour</p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* =====================================================
-            MOBILE FIXED CTA
-        ===================================================== */}
-        <div className="tbl-mobile-fixed">
+        <div className="tbx-mobile-cta">
           <a href="tel:0373954963">
-            <Phone size={15} />
-            Gọi tư vấn
+            <Phone />
+            GỌI TƯ VẤN
           </a>
 
           <button type="button" onClick={scrollToContact}>
-            Nhận proposal
-            <ArrowRight size={14} />
+            NHẬN BÁO GIÁ
           </button>
         </div>
       </main>
     </>
   );
-};
-
-export default TeamBuildingLuxury;
+}
