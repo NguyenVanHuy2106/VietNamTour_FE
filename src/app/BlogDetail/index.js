@@ -518,7 +518,7 @@ const BlogDetail = () => {
                           className={item.level === "h3" ? "sub-item" : ""}
                         >
                           <a href={`#${item.id}`}>
-                            <span>{String(index + 1).padStart(2, "0")}</span>
+                            {/* <span>{String(index + 1).padStart(2, "0")}</span> */}
 
                             {item.text}
                           </a>
