@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Helmet } from "react-helmet";
 import { useParams, useNavigate } from "react-router-dom";
 import API from "../../config/APINoToken";
 import { Spinner } from "react-bootstrap";
@@ -30,6 +31,7 @@ const TourDetail = () => {
     relations: [],
     fullData: {},
   });
+
   const [loading, setLoading] = useState(true);
   const [activeImg, setActiveImg] = useState("");
 
@@ -95,6 +97,22 @@ const TourDetail = () => {
 
   const { tour, price, fullData, images, highlights, detail, relations } = data;
 
+  const currentUrl = `https://myvietnamtour.vn/tour/${Slug}`;
+
+  const seoTitle = tour.tourname
+    ? `${tour.tourname} | Việt Nam Tour`
+    : "Tour du lịch | Việt Nam Tour";
+
+  const seoDescription =
+    tour.description ||
+    `Khám phá ${tour.tourname ||
+      "tour du lịch"} cùng Việt Nam Tour. Lịch trình chi tiết, dịch vụ trọn gói và thông tin tour cập nhật.`;
+
+  const seoImage =
+    images && images.length > 0
+      ? images[0].imageurl
+      : "https://cdn.myvietnamtour.vn/uploads/1.png";
+
   // Component con để tránh lặp code cho phần thông tin (Specs)
   const TourSpecs = () => (
     <div className="specs-card-v4">
@@ -139,6 +157,36 @@ const TourDetail = () => {
 
   return (
     <div className="tour-pro-v3">
+      <Helmet>
+        <title>{seoTitle}</title>
+
+        <meta name="description" content={seoDescription} />
+
+        <link rel="canonical" href={currentUrl} />
+
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="Việt Nam Tour" />
+        <meta property="og:title" content={seoTitle} />
+        <meta property="og:description" content={seoDescription} />
+        <meta property="og:image" content={seoImage} />
+        <meta property="og:url" content={currentUrl} />
+
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "TouristTrip",
+            name: tour.tourname,
+            description: seoDescription,
+            image: images.map((img) => img.imageurl),
+            url: currentUrl,
+            provider: {
+              "@type": "Organization",
+              name: "Việt Nam Tour",
+              url: "https://myvietnamtour.vn/",
+            },
+          })}
+        </script>
+      </Helmet>
       <div className="container">
         <div className="tour-header-pro">
           <div className="row align-items-center">
@@ -162,7 +210,11 @@ const TourDetail = () => {
             {/* 1. GALLERY */}
             <div className="gallery-box-v3">
               <div className="big-frame">
-                <img src={activeImg} alt="main" className="img-main" />
+                <img
+                  src={activeImg}
+                  alt={tour.tourname || "Tour du lịch Việt Nam Tour"}
+                  className="img-main"
+                />
                 <div className="view-count">
                   <FaFire /> Đang có 12 người xem tour này
                 </div>
@@ -176,7 +228,11 @@ const TourDetail = () => {
                     }`}
                     onClick={() => setActiveImg(img.imageurl)}
                   >
-                    <img src={img.imageurl} alt="thumb" />
+                    <img
+                      src={img.imageurl}
+                      alt={`${tour.tourname || "Tour du lịch"} - hình ${idx +
+                        1}`}
+                    />
                   </div>
                 ))}
               </div>
