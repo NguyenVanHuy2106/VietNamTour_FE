@@ -35,8 +35,10 @@ const BlogDetail = () => {
 
   const p = data.post;
 
-  const currentUrl = typeof window !== "undefined" ? window.location.href : "";
-
+  const currentUrl =
+    typeof window !== "undefined"
+      ? `https://myvietnamtour.vn${window.location.pathname}`
+      : "https://myvietnamtour.vn";
   /* =====================================================
      FORMAT DATE
   ===================================================== */
