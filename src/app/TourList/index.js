@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { Helmet } from "react-helmet";
 import API from "../../config/APINoToken";
 import { useNavigate, useLocation } from "react-router-dom";
 import { toSlug } from "../../Components/ToSlug";
@@ -138,17 +139,54 @@ export default function TourList() {
   const totalPages = Math.ceil(dataTourList.length / toursPerPage);
   const currentTours = dataTourList.slice(
     (currentPage - 1) * toursPerPage,
-    currentPage * toursPerPage
+    currentPage * toursPerPage,
   );
 
   return (
     <div className="tour-page-wrapper bg-light">
+      <Helmet>
+        <title>Danh sách tour du lịch trong nước | Việt Nam Tour</title>
+
+        <meta
+          name="description"
+          content="Khám phá các tour du lịch trong nước, tour đoàn doanh nghiệp, tour MICE và hành trình nghỉ dưỡng do Việt Nam Tour tổ chức với lịch trình đa dạng và dịch vụ trọn gói."
+        />
+
+        <link rel="canonical" href="https://myvietnamtour.vn/danh-sach-tour" />
+
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="Việt Nam Tour" />
+
+        <meta
+          property="og:title"
+          content="Danh sách tour du lịch trong nước | Việt Nam Tour"
+        />
+
+        <meta
+          property="og:description"
+          content="Khám phá tour du lịch trong nước, tour đoàn doanh nghiệp, tour MICE và nhiều hành trình hấp dẫn tại Việt Nam."
+        />
+
+        <meta
+          property="og:url"
+          content="https://myvietnamtour.vn/danh-sach-tour"
+        />
+
+        <meta
+          property="og:image"
+          content="https://cdn.myvietnamtour.vn/uploads/1.png"
+        />
+      </Helmet>
       {/* Search Header Section */}
       <section className="tour-search-hero">
         <div className="container">
           <div className="hero-content text-center animate-hero">
-            <h1>Khám Phá Hành Trình Mới</h1>
-            <p>Hàng trăm tour du lịch hấp dẫn đang chờ đón bạn</p>
+            <h1>Tour du lịch trong nước & tour đoàn doanh nghiệp</h1>
+            <p>
+              Khám phá các hành trình nghỉ dưỡng, tour đoàn, MICE và chương
+              trình du lịch được Việt Nam Tour thiết kế cho doanh nghiệp và
+              khách hàng.
+            </p>
 
             <div
               className="search-panel-premium mx-auto"
@@ -346,7 +384,7 @@ export default function TourList() {
                       className="form-check-input"
                       type="checkbox"
                       checked={filters.vehicletypeid.includes(
-                        opt.vehicletypeid
+                        opt.vehicletypeid,
                       )}
                       onChange={() =>
                         handleCheckboxChange("vehicletypeid", opt.vehicletypeid)
@@ -444,7 +482,7 @@ export default function TourList() {
                           <div className="price-amount">
                             {tour.price
                               ? Number(tour.price.adultprice).toLocaleString(
-                                  "vi-VN"
+                                  "vi-VN",
                                 )
                               : "0"}{" "}
                             ₫

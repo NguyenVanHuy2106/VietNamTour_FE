@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
+import { Helmet } from "react-helmet";
 import API from "../../config/APINoToken";
 import {
   FaArrowRight,
@@ -227,6 +228,36 @@ const Blog = () => {
 
   return (
     <main className="blog-page">
+      <Helmet>
+        <title>Cẩm nang du lịch & kinh nghiệm khách đoàn | Việt Nam Tour</title>
+
+        <meta
+          name="description"
+          content="Cẩm nang du lịch Việt Nam với kinh nghiệm đi tour, gợi ý điểm đến, lịch trình và thông tin hữu ích dành cho khách đoàn, doanh nghiệp, bệnh viện và tổ chức."
+        />
+
+        <link rel="canonical" href="https://myvietnamtour.vn/blog" />
+
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="Việt Nam Tour" />
+
+        <meta
+          property="og:title"
+          content="Cẩm nang du lịch & kinh nghiệm khách đoàn | Việt Nam Tour"
+        />
+
+        <meta
+          property="og:description"
+          content="Kinh nghiệm du lịch, gợi ý điểm đến, lịch trình và cẩm nang dành cho khách đoàn, doanh nghiệp và tổ chức."
+        />
+
+        <meta property="og:url" content="https://myvietnamtour.vn/blog" />
+
+        <meta
+          property="og:image"
+          content="https://cdn.myvietnamtour.vn/uploads/1.png"
+        />
+      </Helmet>
       {/* HERO */}
       <section className="blog-hero-modern">
         <div className="blog-container">

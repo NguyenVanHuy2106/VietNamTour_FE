@@ -11,9 +11,30 @@ const ConferenceLanding = () => {
     <>
       <Helmet>
         <title>Tổ chức hội nghị – hội thảo chuyên nghiệp | Việt Nam Tour</title>
+
         <meta
           name="description"
           content="Dịch vụ tổ chức hội nghị – hội thảo – sự kiện khoa học trọn gói. Quy mô lớn – vận hành chuẩn – đúng quy định."
+        />
+
+        <link
+          rel="canonical"
+          href="https://myvietnamtour.vn/dich-vu/hoi-nghi-hoi-thao"
+        />
+
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="Việt Nam Tour" />
+        <meta
+          property="og:title"
+          content="Tổ chức hội nghị – hội thảo chuyên nghiệp | Việt Nam Tour"
+        />
+        <meta
+          property="og:description"
+          content="Dịch vụ tổ chức hội nghị – hội thảo – sự kiện khoa học trọn gói. Quy mô lớn – vận hành chuẩn – đúng quy định."
+        />
+        <meta
+          property="og:url"
+          content="https://myvietnamtour.vn/dich-vu/hoi-nghi-hoi-thao"
         />
       </Helmet>
 

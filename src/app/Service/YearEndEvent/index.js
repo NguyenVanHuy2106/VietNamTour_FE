@@ -11,9 +11,30 @@ const YearEndEvent = () => {
     <>
       <Helmet>
         <title>YEP – Tiệc Tân Niên & Họp Mặt Cuối Năm | Việt Nam Tour</title>
+
         <meta
           name="description"
           content="Dịch vụ tổ chức YEP, Tiệc Tân Niên, Họp Mặt Cuối Năm chuyên nghiệp – kịch bản riêng – hình ảnh sang trọng – vận hành trọn gói."
+        />
+
+        <link
+          rel="canonical"
+          href="https://myvietnamtour.vn/dich-vu/year-end-party"
+        />
+
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="Việt Nam Tour" />
+        <meta
+          property="og:title"
+          content="YEP – Tiệc Tân Niên & Họp Mặt Cuối Năm | Việt Nam Tour"
+        />
+        <meta
+          property="og:description"
+          content="Dịch vụ tổ chức YEP, Tiệc Tân Niên, Họp Mặt Cuối Năm chuyên nghiệp – kịch bản riêng – hình ảnh sang trọng – vận hành trọn gói."
+        />
+        <meta
+          property="og:url"
+          content="https://myvietnamtour.vn/dich-vu/year-end-party"
         />
       </Helmet>
 

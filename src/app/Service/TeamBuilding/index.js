@@ -186,6 +186,31 @@ export default function TeamBuilding() {
     <>
       <Helmet>
         <title>Team Building doanh nghiệp | Việt Nam Tour</title>
+
+        <meta
+          name="description"
+          content="Dịch vụ tổ chức team building doanh nghiệp chuyên nghiệp tại Việt Nam Tour, thiết kế chương trình theo yêu cầu cho công ty, bệnh viện, ngân hàng và đoàn thể."
+        />
+
+        <link
+          rel="canonical"
+          href="https://myvietnamtour.vn/dich-vu/team-building"
+        />
+
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="Việt Nam Tour" />
+        <meta
+          property="og:title"
+          content="Team Building doanh nghiệp | Việt Nam Tour"
+        />
+        <meta
+          property="og:description"
+          content="Dịch vụ tổ chức team building doanh nghiệp chuyên nghiệp, thiết kế chương trình theo yêu cầu cho khách đoàn."
+        />
+        <meta
+          property="og:url"
+          content="https://myvietnamtour.vn/dich-vu/team-building"
+        />
       </Helmet>
 
       <main className="tbx">
