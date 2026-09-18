@@ -66,6 +66,6 @@ const HeaderNavData = [
   { id: 5, name: "BLOG", link: "/blog" },
   { id: 6, name: "HÌNH ẢNH", link: "/hinh-anh" },
   { id: 7, name: "ĐÁNH GIÁ", link: "/danh-gia" },
-  { id: 8, name: "LIÊN HỆ", link: "/lien-he" },
-  { id: 9, name: "TUYỂN DỤNG", link: "/tuyen-dung" },
+  { id: 8, name: "LIÊN HỆ", link: "/" },
+  { id: 9, name: "TUYỂN DỤNG", link: "/" },
 ];

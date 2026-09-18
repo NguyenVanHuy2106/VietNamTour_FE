@@ -329,6 +329,7 @@ const BlogDetail = () => {
         <meta name="twitter:title" content={p.title} />
 
         <meta name="twitter:description" content={p.description || ""} />
+        <meta name="robots" content="index, follow, max-image-preview:large" />
 
         <meta name="twitter:image" content={p.thumbnail_url || ""} />
 
@@ -337,40 +338,37 @@ const BlogDetail = () => {
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",
-
             "@type": "BlogPosting",
+            "@id": `${currentUrl}#article`,
 
             headline: p.title,
-
             description: p.description,
 
-            image: p.thumbnail_url,
+            image: p.thumbnail_url ? [p.thumbnail_url] : [],
 
             datePublished: p.created_at,
-
             dateModified: p.updated_at || p.created_at,
 
             author: {
               "@type": "Organization",
-
-              name: (data.creator && data.creator.name) || "Việt Nam Tour",
+              "@id": "https://myvietnamtour.vn/#organization",
+              name: "Việt Nam Tour",
+              url: "https://myvietnamtour.vn/",
             },
 
             publisher: {
               "@type": "Organization",
-
+              "@id": "https://myvietnamtour.vn/#organization",
               name: "Việt Nam Tour",
-
+              url: "https://myvietnamtour.vn/",
               logo: {
                 "@type": "ImageObject",
-
                 url: "https://cdn.myvietnamtour.vn/uploads/1.png",
               },
             },
 
             mainEntityOfPage: {
               "@type": "WebPage",
-
               "@id": currentUrl,
             },
           })}

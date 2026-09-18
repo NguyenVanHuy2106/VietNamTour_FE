@@ -10,7 +10,7 @@
   --vnt-text: #42526e;
   --vnt-white: #ffffff;
 
-  min-height: 100vh;
+  min-height: 90vh;
   position: relative;
 
   background: var(--vnt-white);

@@ -56,6 +56,35 @@ const MainHome = () => {
           property="og:image"
           content="https://cdn.myvietnamtour.vn/uploads/1.png"
         />
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "@id": "https://myvietnamtour.vn/#website",
+            url: "https://myvietnamtour.vn/",
+            name: "Việt Nam Tour",
+            alternateName: "My Vietnam Tour",
+            publisher: {
+              "@id": "https://myvietnamtour.vn/#organization",
+            },
+          })}
+        </script>
+
+        {/* ORGANIZATION SCHEMA */}
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            "@id": "https://myvietnamtour.vn/#organization",
+            name: "Việt Nam Tour",
+            alternateName: "My Vietnam Tour",
+            url: "https://myvietnamtour.vn/",
+            logo: {
+              "@type": "ImageObject",
+              url: "https://cdn.myvietnamtour.vn/uploads/1.png",
+            },
+          })}
+        </script>
       </Helmet>
 
       <FadeInSection>

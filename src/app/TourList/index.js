@@ -1,28 +1,50 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, {
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
+
 import { Helmet } from "react-helmet";
 import API from "../../config/APINoToken";
-import { useNavigate, useLocation } from "react-router-dom";
-import { toSlug } from "../../Components/ToSlug";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "./index.css";
+
 import {
-  FaRegClock,
-  FaRegCalendarAlt,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
+
+import {
+  FaArrowRight,
   FaBus,
-  FaRegBuilding,
-  FaMapMarkerAlt,
-  FaFilter,
-  FaSearch,
-  FaChevronRight,
+  FaChevronDown,
   FaChevronLeft,
+  FaChevronRight,
+  FaFilter,
+  FaMapMarkerAlt,
+  FaRegBuilding,
+  FaRegClock,
+  FaSearch,
+  FaSortAmountDown,
+  FaTimes,
 } from "react-icons/fa";
 
-export default function TourList() {
+import "./index.css";
+
+const TOURS_PER_PAGE = 16;
+
+const TourList = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // --- QUẢN LÝ STATE ---
-  const [dataTourList, setDataTourList] = useState([]);
+  const tourSectionRef = useRef(null);
+
+  /* =====================================================
+     DATA
+  ===================================================== */
+
+  const [dataTourList, setDataTourList] =
+    useState([]);
+
   const [options, setOptions] = useState({
     destinations: [],
     departures: [],
@@ -31,7 +53,10 @@ export default function TourList() {
     vehicleTypes: [],
   });
 
-  // State lọc chi tiết (Giữ nguyên các field bạn đã có)
+  /* =====================================================
+     FILTER
+  ===================================================== */
+
   const [filters, setFilters] = useState({
     tourtype: [],
     timetypeid: [],
@@ -39,132 +64,692 @@ export default function TourList() {
     vehicletypeid: [],
     selectedFrom: "",
     selectedDestination: "",
-    minPrice: "",
-    maxPrice: "",
-    accessibility: [], // Wheelchair, Service Animal...
   });
 
-  const [currentPage, setCurrentPage] = useState(1);
-  const toursPerPage = 8;
+  const [
+    showAdvancedFilter,
+    setShowAdvancedFilter,
+  ] = useState(false);
 
-  // --- FIX LỖI CHUYỂN TRANG (PAYLOAD) ---
-  // Lắng nghe location.state để cập nhật tourtype ngay khi user bấm link từ ngoài vào
+  /* =====================================================
+     SEARCH
+  ===================================================== */
+
+  const [searchText, setSearchText] =
+    useState("");
+
+  const [
+    appliedSearchText,
+    setAppliedSearchText,
+  ] = useState("");
+
+  /* =====================================================
+     PAGE
+  ===================================================== */
+
+  const [sortType, setSortType] =
+    useState("NEWEST");
+
+  const [currentPage, setCurrentPage] =
+    useState(1);
+
+  const [loadingTours, setLoadingTours] =
+    useState(true);
+
+  /* =====================================================
+     FILTER TỪ PAGE KHÁC
+  ===================================================== */
+
   useEffect(() => {
-    const { tourtype: initialTourtype, destinationid: initialDestination } =
-      location.state || {};
+    const state = location.state || {};
 
-    let newTourTypeArr = [];
-    if (Array.isArray(initialTourtype)) newTourTypeArr = initialTourtype;
-    else if (typeof initialTourtype === "string")
-      newTourTypeArr = [initialTourtype];
+    const initialTourtype =
+      state.tourtype;
+
+    const initialDestination =
+      state.destinationid;
+
+    let newTourType = [];
+
+    if (
+      Array.isArray(initialTourtype)
+    ) {
+      newTourType =
+        initialTourtype;
+    } else if (
+      typeof initialTourtype ===
+        "string" &&
+      initialTourtype
+    ) {
+      newTourType = [
+        initialTourtype,
+      ];
+    }
 
     setFilters((prev) => ({
       ...prev,
-      tourtype: newTourTypeArr,
-      selectedDestination: initialDestination || "",
+
+      tourtype: newTourType,
+
+      selectedDestination:
+        initialDestination || "",
     }));
 
-    window.scrollTo(0, 0);
-  }, [location.state]); // Khi state từ navigate thay đổi, useEffect này sẽ chạy
+    setCurrentPage(1);
 
-  // Fetch các option cho dropdown/checkbox
+    window.scrollTo(0, 0);
+  }, [location.state]);
+
+  /* =====================================================
+     GET OPTIONS
+  ===================================================== */
+
   useEffect(() => {
-    const fetchOptions = async () => {
+    const getOptions = async () => {
       try {
-        const [dep, time, hotel, vehicle, des] = await Promise.all([
-          API.get("/province/get"),
-          API.get("/timeType/get"),
-          API.get("/hotelType/get"),
-          API.get("/vehicleType/get"),
-          API.get("/travelLocation/get"),
-        ]);
+        const result =
+          await Promise.all([
+            API.get("/province/get"),
+            API.get("/timeType/get"),
+            API.get(
+              "/hotelType/get"
+            ),
+            API.get(
+              "/vehicleType/get"
+            ),
+            API.get(
+              "/travelLocation/get"
+            ),
+          ]);
+
+        const dep = result[0];
+        const time = result[1];
+        const hotel = result[2];
+        const vehicle =
+          result[3];
+        const destination =
+          result[4];
+
         setOptions({
-          departures: dep.data.data,
-          timeTypes: time.data.data,
-          hotelTypes: hotel.data.data,
-          vehicleTypes: vehicle.data.data,
-          destinations: des.data.data,
+          departures:
+            dep &&
+            dep.data &&
+            dep.data.data
+              ? dep.data.data
+              : [],
+
+          timeTypes:
+            time &&
+            time.data &&
+            time.data.data
+              ? time.data.data
+              : [],
+
+          hotelTypes:
+            hotel &&
+            hotel.data &&
+            hotel.data.data
+              ? hotel.data.data
+              : [],
+
+          vehicleTypes:
+            vehicle &&
+            vehicle.data &&
+            vehicle.data.data
+              ? vehicle.data.data
+              : [],
+
+          destinations:
+            destination &&
+            destination.data &&
+            destination.data.data
+              ? destination.data.data
+              : [],
         });
-      } catch (err) {
-        console.error("Failed to fetch dropdown data", err);
+      } catch (error) {
+        console.error(
+          "Lỗi lấy dữ liệu bộ lọc:",
+          error
+        );
       }
     };
-    fetchOptions();
+
+    getOptions();
   }, []);
 
-  // --- GỌI API KHI FILTER THAY ĐỔI ---
-  useEffect(() => {
-    const getData = async () => {
-      try {
-        const payload = {};
-        if (filters.tourtype.length > 0) payload.tourtype = filters.tourtype;
-        if (filters.timetypeid.length > 0)
-          payload.timetypeid = filters.timetypeid;
-        if (filters.hoteltypeid.length > 0)
-          payload.hoteltypeid = filters.hoteltypeid;
-        if (filters.vehicletypeid.length > 0)
-          payload.vehicletypeid = filters.vehicletypeid;
-        if (filters.selectedFrom) payload.departure = filters.selectedFrom;
-        if (filters.selectedDestination)
-          payload.destination = filters.selectedDestination;
-        // Có thể thêm logic price range vào payload tùy API của bạn
+  /* =====================================================
+     GET TOUR
+  ===================================================== */
 
-        const response = await API.post("/tour/search", payload);
-        setDataTourList(response.data.data || []);
+  useEffect(() => {
+    const getTours = async () => {
+      try {
+        setLoadingTours(true);
+
+        const payload = {};
+
+        if (
+          filters.tourtype.length >
+          0
+        ) {
+          payload.tourtype =
+            filters.tourtype;
+        }
+
+        if (
+          filters.timetypeid.length >
+          0
+        ) {
+          payload.timetypeid =
+            filters.timetypeid;
+        }
+
+        if (
+          filters.hoteltypeid.length >
+          0
+        ) {
+          payload.hoteltypeid =
+            filters.hoteltypeid;
+        }
+
+        if (
+          filters.vehicletypeid
+            .length > 0
+        ) {
+          payload.vehicletypeid =
+            filters.vehicletypeid;
+        }
+
+        if (
+          filters.selectedFrom
+        ) {
+          payload.departure =
+            filters.selectedFrom;
+        }
+
+        if (
+          filters.selectedDestination
+        ) {
+          payload.destination =
+            filters.selectedDestination;
+        }
+
+        const response =
+          await API.post(
+            "/tour/search",
+            payload
+          );
+
+        const tours =
+          response &&
+          response.data &&
+          response.data.data
+            ? response.data.data
+            : [];
+
+        setDataTourList(tours);
+
+        setCurrentPage(1);
       } catch (error) {
-        console.error("Lỗi khi lấy tour:", error);
+        console.error(
+          "Lỗi lấy danh sách tour:",
+          error
+        );
+
+        setDataTourList([]);
+      } finally {
+        setLoadingTours(false);
       }
     };
-    getData();
-  }, [filters]); // Chạy lại mỗi khi bất kỳ filter nào thay đổi
 
-  // --- XỬ LÝ SỰ KIỆN ---
-  const handleCheckboxChange = (key, value) => {
+    getTours();
+  }, [
+    filters.tourtype,
+    filters.timetypeid,
+    filters.hoteltypeid,
+    filters.vehicletypeid,
+    filters.selectedFrom,
+    filters.selectedDestination,
+  ]);
+
+  /* =====================================================
+     NORMALIZE VIETNAMESE
+  ===================================================== */
+
+  const normalizeText = (text) => {
+    if (!text) {
+      return "";
+    }
+
+    return text
+      .toString()
+      .normalize("NFD")
+      .replace(
+        /[\u0300-\u036f]/g,
+        ""
+      )
+      .replace(/đ/g, "d")
+      .replace(/Đ/g, "D")
+      .toLowerCase()
+      .trim();
+  };
+
+  /* =====================================================
+     CHECKBOX / CHIP
+  ===================================================== */
+
+  const handleCheckboxChange = (
+    key,
+    value
+  ) => {
     setFilters((prev) => {
-      const current = prev[key];
-      const next = current.includes(value)
-        ? current.filter((item) => item !== value)
-        : [...current, value];
-      return { ...prev, [key]: next };
+      const current =
+        prev[key] || [];
+
+      const exists =
+        current.indexOf(value) !== -1;
+
+      const next = exists
+        ? current.filter(
+            (item) =>
+              item !== value
+          )
+        : current.concat(value);
+
+      return {
+        ...prev,
+
+        [key]: next,
+      };
     });
+
     setCurrentPage(1);
   };
 
-  const handleGoToDetail = (slug) => {
-    navigate(`/tour/${slug}`);
-    //console.log(slug);
+  /* =====================================================
+     CLEAR FILTER
+  ===================================================== */
+
+  const clearFilters = () => {
+    setFilters({
+      tourtype: [],
+      timetypeid: [],
+      hoteltypeid: [],
+      vehicletypeid: [],
+      selectedFrom: "",
+      selectedDestination: "",
+    });
+
+    setSearchText("");
+
+    setAppliedSearchText("");
+
+    setSortType("NEWEST");
+
+    setCurrentPage(1);
   };
 
-  // Pagination logic
-  const totalPages = Math.ceil(dataTourList.length / toursPerPage);
-  const currentTours = dataTourList.slice(
-    (currentPage - 1) * toursPerPage,
-    currentPage * toursPerPage,
+  /* =====================================================
+     FILTER COUNT
+  ===================================================== */
+
+  const advancedFilterCount =
+    filters.timetypeid.length +
+    filters.hoteltypeid.length +
+    filters.vehicletypeid.length;
+
+  const activeFilterCount =
+    filters.tourtype.length +
+    filters.timetypeid.length +
+    filters.hoteltypeid.length +
+    filters.vehicletypeid.length +
+    (filters.selectedFrom
+      ? 1
+      : 0) +
+    (filters.selectedDestination
+      ? 1
+      : 0);
+
+  /* =====================================================
+     SORT
+  ===================================================== */
+
+  const sortedTours = useMemo(
+    () => {
+      const tours =
+        dataTourList.slice();
+
+      if (
+        sortType ===
+        "PRICE_ASC"
+      ) {
+        tours.sort((a, b) => {
+          const priceA =
+            a &&
+            a.price &&
+            a.price.adultprice
+              ? Number(
+                  a.price
+                    .adultprice
+                )
+              : 0;
+
+          const priceB =
+            b &&
+            b.price &&
+            b.price.adultprice
+              ? Number(
+                  b.price
+                    .adultprice
+                )
+              : 0;
+
+          return priceA - priceB;
+        });
+      } else if (
+        sortType ===
+        "PRICE_DESC"
+      ) {
+        tours.sort((a, b) => {
+          const priceA =
+            a &&
+            a.price &&
+            a.price.adultprice
+              ? Number(
+                  a.price
+                    .adultprice
+                )
+              : 0;
+
+          const priceB =
+            b &&
+            b.price &&
+            b.price.adultprice
+              ? Number(
+                  b.price
+                    .adultprice
+                )
+              : 0;
+
+          return priceB - priceA;
+        });
+      } else {
+        tours.sort((a, b) => {
+          const idA =
+            a && a.tourid
+              ? Number(
+                  a.tourid
+                )
+              : 0;
+
+          const idB =
+            b && b.tourid
+              ? Number(
+                  b.tourid
+                )
+              : 0;
+
+          return idB - idA;
+        });
+      }
+
+      return tours;
+    },
+    [dataTourList, sortType]
   );
 
+  /* =====================================================
+     SEARCH THEO TITLE
+  ===================================================== */
+
+  const searchedTours =
+    useMemo(() => {
+      if (!appliedSearchText) {
+        return sortedTours;
+      }
+
+      const keyword =
+        normalizeText(
+          appliedSearchText
+        );
+
+      return sortedTours.filter(
+        (tour) => {
+          const tourName =
+            tour &&
+            tour.tourname
+              ? normalizeText(
+                  tour.tourname
+                )
+              : "";
+
+          return (
+            tourName.indexOf(
+              keyword
+            ) !== -1
+          );
+        }
+      );
+    }, [
+      sortedTours,
+      appliedSearchText,
+    ]);
+
+  /* =====================================================
+     SEARCH
+  ===================================================== */
+
+  const handleSearchTour = () => {
+    setAppliedSearchText(
+      searchText.trim()
+    );
+
+    setCurrentPage(1);
+
+    setTimeout(() => {
+      if (
+        tourSectionRef.current
+      ) {
+        tourSectionRef.current.scrollIntoView(
+          {
+            behavior: "smooth",
+            block: "start",
+          }
+        );
+      }
+    }, 50);
+  };
+
+  const clearSearch = () => {
+    setSearchText("");
+
+    setAppliedSearchText("");
+
+    setCurrentPage(1);
+  };
+
+  /* =====================================================
+     PAGINATION
+  ===================================================== */
+
+  const totalPages =
+    Math.ceil(
+      searchedTours.length /
+        TOURS_PER_PAGE
+    );
+
+  const indexOfLast =
+    currentPage *
+    TOURS_PER_PAGE;
+
+  const indexOfFirst =
+    indexOfLast -
+    TOURS_PER_PAGE;
+
+  const currentTours =
+    useMemo(() => {
+      return searchedTours.slice(
+        indexOfFirst,
+        indexOfLast
+      );
+    }, [
+      searchedTours,
+      indexOfFirst,
+      indexOfLast,
+    ]);
+
+  const paginate = (page) => {
+    if (
+      page < 1 ||
+      page > totalPages
+    ) {
+      return;
+    }
+
+    setCurrentPage(page);
+
+    setTimeout(() => {
+      if (
+        tourSectionRef.current
+      ) {
+        tourSectionRef.current.scrollIntoView(
+          {
+            behavior: "smooth",
+            block: "start",
+          }
+        );
+      }
+    }, 50);
+  };
+
+  const getPaginationGroup =
+    () => {
+      if (totalPages <= 5) {
+        return Array.from(
+          {
+            length:
+              totalPages,
+          },
+          (_, index) =>
+            index + 1
+        );
+      }
+
+      const pages = [1];
+
+      if (currentPage > 3) {
+        pages.push(
+          "left-dots"
+        );
+      }
+
+      const startPage =
+        Math.max(
+          2,
+          currentPage - 1
+        );
+
+      const endPage =
+        Math.min(
+          totalPages - 1,
+          currentPage + 1
+        );
+
+      for (
+        let page =
+          startPage;
+        page <= endPage;
+        page += 1
+      ) {
+        pages.push(page);
+      }
+
+      if (
+        currentPage <
+        totalPages - 2
+      ) {
+        pages.push(
+          "right-dots"
+        );
+      }
+
+      if (totalPages > 1) {
+        pages.push(
+          totalPages
+        );
+      }
+
+      return pages;
+    };
+
+  /* =====================================================
+     DETAIL
+  ===================================================== */
+
+  const goToTour = (tour) => {
+    if (
+      !tour ||
+      !tour.slug
+    ) {
+      return;
+    }
+
+    navigate(
+      "/tour/" +
+        tour.slug
+    );
+  };
+
+  const handleCardKeyDown = (
+    event,
+    tour
+  ) => {
+    if (
+      event.key === "Enter" ||
+      event.key === " "
+    ) {
+      event.preventDefault();
+
+      goToTour(tour);
+    }
+  };
+
   return (
-    <div className="tour-page-wrapper bg-light">
+    <main className="tour-list-page">
       <Helmet>
-        <title>Danh sách tour du lịch trong nước | Việt Nam Tour</title>
+        <title>
+          Tour du lịch trong nước |
+          Việt Nam Tour
+        </title>
 
         <meta
           name="description"
-          content="Khám phá các tour du lịch trong nước, tour đoàn doanh nghiệp, tour MICE và hành trình nghỉ dưỡng do Việt Nam Tour tổ chức với lịch trình đa dạng và dịch vụ trọn gói."
+          content="Khám phá tour du lịch trong nước, tour đoàn doanh nghiệp, MICE và các hành trình nghỉ dưỡng do Việt Nam Tour tổ chức."
         />
 
-        <link rel="canonical" href="https://myvietnamtour.vn/danh-sach-tour" />
+        <link
+          rel="canonical"
+          href="https://myvietnamtour.vn/danh-sach-tour"
+        />
 
-        <meta property="og:type" content="website" />
-        <meta property="og:site_name" content="Việt Nam Tour" />
+        <meta
+          property="og:type"
+          content="website"
+        />
+
+        <meta
+          property="og:site_name"
+          content="Việt Nam Tour"
+        />
 
         <meta
           property="og:title"
-          content="Danh sách tour du lịch trong nước | Việt Nam Tour"
+          content="Tour du lịch trong nước | Việt Nam Tour"
         />
 
         <meta
           property="og:description"
-          content="Khám phá tour du lịch trong nước, tour đoàn doanh nghiệp, tour MICE và nhiều hành trình hấp dẫn tại Việt Nam."
+          content="Khám phá các hành trình tour trong nước, tour đoàn, MICE và nghỉ dưỡng cùng Việt Nam Tour."
         />
 
         <meta
@@ -173,374 +758,936 @@ export default function TourList() {
         />
 
         <meta
-          property="og:image"
-          content="https://cdn.myvietnamtour.vn/uploads/1.png"
+          name="robots"
+          content="index, follow, max-image-preview:large"
         />
       </Helmet>
-      {/* Search Header Section */}
-      <section className="tour-search-hero">
-        <div className="container">
-          <div className="hero-content text-center animate-hero">
-            <h1>Tour du lịch trong nước & tour đoàn doanh nghiệp</h1>
+
+      {/* =================================================
+          HERO
+      ================================================= */}
+
+      <section className="tour-hero-compact">
+        <div className="tour-container">
+          <div className="tour-hero-content">
+            <span className="tour-hero-kicker">
+              TOUR DU LỊCH VIỆT NAM
+            </span>
+
+            <h1>
+              Chọn hành trình
+              <span>
+                {" "}
+                phù hợp với bạn.
+              </span>
+            </h1>
+
             <p>
-              Khám phá các hành trình nghỉ dưỡng, tour đoàn, MICE và chương
-              trình du lịch được Việt Nam Tour thiết kế cho doanh nghiệp và
-              khách hàng.
+              Tour trong nước, tour
+              đoàn doanh nghiệp,
+              MICE và những hành
+              trình được Việt Nam
+              Tour chọn lọc.
             </p>
 
-            <div
-              className="search-panel-premium mx-auto"
-              style={{ maxWidth: "950px" }}
-            >
-              <div className="row g-2">
-                {" "}
-                {/* g-2 để các ô cách nhau một chút cho thoáng */}
-                {/* Điểm khởi hành */}
-                <div className="col-md-4">
-                  <div className="search-item-box shadow-sm">
-                    <FaMapMarkerAlt className="text-primary" size={18} />
-                    <div className="text-start flex-grow-1">
-                      <label
-                        className="d-block ps-2 mb-0"
-                        style={{
-                          fontSize: "9px",
-                          fontWeight: 800,
-                          color: "#999",
-                        }}
-                      >
-                        KHỞI HÀNH
-                      </label>
-                      <select
-                        className="form-select shadow-none bg-transparent py-0"
-                        value={filters.selectedFrom}
-                        onChange={(e) =>
-                          setFilters({
-                            ...filters,
-                            selectedFrom: e.target.value,
-                          })
-                        }
-                      >
-                        <option value="">Tất cả tỉnh thành</option>
-                        {options.departures.map((loc) => (
-                          <option key={loc.provinceid} value={loc.provinceid}>
-                            {loc.provincename}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-                  </div>
-                </div>
-                {/* Điểm đến */}
-                <div className="col-md-5">
-                  <div className="search-item-box shadow-sm">
-                    <FaSearch className="text-primary" size={16} />
-                    <div className="text-start flex-grow-1">
-                      <label
-                        className="d-block ps-2 mb-0"
-                        style={{
-                          fontSize: "9px",
-                          fontWeight: 800,
-                          color: "#999",
-                        }}
-                      >
-                        ĐIỂM ĐẾN
-                      </label>
-                      <select
-                        className="form-select shadow-none bg-transparent py-0"
-                        value={filters.selectedDestination}
-                        onChange={(e) =>
-                          setFilters({
-                            ...filters,
-                            selectedDestination: e.target.value,
-                          })
-                        }
-                      >
-                        <option value="">Bạn muốn đi đâu?</option>
-                        {options.destinations.map((des) => (
-                          <option
-                            key={des.travellocationid}
-                            value={des.travellocationid}
-                          >
-                            {des.travellocationname}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-                  </div>
-                </div>
-                {/* Nút Tìm kiếm */}
-                <div className="col-md-3">
-                  <button className="btn btn-search-premium shadow-sm">
-                    Tìm kiếm
+            {/* SEARCH TITLE */}
+
+            <div className="tour-title-search">
+              <div className="tour-title-search-input">
+                <FaSearch />
+
+                <input
+                  type="text"
+                  value={
+                    searchText
+                  }
+                  placeholder="Tìm tour: Mũi Né, Đà Lạt, Nha Trang..."
+                  onChange={(
+                    event
+                  ) => {
+                    setSearchText(
+                      event.target
+                        .value
+                    );
+                  }}
+                  onKeyDown={(
+                    event
+                  ) => {
+                    if (
+                      event.key ===
+                      "Enter"
+                    ) {
+                      handleSearchTour();
+                    }
+                  }}
+                />
+
+                {searchText && (
+                  <button
+                    type="button"
+                    className="tour-title-search-clear"
+                    onClick={
+                      clearSearch
+                    }
+                  >
+                    <FaTimes />
                   </button>
-                </div>
+                )}
               </div>
+
+              <button
+                type="button"
+                className="tour-title-search-btn"
+                onClick={
+                  handleSearchTour
+                }
+              >
+                <FaSearch />
+
+                <span>
+                  Tìm tour
+                </span>
+              </button>
             </div>
           </div>
         </div>
       </section>
 
-      <div className="container py-4">
-        <div className="row">
-          {/* SIDEBAR FILTER (Đầy đủ trường như bài gốc của bạn) */}
-          <aside className="col-lg-3 mb-4">
-            <div className="sidebar-filter-card shadow-sm p-4 bg-white rounded-3">
-              <h5 className="fw-bold mb-4 d-flex align-items-center">
-                <FaFilter className="me-2 text-primary" size={16} /> Bộ lọc
-              </h5>
+      {/* =================================================
+          MAIN
+      ================================================= */}
 
-              {/* Loại tour */}
-              <div className="filter-group mb-4">
-                <label className="fw-bold mb-2">Loại tour</label>
-                <div className="form-check custom-check">
-                  <input
-                    className="form-check-input"
-                    type="checkbox"
-                    checked={filters.tourtype.includes("")}
-                    onChange={() => handleCheckboxChange("tourtype", "")}
-                  />
-                  <label className="form-check-label">Tour lẻ</label>
-                </div>
-                <div className="form-check custom-check">
-                  <input
-                    className="form-check-input"
-                    type="checkbox"
-                    checked={filters.tourtype.includes("DOAN")}
-                    onChange={() => handleCheckboxChange("tourtype", "DOAN")}
-                  />
-                  <label className="form-check-label">Tour đoàn</label>
-                </div>
-              </div>
+      <section className="tour-main">
+        <div className="tour-container">
+          {/* =============================================
+              QUICK FILTER: FROM / DESTINATION
+          ============================================= */}
 
-              {/* Giá tour */}
-              <div className="filter-group mb-4">
-                <label className="fw-bold mb-2">Giá tour (VNĐ)</label>
-                <div className="d-flex gap-2">
-                  <input
-                    type="number"
-                    className="form-control form-control-sm"
-                    placeholder="Từ"
-                  />
-                  <input
-                    type="number"
-                    className="form-control form-control-sm"
-                    placeholder="Đến"
-                  />
-                </div>
-              </div>
+          <div className="tour-quick-filter">
+            <div className="tour-quick-select">
+              <FaMapMarkerAlt />
 
-              {/* Thời gian */}
-              <div className="filter-group mb-4">
-                <label className="fw-bold mb-2">Thời gian</label>
-                {options.timeTypes.map((opt) => (
-                  <div key={opt.timetypeid} className="form-check custom-check">
-                    <input
-                      className="form-check-input"
-                      type="checkbox"
-                      checked={filters.timetypeid.includes(opt.timetypeid)}
-                      onChange={() =>
-                        handleCheckboxChange("timetypeid", opt.timetypeid)
-                      }
-                    />
-                    <label className="form-check-label">
-                      {opt.timetypename}
-                    </label>
-                  </div>
-                ))}
-              </div>
+              <div>
+                <small>
+                  KHỞI HÀNH
+                </small>
 
-              {/* Khách sạn */}
-              <div className="filter-group mb-4">
-                <label className="fw-bold mb-2">Tiêu chuẩn khách sạn</label>
-                {options.hotelTypes.map((opt) => (
-                  <div
-                    key={opt.hoteltypeid}
-                    className="form-check custom-check"
-                  >
-                    <input
-                      className="form-check-input"
-                      type="checkbox"
-                      checked={filters.hoteltypeid.includes(opt.hoteltypeid)}
-                      onChange={() =>
-                        handleCheckboxChange("hoteltypeid", opt.hoteltypeid)
-                      }
-                    />
-                    <label className="form-check-label">
-                      {opt.hoteltypename}
-                    </label>
-                  </div>
-                ))}
-              </div>
+                <select
+                  value={
+                    filters.selectedFrom
+                  }
+                  onChange={(
+                    event
+                  ) => {
+                    setFilters(
+                      (prev) => ({
+                        ...prev,
 
-              {/* Phương tiện */}
-              <div className="filter-group mb-4">
-                <label className="fw-bold mb-2">Phương tiện</label>
-                {options.vehicleTypes.map((opt) => (
-                  <div
-                    key={opt.vehicletypeid}
-                    className="form-check custom-check"
-                  >
-                    <input
-                      className="form-check-input"
-                      type="checkbox"
-                      checked={filters.vehicletypeid.includes(
-                        opt.vehicletypeid,
-                      )}
-                      onChange={() =>
-                        handleCheckboxChange("vehicletypeid", opt.vehicletypeid)
-                      }
-                    />
-                    <label className="form-check-label">
-                      {opt.vehicletypename}
-                    </label>
-                  </div>
-                ))}
-              </div>
+                        selectedFrom:
+                          event.target
+                            .value,
+                      })
+                    );
 
-              {/* Accessibility (Mục bạn có trong bài gốc) */}
-              <div className="filter-group">
-                <label className="fw-bold mb-2">Tiện ích đi kèm</label>
-                {[
-                  "Wheelchair",
-                  "Service Animal",
-                  "Listening Devices",
-                  "Audio Guides",
-                ].map((item) => (
-                  <div key={item} className="form-check custom-check">
-                    <input className="form-check-input" type="checkbox" />
-                    <label className="form-check-label">{item}</label>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </aside>
+                    setCurrentPage(
+                      1
+                    );
+                  }}
+                >
+                  <option value="">
+                    Tất cả điểm
+                    khởi hành
+                  </option>
 
-          {/* MAIN LIST */}
-          <div className="col-lg-9">
-            <div className="d-flex justify-content-between align-items-center mb-3">
-              <h5 className="mb-0 fw-bold">
-                Tìm thấy{" "}
-                <span className="text-primary">{dataTourList.length}</span> tour
-              </h5>
-            </div>
-
-            {currentTours.map((tour) => (
-              <div
-                key={tour.tourid}
-                className="tour-card-item bg-white shadow-sm rounded-3 mb-4 overflow-hidden"
-                onClick={() => handleGoToDetail(tour.slug)}
-              >
-                <div className="row g-0">
-                  <div className="col-md-4">
-                    <div className="tour-image-box">
-                      <img
-                        src={
-                          tour.images && tour.images[0]
-                            ? tour.images[0].imageurl
-                            : "https://via.placeholder.com/400x300"
+                  {options.departures.map(
+                    (item) => (
+                      <option
+                        key={
+                          item.provinceid
                         }
-                        alt="tour"
-                      />
-                      <div className="tour-tag">
-                        {tour.tourtype === "DOAN" ? "Đoàn" : "Lẻ"}
-                      </div>
-                    </div>
+                        value={
+                          item.provinceid
+                        }
+                      >
+                        {
+                          item.provincename
+                        }
+                      </option>
+                    )
+                  )}
+                </select>
+              </div>
+
+              <FaChevronDown className="tour-quick-arrow" />
+            </div>
+
+            <div className="tour-quick-select">
+              <FaMapMarkerAlt />
+
+              <div>
+                <small>
+                  ĐIỂM ĐẾN
+                </small>
+
+                <select
+                  value={
+                    filters.selectedDestination
+                  }
+                  onChange={(
+                    event
+                  ) => {
+                    setFilters(
+                      (prev) => ({
+                        ...prev,
+
+                        selectedDestination:
+                          event.target
+                            .value,
+                      })
+                    );
+
+                    setCurrentPage(
+                      1
+                    );
+                  }}
+                >
+                  <option value="">
+                    Tất cả điểm đến
+                  </option>
+
+                  {options.destinations.map(
+                    (item) => (
+                      <option
+                        key={
+                          item.travellocationid
+                        }
+                        value={
+                          item.travellocationid
+                        }
+                      >
+                        {
+                          item.travellocationname
+                        }
+                      </option>
+                    )
+                  )}
+                </select>
+              </div>
+
+              <FaChevronDown className="tour-quick-arrow" />
+            </div>
+          </div>
+
+          {/* =============================================
+              MAIN FILTER BAR
+          ============================================= */}
+
+          <div className="tour-filter-bar">
+            <div className="tour-filter-bar-scroll">
+              {/* ALL */}
+
+              <button
+                type="button"
+                className={
+                  "tour-main-chip " +
+                  (filters.tourtype
+                    .length === 0
+                    ? "active"
+                    : "")
+                }
+                onClick={() => {
+                  setFilters(
+                    (prev) => ({
+                      ...prev,
+
+                      tourtype: [],
+                    })
+                  );
+
+                  setCurrentPage(
+                    1
+                  );
+                }}
+              >
+                Tất cả tour
+              </button>
+
+              {/* TOUR DOAN */}
+
+              <button
+                type="button"
+                className={
+                  "tour-main-chip " +
+                  (filters.tourtype.indexOf(
+                    "DOAN"
+                  ) !== -1
+                    ? "active"
+                    : "")
+                }
+                onClick={() =>
+                  handleCheckboxChange(
+                    "tourtype",
+                    "DOAN"
+                  )
+                }
+              >
+                Tour đoàn
+              </button>
+
+              {/* ADVANCED FILTER BUTTON */}
+
+              <button
+                type="button"
+                className={
+                  "tour-filter-toggle " +
+                  (showAdvancedFilter
+                    ? "active"
+                    : "")
+                }
+                onClick={() =>
+                  setShowAdvancedFilter(
+                    !showAdvancedFilter
+                  )
+                }
+              >
+                <FaFilter />
+
+                <span>
+                  Bộ lọc
+                </span>
+
+                {advancedFilterCount >
+                  0 && (
+                  <strong>
+                    {
+                      advancedFilterCount
+                    }
+                  </strong>
+                )}
+
+                <FaChevronDown
+                  className={
+                    showAdvancedFilter
+                      ? "filter-chevron open"
+                      : "filter-chevron"
+                  }
+                />
+              </button>
+            </div>
+
+            {/* SORT */}
+
+            <div className="tour-sort">
+              <FaSortAmountDown />
+
+              <select
+                value={sortType}
+                onChange={(
+                  event
+                ) => {
+                  setSortType(
+                    event.target
+                      .value
+                  );
+
+                  setCurrentPage(
+                    1
+                  );
+                }}
+              >
+                <option value="NEWEST">
+                  Mới nhất
+                </option>
+
+                <option value="PRICE_ASC">
+                  Giá thấp đến cao
+                </option>
+
+                <option value="PRICE_DESC">
+                  Giá cao đến thấp
+                </option>
+              </select>
+            </div>
+          </div>
+
+          {/* =============================================
+              ADVANCED FILTER EXPAND
+          ============================================= */}
+
+          {showAdvancedFilter && (
+            <div className="tour-advanced-filter">
+              {/* TIME */}
+
+              {options.timeTypes
+                .length > 0 && (
+                <div className="tour-filter-row">
+                  <div className="tour-filter-row-title">
+                    Thời gian
                   </div>
-                  <div className="col-md-8">
-                    <div className="p-3 d-flex flex-column h-100">
-                      <div className="mb-auto">
-                        <div className="text-uppercase text-muted small fw-bold mb-1">
-                          <FaMapMarkerAlt className="text-primary me-1" />{" "}
-                          {tour.destination_name}
-                        </div>
-                        <h5 className="tour-name-heading mb-2">
-                          {tour.tourname}
-                        </h5>
 
-                        <div className="d-flex flex-wrap gap-2 mb-3">
-                          <span className="badge-info-item">
-                            <FaRegClock /> {tour.timetype_name}
-                          </span>
-                          <span className="badge-info-item">
-                            <FaRegBuilding /> {tour.hoteltypename}
-                          </span>
-                          <span className="badge-info-item">
-                            <FaBus /> {tour.vehicletype_name}
-                          </span>
-                        </div>
-                      </div>
-
-                      <div className="d-flex justify-content-between align-items-end pt-3 border-top">
-                        <div className="departure-info text-muted small">
-                          Nơi khởi hành:{" "}
-                          <span className="text-dark fw-bold">
-                            {tour.departure_name}
-                          </span>
-                        </div>
-                        <div className="price-box text-end">
-                          <div className="price-title">Giá từ</div>
-                          <div className="price-amount">
-                            {tour.price
-                              ? Number(tour.price.adultprice).toLocaleString(
-                                  "vi-VN",
-                                )
-                              : "0"}{" "}
-                            ₫
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                  <div className="tour-filter-row-content">
+                    {options.timeTypes.map(
+                      (item) => (
+                        <button
+                          type="button"
+                          key={
+                            item.timetypeid
+                          }
+                          className={
+                            "tour-filter-option " +
+                            (filters.timetypeid.indexOf(
+                              item.timetypeid
+                            ) !== -1
+                              ? "active"
+                              : "")
+                          }
+                          onClick={() =>
+                            handleCheckboxChange(
+                              "timetypeid",
+                              item.timetypeid
+                            )
+                          }
+                        >
+                          {
+                            item.timetypename
+                          }
+                        </button>
+                      )
+                    )}
                   </div>
                 </div>
-              </div>
-            ))}
+              )}
 
-            {/* Pagination */}
-            {totalPages > 1 && (
-              <nav className="mt-5">
-                <ul className="pagination justify-content-center custom-pagination-style">
-                  <li
-                    className={`page-item ${currentPage === 1 && "disabled"}`}
-                  >
-                    <button
-                      className="page-link"
-                      onClick={() => setCurrentPage((p) => p - 1)}
+              {/* HOTEL */}
+
+              {options.hotelTypes
+                .length > 0 && (
+                <div className="tour-filter-row">
+                  <div className="tour-filter-row-title">
+                    Khách sạn
+                  </div>
+
+                  <div className="tour-filter-row-content">
+                    {options.hotelTypes.map(
+                      (item) => (
+                        <button
+                          type="button"
+                          key={
+                            item.hoteltypeid
+                          }
+                          className={
+                            "tour-filter-option " +
+                            (filters.hoteltypeid.indexOf(
+                              item.hoteltypeid
+                            ) !== -1
+                              ? "active"
+                              : "")
+                          }
+                          onClick={() =>
+                            handleCheckboxChange(
+                              "hoteltypeid",
+                              item.hoteltypeid
+                            )
+                          }
+                        >
+                          {
+                            item.hoteltypename
+                          }
+                        </button>
+                      )
+                    )}
+                  </div>
+                </div>
+              )}
+
+              {/* VEHICLE */}
+
+              {options.vehicleTypes
+                .length > 0 && (
+                <div className="tour-filter-row">
+                  <div className="tour-filter-row-title">
+                    Phương tiện
+                  </div>
+
+                  <div className="tour-filter-row-content">
+                    {options.vehicleTypes.map(
+                      (item) => (
+                        <button
+                          type="button"
+                          key={
+                            item.vehicletypeid
+                          }
+                          className={
+                            "tour-filter-option " +
+                            (filters.vehicletypeid.indexOf(
+                              item.vehicletypeid
+                            ) !== -1
+                              ? "active"
+                              : "")
+                          }
+                          onClick={() =>
+                            handleCheckboxChange(
+                              "vehicletypeid",
+                              item.vehicletypeid
+                            )
+                          }
+                        >
+                          {
+                            item.vehicletypename
+                          }
+                        </button>
+                      )
+                    )}
+                  </div>
+                </div>
+              )}
+
+              {/* ADVANCED FOOTER */}
+
+              <div className="tour-advanced-footer">
+                <button
+                  type="button"
+                  className="tour-clear-filter"
+                  onClick={
+                    clearFilters
+                  }
+                >
+                  Xóa tất cả bộ lọc
+
+                  {activeFilterCount >
+                    0 && (
+                    <span>
+                      (
+                      {
+                        activeFilterCount
+                      }
+                      )
+                    </span>
+                  )}
+                </button>
+
+                <button
+                  type="button"
+                  className="tour-collapse-filter"
+                  onClick={() =>
+                    setShowAdvancedFilter(
+                      false
+                    )
+                  }
+                >
+                  Thu gọn
+
+                  <FaChevronDown />
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* =============================================
+              TOUR CONTENT
+          ============================================= */}
+
+          <div
+            className="tour-content"
+            ref={tourSectionRef}
+          >
+            <div className="tour-content-heading">
+              <div>
+                <span className="tour-section-eyebrow">
+                  TOUR DU LỊCH
+                </span>
+
+                <h2>
+                  Chọn hành trình của
+                  bạn
+                </h2>
+
+                {appliedSearchText && (
+                  <div className="tour-search-result-text">
+                    Kết quả cho:{" "}
+                    <strong>
+                      “
+                      {
+                        appliedSearchText
+                      }
+                      ”
+                    </strong>
+                  </div>
+                )}
+              </div>
+
+              {!loadingTours && (
+                <p className="tour-result-count">
+                  {
+                    searchedTours.length
+                  }{" "}
+                  tour
+                </p>
+              )}
+            </div>
+
+            {/* =============================================
+                LOADING
+            ============================================= */}
+
+            {loadingTours && (
+              <div className="tour-grid">
+                {Array.from({
+                  length: 8,
+                }).map(
+                  (
+                    item,
+                    index
+                  ) => (
+                    <div
+                      className="tour-card-skeleton"
+                      key={
+                        index
+                      }
                     >
-                      <FaChevronLeft />
-                    </button>
-                  </li>
-                  {[...Array(totalPages)].map((_, i) => (
-                    <li
-                      key={i}
-                      className={`page-item ${
-                        currentPage === i + 1 ? "active" : ""
-                      }`}
-                    >
-                      <button
-                        className="page-link"
-                        onClick={() => setCurrentPage(i + 1)}
-                      >
-                        {i + 1}
-                      </button>
-                    </li>
-                  ))}
-                  <li
-                    className={`page-item ${currentPage === totalPages &&
-                      "disabled"}`}
-                  >
-                    <button
-                      className="page-link"
-                      onClick={() => setCurrentPage((p) => p + 1)}
-                    >
-                      <FaChevronRight />
-                    </button>
-                  </li>
-                </ul>
-              </nav>
+                      <div className="tour-skeleton-image" />
+
+                      <div className="tour-skeleton-body">
+                        <div className="tour-skeleton-line skeleton-small" />
+
+                        <div className="tour-skeleton-line skeleton-title" />
+
+                        <div className="tour-skeleton-line skeleton-title-short" />
+
+                        <div className="tour-skeleton-line skeleton-info" />
+
+                        <div className="tour-skeleton-line skeleton-price" />
+                      </div>
+                    </div>
+                  )
+                )}
+              </div>
             )}
+
+            {/* =============================================
+                TOUR LIST
+            ============================================= */}
+
+            {!loadingTours &&
+              currentTours.length >
+                0 && (
+                <div className="tour-grid">
+                  {currentTours.map(
+                    (tour) => {
+                      const imageUrl =
+                        tour &&
+                        tour.images &&
+                        tour.images
+                          .length >
+                          0 &&
+                        tour.images[0]
+                          .imageurl
+                          ? tour
+                              .images[0]
+                              .imageurl
+                          : "";
+
+                      const adultPrice =
+                        tour &&
+                        tour.price &&
+                        tour.price
+                          .adultprice
+                          ? Number(
+                              tour
+                                .price
+                                .adultprice
+                            )
+                          : 0;
+
+                      return (
+                        <article
+                          className="tour-card"
+                          key={
+                            tour.tourid
+                          }
+                          role="link"
+                          tabIndex={
+                            0
+                          }
+                          onClick={() =>
+                            goToTour(
+                              tour
+                            )
+                          }
+                          onKeyDown={(
+                            event
+                          ) =>
+                            handleCardKeyDown(
+                              event,
+                              tour
+                            )
+                          }
+                        >
+                          {/* IMAGE */}
+
+                          <div className="tour-card-image">
+                            {imageUrl ? (
+                              <img
+                                src={
+                                  imageUrl
+                                }
+                                alt={
+                                  tour.tourname ||
+                                  "Tour du lịch Việt Nam Tour"
+                                }
+                                loading="lazy"
+                              />
+                            ) : (
+                              <div className="tour-image-empty">
+                                Việt Nam
+                                Tour
+                              </div>
+                            )}
+
+                            <div className="tour-card-overlay" />
+
+                            <span className="tour-card-type">
+                              {tour.tourtype ===
+                              "DOAN"
+                                ? "TOUR ĐOÀN"
+                                : "TOUR DU LỊCH"}
+                            </span>
+
+                            {tour.destination_name && (
+                              <div className="tour-card-destination">
+                                <FaMapMarkerAlt />
+
+                                <span>
+                                  {
+                                    tour.destination_name
+                                  }
+                                </span>
+                              </div>
+                            )}
+                          </div>
+
+                          {/* BODY */}
+
+                          <div className="tour-card-body">
+                            <h3>
+                              {
+                                tour.tourname
+                              }
+                            </h3>
+
+                            <div className="tour-card-info">
+                              {tour.timetype_name && (
+                                <span>
+                                  <FaRegClock />
+
+                                  {
+                                    tour.timetype_name
+                                  }
+                                </span>
+                              )}
+
+                              {tour.hoteltypename && (
+                                <span>
+                                  <FaRegBuilding />
+
+                                  {
+                                    tour.hoteltypename
+                                  }
+                                </span>
+                              )}
+
+                              {tour.vehicletype_name && (
+                                <span>
+                                  <FaBus />
+
+                                  {
+                                    tour.vehicletype_name
+                                  }
+                                </span>
+                              )}
+                            </div>
+
+                            <div className="tour-card-main-info">
+                              <div className="tour-card-departure">
+                                <small>
+                                  Khởi
+                                  hành
+                                </small>
+
+                                <strong>
+                                  {tour.departure_name ||
+                                    "TP.HCM"}
+                                </strong>
+                              </div>
+
+                              <div className="tour-card-price">
+                                <small>
+                                  Giá
+                                  từ
+                                </small>
+
+                                <strong>
+                                  {adultPrice >
+                                  0
+                                    ? adultPrice.toLocaleString(
+                                        "vi-VN"
+                                      ) +
+                                      " ₫"
+                                    : "Liên hệ"}
+                                </strong>
+                              </div>
+                            </div>
+
+                            <div className="tour-card-footer">
+                              <span>
+                                Xem chi
+                                tiết tour
+                              </span>
+
+                              <FaArrowRight />
+                            </div>
+                          </div>
+                        </article>
+                      );
+                    }
+                  )}
+                </div>
+              )}
+
+            {/* =============================================
+                EMPTY
+            ============================================= */}
+
+            {!loadingTours &&
+              currentTours.length ===
+                0 && (
+                <div className="tour-empty">
+                  <div className="tour-empty-icon">
+                    <FaSearch />
+                  </div>
+
+                  <h3>
+                    Chưa tìm thấy tour
+                    phù hợp
+                  </h3>
+
+                  <p>
+                    Thử nhập từ khóa
+                    khác hoặc thay đổi
+                    bộ lọc để tìm thêm
+                    hành trình.
+                  </p>
+
+                  <button
+                    type="button"
+                    onClick={
+                      clearFilters
+                    }
+                  >
+                    Xem tất cả tour
+                  </button>
+                </div>
+              )}
+
+            {/* =============================================
+                PAGINATION
+            ============================================= */}
+
+            {!loadingTours &&
+              totalPages > 1 && (
+                <nav
+                  className="tour-pagination"
+                  aria-label="Phân trang tour"
+                >
+                  <button
+                    type="button"
+                    className="tour-pagination-arrow"
+                    disabled={
+                      currentPage ===
+                      1
+                    }
+                    onClick={() =>
+                      paginate(
+                        currentPage -
+                          1
+                      )
+                    }
+                  >
+                    <FaChevronLeft />
+                  </button>
+
+                  <div className="tour-pagination-numbers">
+                    {getPaginationGroup().map(
+                      (item) => {
+                        if (
+                          item ===
+                            "left-dots" ||
+                          item ===
+                            "right-dots"
+                        ) {
+                          return (
+                            <span
+                              className="tour-pagination-dots"
+                              key={
+                                item
+                              }
+                            >
+                              ...
+                            </span>
+                          );
+                        }
+
+                        return (
+                          <button
+                            type="button"
+                            key={
+                              item
+                            }
+                            className={
+                              "tour-pagination-number " +
+                              (currentPage ===
+                              item
+                                ? "active"
+                                : "")
+                            }
+                            onClick={() =>
+                              paginate(
+                                item
+                              )
+                            }
+                          >
+                            {
+                              item
+                            }
+                          </button>
+                        );
+                      }
+                    )}
+                  </div>
+
+                  <button
+                    type="button"
+                    className="tour-pagination-arrow"
+                    disabled={
+                      currentPage ===
+                      totalPages
+                    }
+                    onClick={() =>
+                      paginate(
+                        currentPage +
+                          1
+                      )
+                    }
+                  >
+                    <FaChevronRight />
+                  </button>
+                </nav>
+              )}
           </div>
         </div>
-      </div>
-    </div>
+      </section>
+    </main>
   );
-}
+};
+
+export default TourList;

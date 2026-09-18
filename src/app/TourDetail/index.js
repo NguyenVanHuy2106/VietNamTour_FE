@@ -287,7 +287,7 @@ const TourDetail = () => {
               </div>
 
               {/* GỢI Ý TOUR (Hiện cả mobile và desktop) */}
-              <div className="related-sidebar-v3 mt-4">
+              {/* <div className="related-sidebar-v3 mt-4">
                 <h5 className="side-title-v3">GỢI Ý TOUR KHÁC</h5>
                 {relations &&
                   relations.slice(0, 4).map((rel) => (
@@ -317,6 +317,79 @@ const TourDetail = () => {
                       </div>
                     </div>
                   ))}
+              </div> */}
+              <div className="related-sidebar-v4 mt-4">
+                <div className="related-header-v4">
+                  <div>
+                    <span className="related-eyebrow-v4">GỢI Ý THÊM</span>
+                    <h5 className="related-title-v4">
+                      Tour bạn có thể quan tâm
+                    </h5>
+                  </div>
+
+                  <span className="related-count-v4">
+                    {relations ? Math.min(relations.length, 4) : 0}
+                  </span>
+                </div>
+
+                <div className="related-list-v4">
+                  {relations &&
+                    relations.slice(0, 4).map((rel) => {
+                      const imageUrl =
+                        rel &&
+                        rel.images &&
+                        rel.images.length > 0 &&
+                        rel.images[0].imageurl
+                          ? rel.images[0].imageurl
+                          : "";
+
+                      const adultPrice =
+                        rel && rel.price && rel.price.adultprice
+                          ? Number(rel.price.adultprice)
+                          : 0;
+
+                      return (
+                        <button
+                          type="button"
+                          key={rel.tourid}
+                          className="related-card-v4"
+                          onClick={() => navigate("/tour/" + rel.slug)}
+                        >
+                          <div className="related-image-v4">
+                            {imageUrl ? (
+                              <img
+                                src={imageUrl}
+                                alt={rel.tourname || "Tour du lịch liên quan"}
+                                loading="lazy"
+                              />
+                            ) : (
+                              <div className="related-image-empty-v4">
+                                VIỆT NAM TOUR
+                              </div>
+                            )}
+                          </div>
+
+                          <div className="related-content-v4">
+                            <h6>{rel.tourname}</h6>
+
+                            <div className="related-bottom-v4">
+                              <div className="related-price-v4">
+                                <span>Giá từ</span>
+
+                                <strong>
+                                  {adultPrice > 0
+                                    ? adultPrice.toLocaleString("vi-VN") + " ₫"
+                                    : "Liên hệ"}
+                                </strong>
+                              </div>
+
+                              <span className="related-arrow-v4">→</span>
+                            </div>
+                          </div>
+                        </button>
+                      );
+                    })}
+                </div>
               </div>
             </div>
           </div>
