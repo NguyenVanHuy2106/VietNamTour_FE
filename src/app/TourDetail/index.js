@@ -256,7 +256,7 @@ const TourDetail = () => {
 
             {/* 3. HÀNH TRÌNH CHI TIẾT */}
             <div className="content-detail-v3 mt-5">
-              <h3 className="section-title-v3">HÀNH TRÌNH CHI TIẾT</h3>
+              <h3 className="section-title-v3">Hành trình chi tiết</h3>
               <div
                 className="html-render-v3"
                 dangerouslySetInnerHTML={{ __html: detail.content }}
