@@ -1,6 +1,9 @@
 import React, { useEffect, useMemo, useState } from "react";
+
 import API from "../../config/APINoToken";
-import { useParams, useNavigate } from "react-router-dom";
+
+import { useParams, useNavigate, Link } from "react-router-dom";
+
 import { toSlug } from "../../Components/ToSlug";
 import { Helmet } from "react-helmet";
 
@@ -19,50 +22,46 @@ import {
 
 import "./index.css";
 
+const SITE_URL = "https://myvietnamtour.vn";
+const LOGO_URL = "https://cdn.myvietnamtour.vn/uploads/1.png";
+
+const emptyData = () => ({
+  post: {},
+  creator: {},
+  tags: [],
+  relations: [],
+});
+
+const formatDate = (value) => {
+  if (!value) return "";
+
+  const date = new Date(value);
+
+  if (Number.isNaN(date.getTime())) {
+    return value;
+  }
+
+  return new Intl.DateTimeFormat("vi-VN", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+  }).format(date);
+};
+
 const BlogDetail = () => {
   const { Slug } = useParams();
   const navigate = useNavigate();
 
   const [isOpen, setIsOpen] = useState(true);
   const [loading, setLoading] = useState(true);
+  const [data, setData] = useState(emptyData);
 
-  const [data, setData] = useState({
-    post: {},
-    creator: {},
-    tags: [],
-    relations: [],
-  });
-
-  const p = data.post;
+  const p = data.post || {};
 
   const currentUrl =
-    typeof window !== "undefined"
-      ? `https://myvietnamtour.vn${window.location.pathname}`
-      : "https://myvietnamtour.vn";
-  /* =====================================================
-     FORMAT DATE
-  ===================================================== */
+    SITE_URL + "/blog/" + encodeURIComponent(p.slug || Slug || "");
 
-  const formatDate = (dateValue) => {
-    if (!dateValue) return "";
-
-    const date = new Date(dateValue);
-
-    if (Number.isNaN(date.getTime())) {
-      return dateValue;
-    }
-
-    return new Intl.DateTimeFormat("vi-VN", {
-      day: "2-digit",
-      month: "2-digit",
-      year: "numeric",
-    }).format(date);
-  };
-
-  /* =====================================================
-     GENERATE TOC + CONTENT
-  ===================================================== */
-
+  /* TẠO MỤC LỤC */
   const { processedContent, toc, readingTime } = useMemo(() => {
     if (!p.content) {
       return {
@@ -76,148 +75,157 @@ const BlogDetail = () => {
 
     const doc = parser.parseFromString(p.content, "text/html");
 
-    const headings = doc.querySelectorAll("h2, h3");
+    const headings = Array.from(doc.querySelectorAll("h2, h3"));
 
-    const tocData = [];
+    const usedIds = new Set(
+      Array.from(doc.querySelectorAll("[id]"))
+        .filter((element) => !headings.includes(element))
+        .map((element) => element.id),
+    );
 
-    const usedIds = {};
-
-    headings.forEach((heading, index) => {
+    const tocData = headings.map((heading, index) => {
       const headingText =
-        (heading.innerText && heading.innerText.trim()) || `Mục ${index + 1}`;
+        heading.textContent && heading.textContent.trim()
+          ? heading.textContent.trim()
+          : "Mục " + (index + 1);
 
-      let baseId = toSlug(headingText) || `section-${index + 1}`;
+      const baseId =
+        heading.id || toSlug(headingText) || "section-" + (index + 1);
 
-      if (usedIds[baseId] !== undefined) {
-        usedIds[baseId] += 1;
+      let id = baseId;
+      let suffix = 2;
 
-        baseId = `${baseId}-${usedIds[baseId]}`;
-      } else {
-        usedIds[baseId] = 0;
+      while (usedIds.has(id)) {
+        id = baseId + "-" + suffix;
+        suffix += 1;
       }
 
-      const id = heading.id || baseId;
-
+      usedIds.add(id);
       heading.id = id;
 
-      tocData.push({
-        id,
+      return {
+        id: id,
         text: headingText,
         level: heading.tagName.toLowerCase(),
-      });
+      };
     });
 
     const textContent =
       doc.body && doc.body.textContent
         ? doc.body.textContent.replace(/\s+/g, " ").trim()
         : "";
+
     const totalWords = textContent ? textContent.split(/\s+/).length : 0;
 
-    const minutes = Math.max(1, Math.ceil(totalWords / 220));
-
     return {
-      processedContent: doc.body.innerHTML,
-
+      processedContent: doc.body ? doc.body.innerHTML : "",
       toc: tocData,
-
-      readingTime: minutes,
+      readingTime: Math.max(1, Math.ceil(totalWords / 220)),
     };
   }, [p.content]);
 
-  /* =====================================================
-     API
-  ===================================================== */
-
-  const getData = async () => {
-    if (!Slug) return;
-
-    try {
-      setLoading(true);
-
-      const res = await API.get(`/post/slug/${Slug}`);
-
-      const post = res.data.data || {};
-
-      if (!post.post_id) {
-        setData({
-          post: {},
-          creator: {},
-          tags: [],
-          relations: [],
-        });
-
-        return;
-      }
-
-      let relations = [];
-
-      try {
-        const rel = await API.post("/post/getRelation", {
-          post_id: post.post_id,
-
-          category_id: post.category_id,
-        });
-
-        relations = rel.data.data || [];
-      } catch (relationError) {
-        console.error("Lỗi lấy bài liên quan:", relationError);
-      }
-
-      setData({
-        post,
-
-        creator: post.creator || {},
-
-        tags: post.tags || [],
-
-        relations: relations.filter(
-          (item) => Number(item.post_id) !== Number(post.post_id),
-        ),
-      });
-    } catch (error) {
-      console.error("Lỗi khi lấy dữ liệu bài viết:", error);
-
-      setData({
-        post: {},
-        creator: {},
-        tags: [],
-        relations: [],
-      });
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  /* =====================================================
-     USE EFFECT
-  ===================================================== */
-
+  /* LẤY NỘI DUNG BÀI VIẾT */
   useEffect(() => {
+    let active = true;
+
+    setLoading(true);
+    setData(emptyData());
+
     window.scrollTo({
       top: 0,
       behavior: "auto",
     });
 
-    getData();
+    const fetchPost = async () => {
+      if (!Slug) {
+        if (active) {
+          setLoading(false);
+        }
+        return;
+      }
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+      try {
+        const response = await API.get(
+          "/post/slug/" + encodeURIComponent(Slug),
+        );
+
+        const post =
+          response && response.data && response.data.data
+            ? response.data.data
+            : {};
+
+        if (!active) return;
+
+        if (!post.post_id) {
+          setData(emptyData());
+          setLoading(false);
+          return;
+        }
+
+        setData({
+          post: post,
+          creator: post.creator || {},
+          tags: Array.isArray(post.tags) ? post.tags : [],
+          relations: [],
+        });
+
+        // Hiển thị bài chính trước
+        setLoading(false);
+
+        // Tải bài liên quan độc lập
+        try {
+          const relatedResponse = await API.post("/post/getRelation", {
+            post_id: post.post_id,
+            category_id: post.category_id,
+          });
+
+          if (!active) return;
+
+          const result =
+            relatedResponse && relatedResponse.data && relatedResponse.data.data
+              ? relatedResponse.data.data
+              : [];
+
+          const relations = Array.isArray(result)
+            ? result.filter(
+                (item) => Number(item.post_id) !== Number(post.post_id),
+              )
+            : [];
+
+          setData((previous) => ({
+            ...previous,
+            relations: relations,
+          }));
+        } catch (relatedError) {
+          if (active) {
+            console.error("Lỗi lấy bài liên quan:", relatedError);
+          }
+        }
+      } catch (error) {
+        if (active) {
+          console.error("Lỗi lấy bài viết:", error);
+
+          setData(emptyData());
+          setLoading(false);
+        }
+      }
+    };
+
+    fetchPost();
+
+    return () => {
+      active = false;
+    };
   }, [Slug]);
 
-  /*
-    Trên mobile mặc định thu gọn TOC
-    nếu có nhiều mục.
-  */
-
+  /* MỤC LỤC MOBILE */
   useEffect(() => {
-    if (typeof window !== "undefined" && window.innerWidth <= 768) {
-      setIsOpen(false);
+    if (typeof window !== "undefined") {
+      setIsOpen(window.innerWidth > 768);
     }
   }, [Slug]);
 
-  /* =====================================================
-     SHARE
-  ===================================================== */
-
+  /* CHIA SẺ */
   const handleShare = async () => {
     try {
       if (navigator.share) {
@@ -234,7 +242,7 @@ const BlogDetail = () => {
 
       alert("Đã sao chép đường dẫn bài viết.");
     } catch (error) {
-      console.log("Người dùng đóng chia sẻ:", error);
+      console.error("Không thể chia sẻ:", error);
     }
   };
 
@@ -246,10 +254,7 @@ const BlogDetail = () => {
     window.open(url, "_blank", "noopener,noreferrer,width=700,height=600");
   };
 
-  /* =====================================================
-     LOADING
-  ===================================================== */
-
+  /* LOADING */
   if (loading) {
     return (
       <div className="blog-detail-loader">
@@ -262,53 +267,79 @@ const BlogDetail = () => {
     );
   }
 
-  /* =====================================================
-     NOT FOUND
-  ===================================================== */
-
-  if (!p || !p.post_id) {
+  /* NOT FOUND */
+  if (!p.post_id) {
     return (
       <div className="blog-not-found">
+        <Helmet>
+          <title>Không tìm thấy bài viết | Việt Nam Tour</title>
+
+          <meta name="robots" content="noindex, follow" />
+        </Helmet>
+
         <FaCompass />
 
         <h2>Không tìm thấy bài viết</h2>
 
         <p>Bài viết có thể đã được thay đổi hoặc không còn tồn tại.</p>
 
-        <button onClick={() => navigate("/blog")}>
+        <Link to="/blog" className="blog-back-home">
           <FaChevronLeft />
           Quay lại Blog
-        </button>
+        </Link>
       </div>
     );
   }
 
+  /* BLOG POSTING SCHEMA */
+  const schemaData = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "@id": currentUrl + "#article",
+    headline: p.title,
+    description: p.description || "",
+    image: p.thumbnail_url ? [p.thumbnail_url] : [],
+    datePublished: p.created_at,
+    dateModified: p.updated_at || p.created_at,
+
+    author: {
+      "@type": "Organization",
+      "@id": SITE_URL + "/#organization",
+      name: "Việt Nam Tour",
+      url: SITE_URL + "/",
+    },
+
+    publisher: {
+      "@type": "Organization",
+      "@id": SITE_URL + "/#organization",
+      name: "Việt Nam Tour",
+      url: SITE_URL + "/",
+
+      logo: {
+        "@type": "ImageObject",
+        url: LOGO_URL,
+      },
+    },
+
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": currentUrl,
+    },
+  };
+
   return (
     <div className="blog-detail-page">
-      {/* =================================================
-          SEO
-      ================================================= */}
-
+      {/* SEO META */}
       <Helmet>
         <title>{p.title} | Việt Nam Tour</title>
 
         <meta name="description" content={p.description || ""} />
 
-        <meta
-          name="keywords"
-          content={data.tags.map((tag) => tag.tag_name).join(", ")}
-        />
+        <meta name="robots" content="index, follow, max-image-preview:large" />
 
         <link rel="canonical" href={currentUrl} />
 
-        <link rel="icon" href="https://cdn.myvietnamtour.vn/uploads/1.png" />
-
-        <link
-          rel="apple-touch-icon"
-          href="https://cdn.myvietnamtour.vn/uploads/1.png"
-        />
-
-        {/* OPEN GRAPH */}
+        <link rel="icon" href={LOGO_URL} />
 
         <meta property="og:type" content="article" />
 
@@ -322,63 +353,18 @@ const BlogDetail = () => {
 
         <meta property="og:url" content={currentUrl} />
 
-        {/* TWITTER */}
-
         <meta name="twitter:card" content="summary_large_image" />
 
         <meta name="twitter:title" content={p.title} />
 
         <meta name="twitter:description" content={p.description || ""} />
-        <meta name="robots" content="index, follow, max-image-preview:large" />
 
         <meta name="twitter:image" content={p.thumbnail_url || ""} />
 
-        {/* BLOG POSTING SCHEMA */}
-
-        <script type="application/ld+json">
-          {JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "BlogPosting",
-            "@id": `${currentUrl}#article`,
-
-            headline: p.title,
-            description: p.description,
-
-            image: p.thumbnail_url ? [p.thumbnail_url] : [],
-
-            datePublished: p.created_at,
-            dateModified: p.updated_at || p.created_at,
-
-            author: {
-              "@type": "Organization",
-              "@id": "https://myvietnamtour.vn/#organization",
-              name: "Việt Nam Tour",
-              url: "https://myvietnamtour.vn/",
-            },
-
-            publisher: {
-              "@type": "Organization",
-              "@id": "https://myvietnamtour.vn/#organization",
-              name: "Việt Nam Tour",
-              url: "https://myvietnamtour.vn/",
-              logo: {
-                "@type": "ImageObject",
-                url: "https://cdn.myvietnamtour.vn/uploads/1.png",
-              },
-            },
-
-            mainEntityOfPage: {
-              "@type": "WebPage",
-              "@id": currentUrl,
-            },
-          })}
-        </script>
+        <script type="application/ld+json">{JSON.stringify(schemaData)}</script>
       </Helmet>
 
-      {/* =================================================
-          MOBILE / TOP ACTIONS
-      ================================================= */}
-
+      {/* TOP ACTIONS */}
       <div className="blog-top-actions">
         <div className="blog-container">
           <button
@@ -387,7 +373,6 @@ const BlogDetail = () => {
             onClick={() => navigate(-1)}
           >
             <FaChevronLeft />
-
             <span>Quay lại</span>
           </button>
 
@@ -411,15 +396,10 @@ const BlogDetail = () => {
         </div>
       </div>
 
-      {/* =================================================
-          HERO
-      ================================================= */}
-
+      {/* HERO */}
       <header className="blog-hero">
         <div className="blog-container">
           <div className="blog-hero-grid">
-            {/* TEXT */}
-
             <div className="blog-hero-content">
               <div className="blog-category">CẨM NANG DU LỊCH</div>
 
@@ -434,25 +414,23 @@ const BlogDetail = () => {
                   <FaUser />
 
                   <span>
-                    {(data.creator && data.creator.name) || "Việt Nam Tour"}
+                    {data.creator && data.creator.name
+                      ? data.creator.name
+                      : "Việt Nam Tour"}
                   </span>
                 </div>
 
                 <div>
                   <FaCalendarAlt />
-
                   <span>{formatDate(p.created_at)}</span>
                 </div>
 
                 <div>
                   <FaClock />
-
                   <span>{readingTime} phút đọc</span>
                 </div>
               </div>
             </div>
-
-            {/* IMAGE */}
 
             <div className="blog-hero-image">
               {p.thumbnail_url && (
@@ -468,38 +446,26 @@ const BlogDetail = () => {
         </div>
       </header>
 
-      {/* =================================================
-          CONTENT
-      ================================================= */}
-
+      {/* MAIN */}
       <main className="blog-main">
         <div className="blog-container">
           <div className="blog-main-grid">
-            {/* =============================================
-                ARTICLE
-            ============================================= */}
-
+            {/* ARTICLE */}
             <article className="blog-article">
-              {/* DESCRIPTION MOBILE / INTRO */}
-
               {p.description && (
                 <div className="blog-intro">{p.description}</div>
               )}
 
-              {/* ===========================================
-                  TABLE OF CONTENTS
-              =========================================== */}
-
+              {/* TABLE OF CONTENTS */}
               {toc.length > 0 && (
                 <div className="blog-toc">
                   <button
                     type="button"
                     className="blog-toc-header"
-                    onClick={() => setIsOpen((prev) => !prev)}
+                    onClick={() => setIsOpen((previous) => !previous)}
                   >
                     <div>
                       <span>MỤC LỤC</span>
-
                       <strong>Nội dung chính</strong>
                     </div>
 
@@ -512,16 +478,12 @@ const BlogDetail = () => {
 
                   {isOpen && (
                     <ol className="blog-toc-list">
-                      {toc.map((item, index) => (
+                      {toc.map((item) => (
                         <li
                           key={item.id}
                           className={item.level === "h3" ? "sub-item" : ""}
                         >
-                          <a href={`#${item.id}`}>
-                            {/* <span>{String(index + 1).padStart(2, "0")}</span> */}
-
-                            {item.text}
-                          </a>
+                          <a href={"#" + item.id}>{item.text}</a>
                         </li>
                       ))}
                     </ol>
@@ -529,10 +491,7 @@ const BlogDetail = () => {
                 </div>
               )}
 
-              {/* ===========================================
-                  RICH CONTENT
-              =========================================== */}
-
+              {/* RICH CONTENT */}
               <div
                 className="blog-rich-content"
                 dangerouslySetInnerHTML={{
@@ -540,10 +499,7 @@ const BlogDetail = () => {
                 }}
               />
 
-              {/* ===========================================
-                  TAGS
-              =========================================== */}
-
+              {/* TAGS */}
               {data.tags.length > 0 && (
                 <div className="blog-tags">
                   <div className="blog-tags-heading">
@@ -559,10 +515,7 @@ const BlogDetail = () => {
                 </div>
               )}
 
-              {/* ===========================================
-                  SHARE BOTTOM
-              =========================================== */}
-
+              {/* SHARE */}
               <div className="blog-bottom-share">
                 <div>
                   <strong>Thấy bài viết hữu ích?</strong>
@@ -577,13 +530,8 @@ const BlogDetail = () => {
               </div>
             </article>
 
-            {/* =============================================
-                SIDEBAR
-            ============================================= */}
-
+            {/* SIDEBAR */}
             <aside className="blog-sidebar">
-              {/* RELATED */}
-
               <div className="blog-related">
                 <div className="blog-sidebar-heading">
                   <span>KHÁM PHÁ THÊM</span>
@@ -593,35 +541,38 @@ const BlogDetail = () => {
 
                 <div className="blog-related-list">
                   {data.relations.length > 0 ? (
-                    data.relations.slice(0, 5).map((rel) => (
-                      <button
-                        type="button"
-                        key={rel.post_id}
-                        className="blog-related-card"
-                        onClick={() => navigate(`/blog/${rel.slug}`)}
-                      >
-                        <img
-                          src={rel.thumbnail_url}
-                          alt={rel.title}
-                          loading="lazy"
-                        />
+                    data.relations
+                      .filter((rel) => Boolean(rel.slug))
+                      .slice(0, 5)
+                      .map((rel) => (
+                        <Link
+                          key={rel.post_id}
+                          className="blog-related-card"
+                          to={"/blog/" + encodeURIComponent(rel.slug)}
+                        >
+                          {rel.thumbnail_url && (
+                            <img
+                              src={rel.thumbnail_url}
+                              alt={rel.title || ""}
+                              loading="lazy"
+                            />
+                          )}
 
-                        <div>
-                          <h4>{rel.title}</h4>
+                          <div>
+                            <h4>{rel.title}</h4>
 
-                          <span>
-                            <FaCalendarAlt />
+                            <span>
+                              <FaCalendarAlt />
+                              {formatDate(rel.created_at)}
+                            </span>
 
-                            {formatDate(rel.created_at)}
-                          </span>
-
-                          <div className="blog-related-more">
-                            Xem bài viết
-                            <FaChevronRight />
+                            <div className="blog-related-more">
+                              Xem bài viết
+                              <FaChevronRight />
+                            </div>
                           </div>
-                        </div>
-                      </button>
-                    ))
+                        </Link>
+                      ))
                   ) : (
                     <div className="blog-related-empty">
                       Chưa có bài viết liên quan.
@@ -630,8 +581,7 @@ const BlogDetail = () => {
                 </div>
               </div>
 
-              {/* CTA */}
-
+              {/* TOUR CTA */}
               <div className="blog-tour-cta">
                 <span>VIỆT NAM TOUR</span>
 
@@ -642,13 +592,10 @@ const BlogDetail = () => {
                   nhóm bạn và doanh nghiệp.
                 </p>
 
-                <button
-                  type="button"
-                  onClick={() => navigate("/danh-sach-tour")}
-                >
+                <Link to="/danh-sach-tour" className="blog-tour-cta-link">
                   Khám phá Tour
                   <FaChevronRight />
-                </button>
+                </Link>
               </div>
             </aside>
           </div>

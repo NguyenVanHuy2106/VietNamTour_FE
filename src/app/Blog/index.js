@@ -1,228 +1,228 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { Helmet } from "react-helmet";
-import API from "../../config/APINoToken";
+import { Link, useSearchParams } from "react-router-dom";
 import {
   FaArrowRight,
   FaChevronLeft,
   FaChevronRight,
   FaRegCalendarAlt,
 } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
+import API from "../../config/APINoToken";
 import "./index.css";
 
 const POSTS_PER_PAGE = 8;
+const SITE_URL = "https://myvietnamtour.vn";
+
+const formatDate = (value) => {
+  if (!value) return "";
+
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return value;
+
+  return date.toLocaleDateString("vi-VN", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+  });
+};
+
+const getPageUrl = (page) => {
+  return page <= 1 ? "/blog" : "/blog?page=" + page;
+};
+
+const getPageNumbers = (current, total) => {
+  if (total <= 5) {
+    return Array.from({ length: total }, (_, index) => index + 1);
+  }
+
+  const pages = [1];
+
+  if (current > 3) {
+    pages.push("left-dots");
+  }
+
+  const first = Math.max(2, current - 1);
+  const last = Math.min(total - 1, current + 1);
+
+  for (let page = first; page <= last; page++) {
+    pages.push(page);
+  }
+
+  if (current < total - 2) {
+    pages.push("right-dots");
+  }
+
+  pages.push(total);
+  return pages;
+};
 
 const Blog = () => {
-  const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
+
   const postsSectionRef = useRef(null);
+  const firstRender = useRef(true);
 
   const [blogPosts, setBlogPosts] = useState([]);
-  const [dataCategory, setDataCategory] = useState([]);
+  const [categories, setCategories] = useState([]);
   const [categoryIds, setCategoryIds] = useState([]);
 
-  const [currentPage, setCurrentPage] = useState(1);
-
   const [loadingPosts, setLoadingPosts] = useState(true);
+
   const [loadingCategories, setLoadingCategories] = useState(true);
 
-  /* =====================================================
-     LẤY DANH SÁCH BÀI VIẾT
-  ===================================================== */
-  const getData = async (selectedCats = []) => {
-    try {
-      setLoadingPosts(true);
+  const pageParam = searchParams.get("page");
+  const rawPage = Number(pageParam);
 
-      const payload =
-        selectedCats.length > 0
-          ? {
-              category_id: selectedCats,
-            }
-          : {};
+  const currentPage =
+    Number.isSafeInteger(rawPage) && rawPage >= 1 ? rawPage : 1;
 
-      const response = await API.post("/post/search", payload);
-
-      const posts =
-        response && response.data && response.data.data
-          ? response.data.data
-          : [];
-
-      setBlogPosts(posts);
-      setCurrentPage(1);
-    } catch (error) {
-      console.error("Lỗi lấy bài viết:", error);
-      setBlogPosts([]);
-    } finally {
-      setLoadingPosts(false);
-    }
-  };
-
-  /* =====================================================
-     LẤY DANH MỤC
-  ===================================================== */
-  const getDataCategory = async () => {
-    try {
-      setLoadingCategories(true);
-
-      const response = await API.get("/categories/get");
-
-      const categories =
-        response && response.data && response.data.data
-          ? response.data.data
-          : [];
-
-      setDataCategory(categories);
-    } catch (error) {
-      console.error("Lỗi lấy danh mục:", error);
-      setDataCategory([]);
-    } finally {
-      setLoadingCategories(false);
-    }
-  };
-
-  /* =====================================================
-     CHỌN DANH MỤC
-  ===================================================== */
-  const handleCatChange = (id) => {
-    let updatedCategories = [];
-
-    if (categoryIds.includes(id)) {
-      updatedCategories = categoryIds.filter((categoryId) => categoryId !== id);
-    } else {
-      updatedCategories = categoryIds.concat(id);
-    }
-
-    setCategoryIds(updatedCategories);
-    getData(updatedCategories);
-  };
-
-  /* =====================================================
-     XÓA BỘ LỌC
-  ===================================================== */
-  const handleClearCategory = () => {
-    setCategoryIds([]);
-    getData([]);
-  };
-
-  /* =====================================================
-     LOAD DATA
-  ===================================================== */
-  useEffect(() => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-
-    getDataCategory();
-    getData();
-  }, []);
-
-  /* =====================================================
-     PHÂN TRANG
-  ===================================================== */
   const totalPages = Math.ceil(blogPosts.length / POSTS_PER_PAGE);
 
-  const indexOfLastPost = currentPage * POSTS_PER_PAGE;
-
-  const indexOfFirstPost = indexOfLastPost - POSTS_PER_PAGE;
+  const startIndex = (currentPage - 1) * POSTS_PER_PAGE;
 
   const currentPosts = useMemo(() => {
-    return blogPosts.slice(indexOfFirstPost, indexOfLastPost);
-  }, [blogPosts, indexOfFirstPost, indexOfLastPost]);
+    return blogPosts.slice(startIndex, startIndex + POSTS_PER_PAGE);
+  }, [blogPosts, startIndex]);
 
-  /* =====================================================
-     ĐỔI TRANG
-  ===================================================== */
-  const paginate = (pageNumber) => {
-    if (pageNumber < 1 || pageNumber > totalPages) {
-      return;
-    }
+  const canonicalUrl = SITE_URL + getPageUrl(currentPage);
 
-    setCurrentPage(pageNumber);
+  /* LẤY DANH MỤC */
+  useEffect(() => {
+    let active = true;
 
-    setTimeout(() => {
-      if (postsSectionRef.current) {
-        postsSectionRef.current.scrollIntoView({
-          behavior: "smooth",
-          block: "start",
-        });
+    const fetchCategories = async () => {
+      try {
+        const response = await API.get("/categories/get");
+
+        const result =
+          response && response.data && response.data.data
+            ? response.data.data
+            : [];
+
+        if (active) {
+          setCategories(Array.isArray(result) ? result : []);
+        }
+      } catch (error) {
+        console.error("Lỗi lấy danh mục:", error);
+
+        if (active) {
+          setCategories([]);
+        }
+      } finally {
+        if (active) {
+          setLoadingCategories(false);
+        }
       }
-    }, 50);
-  };
+    };
 
-  /* =====================================================
-     PAGINATION THÔNG MINH
-  ===================================================== */
-  const getPaginationGroup = () => {
-    if (totalPages <= 5) {
-      return Array.from({ length: totalPages }, (_, index) => index + 1);
+    fetchCategories();
+
+    return () => {
+      active = false;
+    };
+  }, []);
+
+  /* LẤY BÀI VIẾT */
+  useEffect(() => {
+    let active = true;
+
+    const fetchPosts = async () => {
+      setLoadingPosts(true);
+
+      try {
+        const payload =
+          categoryIds.length > 0 ? { category_id: categoryIds } : {};
+
+        const response = await API.post("/post/search", payload);
+
+        const result =
+          response && response.data && response.data.data
+            ? response.data.data
+            : [];
+
+        if (active) {
+          setBlogPosts(Array.isArray(result) ? result : []);
+        }
+      } catch (error) {
+        console.error("Lỗi lấy bài viết:", error);
+
+        if (active) {
+          setBlogPosts([]);
+        }
+      } finally {
+        if (active) {
+          setLoadingPosts(false);
+        }
+      }
+    };
+
+    fetchPosts();
+
+    return () => {
+      active = false;
+    };
+  }, [categoryIds]);
+
+  /* KIỂM TRA PHÂN TRANG */
+  useEffect(() => {
+    if (!loadingPosts && totalPages > 0 && currentPage > totalPages) {
+      const params = totalPages === 1 ? {} : { page: String(totalPages) };
+
+      setSearchParams(params, {
+        replace: true,
+      });
     }
+  }, [currentPage, totalPages, loadingPosts, setSearchParams]);
 
-    const pages = [];
-
-    pages.push(1);
-
-    if (currentPage > 3) {
-      pages.push("left-dots");
-    }
-
-    const startPage = Math.max(2, currentPage - 1);
-
-    const endPage = Math.min(totalPages - 1, currentPage + 1);
-
-    for (let page = startPage; page <= endPage; page += 1) {
-      pages.push(page);
-    }
-
-    if (currentPage < totalPages - 2) {
-      pages.push("right-dots");
-    }
-
-    if (totalPages > 1) {
-      pages.push(totalPages);
-    }
-
-    return pages;
-  };
-
-  /* =====================================================
-     FORMAT NGÀY
-  ===================================================== */
-  const formatDate = (dateString) => {
-    if (!dateString) {
-      return "";
-    }
-
-    const date = new Date(dateString);
-
-    if (Number.isNaN(date.getTime())) {
-      return dateString;
-    }
-
-    return date.toLocaleDateString("vi-VN", {
-      day: "2-digit",
-      month: "2-digit",
-      year: "numeric",
-    });
-  };
-
-  /* =====================================================
-     ĐI TỚI CHI TIẾT BLOG
-  ===================================================== */
-  const goToBlogDetail = (blog) => {
-    if (!blog || !blog.slug) {
+  /* CUỘN KHI ĐỔI TRANG */
+  useEffect(() => {
+    if (firstRender.current) {
+      firstRender.current = false;
       return;
     }
 
-    navigate("/blog/" + blog.slug);
+    if (postsSectionRef.current) {
+      postsSectionRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+  }, [currentPage]);
+
+  /* CHỌN DANH MỤC */
+  const handleCatChange = (id) => {
+    setCategoryIds((previous) => {
+      if (previous.includes(id)) {
+        return previous.filter((value) => value !== id);
+      }
+
+      return previous.concat(id);
+    });
+
+    setSearchParams(
+      {},
+      {
+        replace: true,
+      },
+    );
   };
 
-  /* =====================================================
-     KEYBOARD
-  ===================================================== */
-  const handleCardKeyDown = (event, blog) => {
-    if (event.key === "Enter" || event.key === " ") {
-      event.preventDefault();
-      goToBlogDetail(blog);
+  const handleClearCategory = () => {
+    setCategoryIds([]);
+    setSearchParams(
+      {},
+      {
+        replace: true,
+      },
+    );
+  };
+
+  const scrollToPosts = () => {
+    if (postsSectionRef.current) {
+      postsSectionRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
     }
   };
 
@@ -236,9 +236,10 @@ const Blog = () => {
           content="Cẩm nang du lịch Việt Nam với kinh nghiệm đi tour, gợi ý điểm đến, lịch trình và thông tin hữu ích dành cho khách đoàn, doanh nghiệp, bệnh viện và tổ chức."
         />
 
-        <link rel="canonical" href="https://myvietnamtour.vn/blog" />
+        <link rel="canonical" href={canonicalUrl} />
 
         <meta property="og:type" content="website" />
+
         <meta property="og:site_name" content="Việt Nam Tour" />
 
         <meta
@@ -248,16 +249,17 @@ const Blog = () => {
 
         <meta
           property="og:description"
-          content="Kinh nghiệm du lịch, gợi ý điểm đến, lịch trình và cẩm nang dành cho khách đoàn, doanh nghiệp và tổ chức."
+          content="Kinh nghiệm du lịch, gợi ý điểm đến, lịch trình và cẩm nang dành cho khách đoàn."
         />
 
-        <meta property="og:url" content="https://myvietnamtour.vn/blog" />
+        <meta property="og:url" content={canonicalUrl} />
 
         <meta
           property="og:image"
           content="https://cdn.myvietnamtour.vn/uploads/1.png"
         />
       </Helmet>
+
       {/* HERO */}
       <section className="blog-hero-modern">
         <div className="blog-container">
@@ -280,21 +282,14 @@ const Blog = () => {
                 <button
                   type="button"
                   className="blog-hero-primary-btn"
-                  onClick={() => {
-                    if (postsSectionRef.current) {
-                      postsSectionRef.current.scrollIntoView({
-                        behavior: "smooth",
-                        block: "start",
-                      });
-                    }
-                  }}
+                  onClick={scrollToPosts}
                 >
                   Khám phá bài viết
                   <FaArrowRight />
                 </button>
 
                 <div className="blog-hero-note">
-                  <span className="blog-hero-note-line"></span>
+                  <span className="blog-hero-note-line" />
                   <span>Kinh nghiệm • Điểm đến • Tour đoàn</span>
                 </div>
               </div>
@@ -304,7 +299,6 @@ const Blog = () => {
               <div className="blog-hero-visual-main">
                 <div className="blog-hero-visual-content">
                   <span>VIỆT NAM TOUR</span>
-
                   <strong>
                     Đi để
                     <br />
@@ -319,7 +313,6 @@ const Blog = () => {
 
               <div className="blog-hero-floating-card">
                 <span className="blog-hero-floating-label">GỢI Ý HÔM NAY</span>
-
                 <strong>Khám phá những hành trình đáng đi nhất.</strong>
               </div>
             </div>
@@ -330,7 +323,7 @@ const Blog = () => {
       {/* MAIN */}
       <section className="blog-main">
         <div className="blog-container">
-          {/* FILTER */}
+          {/* CATEGORY FILTER */}
           <div className="blog-filter-section">
             <div className="blog-filter-heading">
               <div>
@@ -367,27 +360,26 @@ const Blog = () => {
 
                 {loadingCategories ? (
                   <>
-                    <span className="category-skeleton" />
-                    <span className="category-skeleton" />
-                    <span className="category-skeleton" />
-                    <span className="category-skeleton" />
+                    {[1, 2, 3, 4].map((item) => (
+                      <span key={item} className="category-skeleton" />
+                    ))}
                   </>
                 ) : (
-                  dataCategory
-                    .filter((cat) => cat.category_id !== 13)
-                    .map((cat) => (
+                  categories
+                    .filter((category) => Number(category.category_id) !== 13)
+                    .map((category) => (
                       <button
                         type="button"
-                        key={cat.category_id}
+                        key={category.category_id}
                         className={
                           "blog-category-chip " +
-                          (categoryIds.includes(cat.category_id)
+                          (categoryIds.includes(category.category_id)
                             ? "active"
                             : "")
                         }
-                        onClick={() => handleCatChange(cat.category_id)}
+                        onClick={() => handleCatChange(category.category_id)}
                       >
-                        {cat.category_name}
+                        {category.category_name}
                       </button>
                     ))
                 )}
@@ -412,9 +404,7 @@ const Blog = () => {
             {/* LOADING */}
             {loadingPosts && (
               <div className="blog-grid">
-                {Array.from({
-                  length: POSTS_PER_PAGE,
-                }).map((item, index) => (
+                {Array.from({ length: POSTS_PER_PAGE }, (_, index) => (
                   <div className="blog-card-skeleton" key={index}>
                     <div className="skeleton-image" />
 
@@ -430,74 +420,71 @@ const Blog = () => {
               </div>
             )}
 
-            {/* DANH SÁCH BÀI */}
+            {/* DANH SÁCH BÀI VIẾT */}
             {!loadingPosts && currentPosts.length > 0 && (
               <div className="blog-grid">
                 {currentPosts.map((blog, index) => {
+                  if (!blog.slug) return null;
+
                   const creatorName =
                     blog && blog.creator && blog.creator.name
                       ? blog.creator.name
                       : "";
 
                   return (
-                    <article
-                      className="blog-card"
-                      key={blog.post_id}
-                      role="link"
-                      tabIndex={0}
-                      onClick={() => goToBlogDetail(blog)}
-                      onKeyDown={(event) => handleCardKeyDown(event, blog)}
-                    >
-                      {/* IMAGE */}
-                      <div className="blog-card-image">
-                        <img
-                          src={blog.thumbnail_url}
-                          alt={blog.title || "Bài viết du lịch"}
-                          loading="lazy"
-                        />
-
-                        <span className="blog-card-number">
-                          {(indexOfFirstPost + index + 1)
-                            .toString()
-                            .padStart(2, "0")}
-                        </span>
-
-                        <div className="blog-card-image-overlay" />
-                      </div>
-
-                      {/* BODY */}
-                      <div className="blog-card-body">
-                        <div className="blog-card-meta">
-                          <span>
-                            <FaRegCalendarAlt />
-
-                            {formatDate(blog.created_at)}
-                          </span>
-
-                          {creatorName && (
-                            <>
-                              <i />
-
-                              <span>{creatorName}</span>
-                            </>
+                    <article className="blog-card" key={blog.post_id}>
+                      <Link
+                        className="blog-card-link"
+                        to={"/blog/" + encodeURIComponent(blog.slug)}
+                        aria-label={"Đọc bài: " + blog.title}
+                      >
+                        <div className="blog-card-image">
+                          {blog.thumbnail_url && (
+                            <img
+                              src={blog.thumbnail_url}
+                              alt={blog.title || "Bài viết du lịch"}
+                              loading="lazy"
+                            />
                           )}
-                        </div>
 
-                        <h3>{blog.title}</h3>
-
-                        {blog.description && (
-                          <p className="blog-card-description">
-                            {blog.description}
-                          </p>
-                        )}
-
-                        <div className="blog-card-footer">
-                          <span className="blog-read-more">
-                            Xem bài viết
-                            <FaArrowRight />
+                          <span className="blog-card-number">
+                            {String(startIndex + index + 1).padStart(2, "0")}
                           </span>
+
+                          <div className="blog-card-image-overlay" />
                         </div>
-                      </div>
+
+                        <div className="blog-card-body">
+                          <div className="blog-card-meta">
+                            <span>
+                              <FaRegCalendarAlt />
+                              {formatDate(blog.created_at)}
+                            </span>
+
+                            {creatorName && (
+                              <>
+                                <i />
+                                <span>{creatorName}</span>
+                              </>
+                            )}
+                          </div>
+
+                          <h3>{blog.title}</h3>
+
+                          {blog.description && (
+                            <p className="blog-card-description">
+                              {blog.description}
+                            </p>
+                          )}
+
+                          <div className="blog-card-footer">
+                            <span className="blog-read-more">
+                              Xem bài viết
+                              <FaArrowRight />
+                            </span>
+                          </div>
+                        </div>
+                      </Link>
                     </article>
                   );
                 })}
@@ -525,51 +512,55 @@ const Blog = () => {
             {/* PAGINATION */}
             {!loadingPosts && totalPages > 1 && (
               <nav className="blog-pagination" aria-label="Phân trang bài viết">
-                <button
-                  type="button"
-                  className="pagination-arrow"
-                  onClick={() => paginate(currentPage - 1)}
-                  disabled={currentPage === 1}
-                  aria-label="Trang trước"
-                >
-                  <FaChevronLeft />
-                </button>
+                {currentPage > 1 ? (
+                  <Link
+                    className="pagination-arrow"
+                    to={getPageUrl(currentPage - 1)}
+                    aria-label="Trang trước"
+                  >
+                    <FaChevronLeft />
+                  </Link>
+                ) : (
+                  <span className="pagination-arrow pagination-disabled">
+                    <FaChevronLeft />
+                  </span>
+                )}
 
                 <div className="pagination-numbers">
-                  {getPaginationGroup().map((item) => {
-                    if (item === "left-dots" || item === "right-dots") {
-                      return (
-                        <span className="pagination-dots" key={item}>
-                          ...
-                        </span>
-                      );
-                    }
-
-                    return (
-                      <button
-                        type="button"
+                  {getPageNumbers(currentPage, totalPages).map((item) =>
+                    typeof item === "string" ? (
+                      <span key={item} className="pagination-dots">
+                        ...
+                      </span>
+                    ) : (
+                      <Link
                         key={item}
                         className={
                           "pagination-number " +
                           (currentPage === item ? "active" : "")
                         }
-                        onClick={() => paginate(item)}
+                        to={getPageUrl(item)}
+                        aria-current={currentPage === item ? "page" : undefined}
                       >
                         {item}
-                      </button>
-                    );
-                  })}
+                      </Link>
+                    ),
+                  )}
                 </div>
 
-                <button
-                  type="button"
-                  className="pagination-arrow"
-                  onClick={() => paginate(currentPage + 1)}
-                  disabled={currentPage === totalPages}
-                  aria-label="Trang sau"
-                >
-                  <FaChevronRight />
-                </button>
+                {currentPage < totalPages ? (
+                  <Link
+                    className="pagination-arrow"
+                    to={getPageUrl(currentPage + 1)}
+                    aria-label="Trang tiếp theo"
+                  >
+                    <FaChevronRight />
+                  </Link>
+                ) : (
+                  <span className="pagination-arrow pagination-disabled">
+                    <FaChevronRight />
+                  </span>
+                )}
               </nav>
             )}
           </div>
