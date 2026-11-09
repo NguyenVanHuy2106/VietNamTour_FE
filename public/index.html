@@ -1,33 +1,59 @@
 <!DOCTYPE html>
 <html lang="vi">
   <head>
+    <!-- ==========================================
+         1. BASIC CONFIGURATION
+    =========================================== -->
+
     <meta charset="utf-8" />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="600x600"
-      href="%PUBLIC_URL%/logo.png"
-    />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo.png" />
 
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
 
-    <meta name="theme-color" content="#1d61ad" />
+    <meta name="theme-color" content="#1D61AD" />
 
-    <!-- DEFAULT SEO - sẽ được Helmet ghi đè theo từng trang -->
-    <title>Việt Nam Tour - Tổ chức Tour du lịch & Sự kiện chuyên nghiệp</title>
+    <!-- ==========================================
+         2. FAVICON - VIET NAM TOUR
+    =========================================== -->
+
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="600x600"
+      href="%PUBLIC_URL%/logo.png"
+    />
+
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo.png" />
+
+    <!-- ==========================================
+         3. DEFAULT SEO
+         React Helmet / Server SEO cập nhật
+         metadata riêng cho từng trang.
+    =========================================== -->
+
+    <title>
+      Việt Nam Tour - Tổ chức Tour du lịch & Sự kiện chuyên nghiệp
+    </title>
 
     <meta
       name="description"
-      content="Việt Nam Tour chuyên tổ chức tour du lịch trong nước, tour đoàn doanh nghiệp, MICE, team building, gala dinner và sự kiện trọn gói."
+      content="Việt Nam Tour chuyên tổ chức tour du lịch cho doanh nghiệp, bệnh viện, ngân hàng; cung cấp dịch vụ MICE, team building, gala dinner và sự kiện trọn gói."
     />
 
-    <meta name="robots" content="index, follow" />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
 
-    <!-- DEFAULT OPEN GRAPH -->
+    <meta name="author" content="Việt Nam Tour" />
+
+    <!-- ==========================================
+         4. OPEN GRAPH
+    =========================================== -->
+
+    <meta property="og:site_name" content="Việt Nam Tour" />
+
+    <meta property="og:type" content="website" />
+
     <meta
       property="og:title"
       content="Việt Nam Tour - Tour du lịch & Sự kiện chuyên nghiệp"
@@ -35,7 +61,7 @@
 
     <meta
       property="og:description"
-      content="Chuyên tổ chức tour du lịch, tour đoàn doanh nghiệp, team building, MICE, gala dinner và sự kiện trọn gói."
+      content="Việt Nam Tour chuyên tổ chức tour đoàn doanh nghiệp, MICE, team building, gala dinner, hội nghị và sự kiện trọn gói."
     />
 
     <meta
@@ -43,11 +69,55 @@
       content="https://cdn.myvietnamtour.vn/uploads/1.png"
     />
 
-    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="vi_VN" />
 
-    <meta property="og:site_name" content="Việt Nam Tour" />
+    <!-- ==========================================
+         5. TWITTER / SOCIAL PREVIEW
+    =========================================== -->
+
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <meta
+      name="twitter:title"
+      content="Việt Nam Tour - Tour du lịch & Sự kiện chuyên nghiệp"
+    />
+
+    <meta
+      name="twitter:description"
+      content="Chuyên tổ chức tour đoàn doanh nghiệp, MICE, team building, gala dinner, hội nghị và sự kiện trọn gói."
+    />
+
+    <meta
+      name="twitter:image"
+      content="https://cdn.myvietnamtour.vn/uploads/1.png"
+    />
+
+    <!-- ==========================================
+         6. WEBSITE STRUCTURED DATA
+         SITE NAME FOR GOOGLE SEARCH
+    =========================================== -->
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "@id": "https://myvietnamtour.vn/#website",
+        "url": "https://myvietnamtour.vn/",
+        "name": "Việt Nam Tour",
+        "alternateName": ["VIET NAM TOUR", "My Vietnam Tour"],
+        "inLanguage": "vi-VN"
+      }
+    </script>
+
+    <!-- ==========================================
+         7. WEB APPLICATION MANIFEST
+    =========================================== -->
 
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+
+    <!-- ==========================================
+         8. FONT AWESOME
+    =========================================== -->
 
     <link
       rel="stylesheet"
@@ -55,6 +125,10 @@
       integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/"
       crossorigin="anonymous"
     />
+
+    <!-- ==========================================
+         9. SLICK CAROUSEL CSS
+    =========================================== -->
 
     <link
       rel="stylesheet"
@@ -68,16 +142,6 @@
       type="text/css"
       href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"
     />
-
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "WebSite",
-        "name": "Việt Nam Tour",
-        "alternateName": "My Vietnam Tour",
-        "url": "https://myvietnamtour.vn/"
-      }
-    </script>
   </head>
 
   <body>
