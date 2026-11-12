@@ -148,7 +148,7 @@ const Footer = () => {
                 type="button"
                 aria-label="Facebook Việt Nam Tour"
                 onClick={() =>
-                  openExternal("https://www.facebook.com/vietnamluxtour")
+                  openExternal("https://www.facebook.com/myvietnamtour")
                 }
               >
                 <FaFacebookF />

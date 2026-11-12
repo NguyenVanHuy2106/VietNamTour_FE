@@ -1,0 +1,1751 @@
+
+/* =====================================================
+   VIET NAM TOUR
+   MY TOUR QUOTE REQUESTS
+
+   BRAND: #1D61AD
+   FONT: INTER
+===================================================== */
+
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
+
+/* ==========================================
+   1. PAGE
+========================================== */
+
+.vnt-my-quotes-page {
+  --vnt-primary: #1d61ad;
+  --vnt-primary-dark: #154d89;
+  --vnt-text: #1e293b;
+  --vnt-muted: #64748b;
+  --vnt-border: #e2e8f0;
+
+  position: relative;
+  z-index: auto;
+
+  width: 100%;
+  min-height: 70vh;
+
+  padding: 38px 0 65px;
+
+  background: #f8fafc;
+  color: var(--vnt-text);
+
+  font-family:
+    "Inter",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+
+  -webkit-font-smoothing: antialiased;
+}
+
+.vnt-my-quotes-page *,
+.vnt-my-quotes-page *::before,
+.vnt-my-quotes-page *::after {
+  box-sizing: border-box;
+}
+
+/* ==========================================
+   2. CONTAINER
+========================================== */
+
+.vnt-my-quotes-container {
+  position: relative;
+
+  width: calc(100% - 40px);
+  max-width: 1160px;
+
+  margin: 0 auto;
+}
+
+/* ==========================================
+   3. PAGE HEADING
+   KHÔNG DÙNG THẺ HEADER
+========================================== */
+
+.vnt-my-quotes-heading {
+  position: static !important;
+
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+
+  gap: 20px;
+
+  width: 100%;
+  height: auto !important;
+  min-height: 0 !important;
+
+  margin: 0 0 26px;
+  padding: 0;
+
+  background: transparent !important;
+  border: 0;
+  box-shadow: none !important;
+
+  transform: none !important;
+}
+
+.vnt-my-quotes-heading-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.vnt-my-quotes-eyebrow {
+  display: inline-flex;
+  align-items: center;
+
+  gap: 8px;
+
+  margin-bottom: 10px;
+
+  color: #1d61ad;
+
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.8px;
+}
+
+.vnt-my-quotes-eyebrow svg {
+  font-size: 13px;
+}
+
+.vnt-my-quotes-heading h1 {
+  margin: 0 0 10px;
+  padding: 0;
+
+  color: #17283b;
+
+  font-size: 29px;
+  font-weight: 800;
+  line-height: 1.4;
+  letter-spacing: -0.5px;
+}
+
+.vnt-my-quotes-heading p {
+  margin: 0;
+
+  color: #64748b;
+
+  font-size: 14px;
+  line-height: 1.75;
+}
+
+/* ==========================================
+   4. EXPLORE BUTTON
+========================================== */
+
+.vnt-my-quotes-explore {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  gap: 9px;
+
+  min-height: 42px;
+
+  padding: 10px 15px;
+
+  background: #1d61ad;
+
+  border: 1px solid #1d61ad;
+  border-radius: 10px;
+
+  color: #ffffff;
+
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.5;
+
+  text-decoration: none;
+  white-space: nowrap;
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.vnt-my-quotes-explore:hover {
+  background: #154d89;
+  border-color: #154d89;
+
+  color: #ffffff;
+  text-decoration: none;
+
+  transform: translateY(-1px);
+}
+
+/* ==========================================
+   5. PHONE LOOKUP FORM
+========================================== */
+
+.vnt-my-quotes-phone-panel {
+  width: 100%;
+  max-width: 490px;
+
+  margin: 12px auto 32px;
+  padding: 35px;
+
+  background: #ffffff;
+
+  border: 1px solid #e2e8f0;
+  border-radius: 18px;
+
+  box-shadow:
+    0 10px 35px rgba(22, 50, 80, 0.06);
+}
+
+.vnt-my-quotes-phone-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 58px;
+  height: 58px;
+
+  margin-bottom: 18px;
+
+  background: #eff6ff;
+  border-radius: 15px;
+
+  color: #1d61ad;
+  font-size: 23px;
+}
+
+.vnt-my-quotes-phone-panel h2 {
+  margin: 0 0 10px;
+
+  color: #17283b;
+
+  font-size: 21px;
+  font-weight: 800;
+  line-height: 1.5;
+}
+
+.vnt-my-quotes-phone-panel > p {
+  margin: 0 0 24px;
+
+  color: #64748b;
+
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+.vnt-my-quotes-phone-panel form {
+  width: 100%;
+}
+
+.vnt-my-quotes-phone-panel label {
+  display: block;
+
+  margin-bottom: 9px;
+
+  color: #334155;
+
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.vnt-my-quotes-phone-panel label span {
+  color: #dc2626;
+}
+
+/* PHONE INPUT */
+
+.vnt-my-quotes-phone-input {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+
+  width: 100%;
+}
+
+.vnt-my-quotes-phone-input > svg {
+  position: absolute;
+  left: 14px;
+
+  color: #1d61ad;
+  font-size: 14px;
+
+  pointer-events: none;
+}
+
+.vnt-my-quotes-phone-input input {
+  width: 100%;
+  height: 48px;
+
+  padding: 11px 15px 11px 42px;
+
+  background: #f8fafc;
+
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+
+  color: #1e293b;
+
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+
+  outline: none;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.vnt-my-quotes-phone-input input::placeholder {
+  color: #94a3b8;
+  font-weight: 400;
+}
+
+.vnt-my-quotes-phone-input input:focus {
+  border-color: #1d61ad;
+
+  box-shadow:
+    0 0 0 3px rgba(29, 97, 173, 0.1);
+}
+
+/* PHONE ERROR */
+
+.vnt-my-quotes-phone-error {
+  display: flex;
+  align-items: center;
+
+  gap: 7px;
+
+  margin: 9px 0 0 !important;
+
+  color: #dc2626 !important;
+
+  font-size: 11px !important;
+  line-height: 1.6;
+}
+
+/* PHONE SUBMIT */
+
+.vnt-my-quotes-submit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 9px;
+
+  width: 100%;
+  min-height: 47px;
+
+  margin-top: 21px;
+  padding: 12px 16px;
+
+  background: #1d61ad;
+
+  border: 0;
+  border-radius: 10px;
+
+  color: #ffffff;
+
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: background 0.2s ease;
+}
+
+.vnt-my-quotes-submit:hover {
+  background: #154d89;
+}
+
+/* CANCEL */
+
+.vnt-my-quotes-cancel {
+  display: block;
+
+  width: 100%;
+
+  margin-top: 12px;
+  padding: 9px;
+
+  background: transparent;
+  border: 0;
+
+  color: #64748b;
+
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+.vnt-my-quotes-cancel:hover {
+  color: #1d61ad;
+}
+
+/* PHONE NOTE */
+
+.vnt-my-quotes-phone-panel
+.vnt-my-quotes-phone-note {
+  margin: 18px 0 0;
+
+  color: #94a3b8;
+
+  font-size: 11px;
+  line-height: 1.7;
+
+  text-align: center;
+}
+
+/* ==========================================
+   6. CUSTOMER PHONE BAR
+========================================== */
+
+.vnt-my-quotes-customer-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 15px;
+
+  margin-bottom: 23px;
+  padding: 16px 20px;
+
+  background: #ffffff;
+
+  border: 1px solid #dbeafe;
+  border-radius: 13px;
+
+  box-shadow:
+    0 3px 12px rgba(29, 97, 173, 0.035);
+}
+
+.vnt-my-quotes-customer-left {
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+
+  min-width: 0;
+}
+
+.vnt-my-quotes-customer-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  width: 42px;
+  height: 42px;
+
+  background: #eff6ff;
+  border-radius: 11px;
+
+  color: #1d61ad;
+  font-size: 17px;
+}
+
+.vnt-my-quotes-customer-left > div:last-child {
+  display: flex;
+  flex-direction: column;
+
+  gap: 5px;
+}
+
+.vnt-my-quotes-customer-left span {
+  color: #64748b;
+
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.vnt-my-quotes-customer-left strong {
+  color: #1d61ad;
+
+  font-size: 17px;
+  font-weight: 800;
+  line-height: 1.4;
+}
+
+/* CHANGE PHONE */
+
+.vnt-my-quotes-change-phone {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  gap: 8px;
+
+  min-height: 39px;
+
+  padding: 10px 14px;
+
+  background: #f8fafc;
+
+  border: 1px solid #dbe4ef;
+  border-radius: 9px;
+
+  color: #1d61ad;
+
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.vnt-my-quotes-change-phone:hover {
+  background: #eff6ff;
+  border-color: #93c5fd;
+}
+
+/* ==========================================
+   7. SUMMARY CARDS
+========================================== */
+
+.vnt-my-quotes-summary {
+  display: grid;
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+
+  gap: 15px;
+
+  margin-bottom: 24px;
+}
+
+.vnt-my-quotes-stat {
+  display: flex;
+  align-items: center;
+
+  gap: 15px;
+
+  min-width: 0;
+  min-height: 100px;
+
+  padding: 19px 21px;
+
+  background: #ffffff;
+
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+
+  box-shadow:
+    0 4px 16px rgba(22, 50, 80, 0.035);
+}
+
+.vnt-my-quotes-stat-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  width: 49px;
+  height: 49px;
+
+  border-radius: 13px;
+  font-size: 19px;
+}
+
+.vnt-my-quotes-stat-icon.is-blue {
+  background: #eaf3fc;
+  color: #1d61ad;
+}
+
+.vnt-my-quotes-stat-icon.is-green {
+  background: #eafaf0;
+  color: #16a34a;
+}
+
+.vnt-my-quotes-stat-icon.is-orange {
+  background: #fff1e8;
+  color: #ea580c;
+}
+
+.vnt-my-quotes-stat > div:last-child {
+  display: flex;
+  flex-direction: column;
+
+  gap: 5px;
+  min-width: 0;
+}
+
+.vnt-my-quotes-stat strong {
+  color: #17283b;
+
+  font-size: 26px;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.vnt-my-quotes-stat span {
+  color: #64748b;
+
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+/* ==========================================
+   8. LIST SECTION
+========================================== */
+
+.vnt-my-quotes-section {
+  width: 100%;
+
+  padding: 24px;
+
+  background: #ffffff;
+
+  border: 1px solid #e2e8f0;
+  border-radius: 17px;
+
+  box-shadow:
+    0 7px 25px rgba(22, 50, 80, 0.035);
+}
+
+.vnt-my-quotes-section-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 15px;
+
+  margin-bottom: 21px;
+}
+
+.vnt-my-quotes-section-heading h2 {
+  margin: 0 0 5px;
+
+  color: #17283b;
+
+  font-size: 19px;
+  font-weight: 800;
+  line-height: 1.4;
+}
+
+.vnt-my-quotes-section-heading p {
+  margin: 0;
+
+  color: #64748b;
+
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+/* ==========================================
+   9. REFRESH BUTTON
+========================================== */
+
+.vnt-my-quotes-refresh {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  gap: 8px;
+
+  min-height: 38px;
+  padding: 9px 13px;
+
+  background: #f8fafc;
+
+  border: 1px solid #e2e8f0;
+  border-radius: 9px;
+
+  color: #1d61ad;
+
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+
+  cursor: pointer;
+}
+
+.vnt-my-quotes-refresh:hover:not(:disabled) {
+  background: #eff6ff;
+}
+
+.vnt-my-quotes-refresh:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.vnt-my-quotes-refresh .is-spinning {
+  animation: vntMyQuoteSpin 0.8s linear infinite;
+}
+
+/* ==========================================
+   10. FILTERS
+========================================== */
+
+.vnt-my-quotes-filters {
+  display: grid;
+  grid-template-columns:
+    minmax(220px, 1fr)
+    minmax(175px, 230px);
+
+  gap: 12px;
+
+  margin-bottom: 16px;
+}
+
+.vnt-my-quotes-search {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+
+  min-width: 0;
+}
+
+.vnt-my-quotes-search > svg {
+  position: absolute;
+
+  left: 13px;
+
+  color: #94a3b8;
+  font-size: 13px;
+
+  pointer-events: none;
+}
+
+.vnt-my-quotes-search input {
+  width: 100%;
+  height: 43px;
+
+  padding: 10px 36px 10px 36px;
+
+  background: #f8fafc;
+
+  border: 1px solid #e2e8f0;
+  border-radius: 9px;
+
+  color: #263445;
+
+  font-family: inherit;
+  font-size: 13px;
+
+  outline: none;
+}
+
+.vnt-my-quotes-search input:focus {
+  border-color: #1d61ad;
+
+  box-shadow:
+    0 0 0 3px rgba(29, 97, 173, 0.1);
+}
+
+.vnt-my-quotes-search input::placeholder {
+  color: #94a3b8;
+}
+
+.vnt-my-quotes-search button {
+  position: absolute;
+
+  right: 8px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 27px;
+  height: 27px;
+
+  padding: 0;
+
+  background: transparent;
+
+  border: 0;
+  border-radius: 6px;
+
+  color: #94a3b8;
+  font-size: 11px;
+
+  cursor: pointer;
+}
+
+.vnt-my-quotes-search button:hover {
+  background: #e2e8f0;
+  color: #334155;
+}
+
+/* STATUS SELECT */
+
+.vnt-my-quotes-select-wrap {
+  display: flex;
+  align-items: center;
+
+  min-width: 0;
+}
+
+.vnt-my-quotes-select-wrap select {
+  width: 100%;
+  height: 43px;
+
+  padding: 10px 12px;
+
+  background: #f8fafc;
+
+  border: 1px solid #e2e8f0;
+  border-radius: 9px;
+
+  color: #334155;
+
+  font-family: inherit;
+  font-size: 12px;
+
+  cursor: pointer;
+  outline: none;
+}
+
+.vnt-my-quotes-select-wrap select:focus {
+  border-color: #1d61ad;
+
+  box-shadow:
+    0 0 0 3px rgba(29, 97, 173, 0.1);
+}
+
+/* ==========================================
+   11. RESULT COUNT
+========================================== */
+
+.vnt-my-quotes-result-count {
+  margin: 0 0 15px;
+
+  color: #64748b;
+
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.vnt-my-quotes-result-count strong {
+  color: #1d61ad;
+  font-weight: 800;
+}
+
+/* ==========================================
+   12. REQUEST LIST
+========================================== */
+
+.vnt-my-quotes-list {
+  display: flex;
+  flex-direction: column;
+
+  gap: 15px;
+}
+
+/* ==========================================
+   13. REQUEST CARD
+========================================== */
+
+.vnt-my-quote-card {
+  width: 100%;
+
+  overflow: hidden;
+
+  background: #ffffff;
+
+  border: 1px solid #dfe7ef;
+  border-radius: 13px;
+
+  box-shadow:
+    0 4px 15px rgba(22, 50, 80, 0.03);
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.vnt-my-quote-card:hover {
+  border-color: #bfd7f0;
+
+  box-shadow:
+    0 7px 20px rgba(29, 97, 173, 0.07);
+}
+
+/* CARD HEADER */
+
+.vnt-my-quote-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  flex-wrap: wrap;
+  gap: 10px;
+
+  padding: 15px 19px;
+
+  background: #f7faff;
+
+  border-bottom: 1px solid #e5edf5;
+}
+
+.vnt-my-quote-code-group {
+  display: flex;
+  align-items: center;
+
+  gap: 11px;
+  min-width: 0;
+}
+
+.vnt-my-quote-code-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  width: 39px;
+  height: 39px;
+
+  background: #e5f0fc;
+  border-radius: 10px;
+
+  color: #1d61ad;
+  font-size: 16px;
+}
+
+.vnt-my-quote-code-content {
+  display: flex;
+  flex-direction: column;
+
+  gap: 4px;
+  min-width: 0;
+}
+
+.vnt-my-quote-caption {
+  display: block;
+
+  margin-bottom: 5px;
+
+  color: #94a3b8;
+
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+}
+
+.vnt-my-quote-code {
+  color: #1d61ad;
+
+  font-size: 14px;
+  font-weight: 800;
+  line-height: 1.4;
+
+  overflow-wrap: anywhere;
+}
+
+/* ==========================================
+   14. STATUS BADGE
+========================================== */
+
+.vnt-my-quote-status {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  gap: 7px;
+
+  padding: 8px 12px;
+
+  border: 1px solid transparent;
+  border-radius: 30px;
+
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.4;
+
+  white-space: nowrap;
+}
+
+.vnt-my-quote-status-dot {
+  flex-shrink: 0;
+
+  width: 7px;
+  height: 7px;
+
+  border-radius: 50%;
+
+  background: currentColor;
+}
+
+.vnt-my-quote-status.is-new {
+  background: #eafaf0;
+  border-color: #d1fae5;
+  color: #15803d;
+}
+
+.vnt-my-quote-status.is-processing {
+  background: #eff6ff;
+  border-color: #dbeafe;
+  color: #1d61ad;
+}
+
+.vnt-my-quote-status.is-success {
+  background: #dcfce7;
+  border-color: #bbf7d0;
+  color: #166534;
+}
+
+.vnt-my-quote-status.is-closed {
+  background: #fff1f2;
+  border-color: #ffe4e6;
+  color: #be123c;
+}
+
+.vnt-my-quote-status.is-default {
+  background: #f1f5f9;
+  border-color: #e2e8f0;
+  color: #64748b;
+}
+
+/* ==========================================
+   15. CARD BODY
+========================================== */
+
+.vnt-my-quote-card-body {
+  padding: 19px;
+}
+
+.vnt-my-quote-tour-row {
+  display: flex;
+  align-items: flex-start;
+
+  gap: 13px;
+
+  margin-bottom: 18px;
+}
+
+.vnt-my-quote-tour-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  width: 43px;
+  height: 43px;
+
+  background: #eff6ff;
+  border-radius: 11px;
+
+  color: #1d61ad;
+  font-size: 18px;
+}
+
+.vnt-my-quote-tour-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.vnt-my-quote-tour-content h3 {
+  margin: 0;
+
+  color: #17283b;
+
+  font-size: 16px;
+  line-height: 1.6;
+  font-weight: 800;
+
+  overflow-wrap: break-word;
+}
+
+/* ==========================================
+   16. INFO GRID
+========================================== */
+
+.vnt-my-quote-info-grid {
+  display: grid;
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap: 15px;
+
+  padding: 16px;
+
+  background: #f8fafc;
+
+  border: 1px solid #edf2f7;
+  border-radius: 10px;
+}
+
+.vnt-my-quote-info-item {
+  display: flex;
+  align-items: flex-start;
+
+  gap: 10px;
+  min-width: 0;
+}
+
+.vnt-my-quote-info-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  width: 31px;
+  height: 31px;
+
+  background: #eaf3fc;
+  border-radius: 8px;
+
+  color: #1d61ad;
+  font-size: 13px;
+}
+
+.vnt-my-quote-info-item > div {
+  display: flex;
+  flex-direction: column;
+
+  gap: 5px;
+  min-width: 0;
+}
+
+.vnt-my-quote-info-item > div > span {
+  color: #64748b;
+
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.vnt-my-quote-info-item strong {
+  color: #334155;
+
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+/* ==========================================
+   17. STATUS DESCRIPTION
+========================================== */
+
+.vnt-my-quote-status-description {
+  display: flex;
+  align-items: flex-start;
+
+  gap: 9px;
+
+  margin-top: 15px;
+  padding: 12px 13px;
+
+  background: #eff6ff;
+
+  border: 1px solid #dbeafe;
+  border-radius: 9px;
+
+  color: #475569;
+
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.vnt-my-quote-status-description svg {
+  flex-shrink: 0;
+
+  margin-top: 3px;
+
+  color: #1d61ad;
+  font-size: 13px;
+}
+
+/* ==========================================
+   18. CARD FOOTER
+========================================== */
+
+.vnt-my-quote-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 12px;
+
+  padding: 12px 19px;
+
+  border-top: 1px solid #edf1f5;
+
+  color: #64748b;
+
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+.vnt-my-quote-card-footer > span:first-child {
+  display: inline-flex;
+  align-items: center;
+
+  gap: 7px;
+}
+
+.vnt-my-quote-card-footer svg {
+  color: #16a34a;
+  font-size: 12px;
+}
+
+.vnt-my-quote-footer-code {
+  color: #94a3b8;
+
+  font-size: 10px;
+  font-weight: 600;
+}
+
+/* ==========================================
+   19. LOADING
+========================================== */
+
+.vnt-my-quotes-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  gap: 12px;
+
+  min-height: 245px;
+  padding: 35px 20px;
+
+  text-align: center;
+}
+
+.vnt-my-quotes-spinner {
+  width: 37px;
+  height: 37px;
+
+  border: 3px solid #dbeafe;
+  border-top-color: #1d61ad;
+
+  border-radius: 50%;
+
+  animation:
+    vntMyQuoteSpin 0.8s linear infinite;
+}
+
+@keyframes vntMyQuoteSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.vnt-my-quotes-loading strong {
+  color: #1d61ad;
+
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.vnt-my-quotes-loading p {
+  margin: 0;
+
+  color: #64748b;
+
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+/* ==========================================
+   20. EMPTY STATE
+========================================== */
+
+.vnt-my-quotes-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  padding: 45px 20px;
+
+  text-align: center;
+}
+
+.vnt-my-quotes-empty-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 73px;
+  height: 73px;
+
+  margin-bottom: 18px;
+
+  background: #eff6ff;
+  border-radius: 19px;
+
+  color: #1d61ad;
+  font-size: 29px;
+}
+
+.vnt-my-quotes-empty h3 {
+  margin: 0 0 10px;
+
+  color: #17283b;
+
+  font-size: 19px;
+  font-weight: 800;
+  line-height: 1.5;
+}
+
+.vnt-my-quotes-empty p {
+  max-width: 440px;
+
+  margin: 0 0 20px;
+
+  color: #64748b;
+
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+.vnt-my-quotes-primary-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 9px;
+
+  min-height: 42px;
+
+  padding: 11px 17px;
+
+  background: #1d61ad;
+
+  border: 0;
+  border-radius: 10px;
+
+  color: #ffffff;
+
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.vnt-my-quotes-primary-btn:hover {
+  background: #154d89;
+  color: #ffffff;
+  text-decoration: none;
+}
+
+/* ==========================================
+   21. ERROR
+========================================== */
+
+.vnt-my-quotes-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  padding: 40px 20px;
+
+  text-align: center;
+}
+
+.vnt-my-quotes-error > svg {
+  margin-bottom: 15px;
+
+  color: #e11d48;
+  font-size: 32px;
+}
+
+.vnt-my-quotes-error h3 {
+  margin: 0 0 9px;
+
+  color: #17283b;
+
+  font-size: 19px;
+  font-weight: 800;
+}
+
+.vnt-my-quotes-error p {
+  margin: 0 0 18px;
+
+  color: #64748b;
+
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+.vnt-my-quotes-error button {
+  padding: 11px 18px;
+
+  background: #1d61ad;
+
+  border: 0;
+  border-radius: 9px;
+
+  color: #ffffff;
+
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+
+  cursor: pointer;
+}
+
+/* ==========================================
+   22. BOTTOM NOTE
+========================================== */
+
+.vnt-my-quotes-note {
+  display: flex;
+  align-items: flex-start;
+
+  gap: 11px;
+
+  margin-top: 22px;
+  padding: 14px 17px;
+
+  background: #eff6ff;
+
+  border: 1px solid #dbeafe;
+  border-radius: 11px;
+}
+
+.vnt-my-quotes-note > svg {
+  flex-shrink: 0;
+
+  margin-top: 3px;
+
+  color: #1d61ad;
+  font-size: 15px;
+}
+
+.vnt-my-quotes-note p {
+  margin: 0;
+
+  color: #475569;
+
+  font-size: 12px;
+  line-height: 1.8;
+}
+
+.vnt-my-quotes-note strong {
+  color: #1d61ad;
+  font-weight: 800;
+}
+
+/* ==========================================
+   23. TABLET
+========================================== */
+
+@media (max-width: 991px) {
+  .vnt-my-quotes-page {
+    padding-top: 28px;
+  }
+
+  .vnt-my-quotes-summary {
+    gap: 12px;
+  }
+
+  .vnt-my-quotes-stat {
+    padding: 16px;
+    gap: 11px;
+  }
+
+  .vnt-my-quotes-stat strong {
+    font-size: 23px;
+  }
+}
+
+/* ==========================================
+   24. MOBILE
+========================================== */
+
+@media (max-width: 576px) {
+  .vnt-my-quotes-page {
+    padding: 22px 0 45px;
+  }
+
+  .vnt-my-quotes-container {
+    width: calc(100% - 28px);
+  }
+
+  /* HEADING */
+
+  .vnt-my-quotes-heading {
+    flex-direction: column;
+    align-items: flex-start;
+
+    gap: 16px;
+
+    margin-bottom: 20px;
+  }
+
+  .vnt-my-quotes-heading h1 {
+    font-size: 22px;
+    line-height: 1.45;
+  }
+
+  .vnt-my-quotes-heading p {
+    font-size: 13px;
+  }
+
+  .vnt-my-quotes-explore {
+    min-height: 39px;
+    padding: 9px 13px;
+    font-size: 11px;
+  }
+
+  /* PHONE FORM */
+
+  .vnt-my-quotes-phone-panel {
+    margin: 0 auto 24px;
+    padding: 24px 19px;
+
+    border-radius: 14px;
+  }
+
+  .vnt-my-quotes-phone-panel h2 {
+    font-size: 19px;
+  }
+
+  /* CUSTOMER BAR */
+
+  .vnt-my-quotes-customer-bar {
+    padding: 13px;
+    gap: 10px;
+  }
+
+  .vnt-my-quotes-customer-icon {
+    width: 34px;
+    height: 34px;
+
+    font-size: 14px;
+  }
+
+  .vnt-my-quotes-customer-left strong {
+    font-size: 14px;
+  }
+
+  .vnt-my-quotes-customer-left span {
+    font-size: 10px;
+  }
+
+  .vnt-my-quotes-change-phone {
+    min-height: 34px;
+
+    padding: 7px 9px;
+
+    font-size: 10px;
+  }
+
+  /* SUMMARY */
+
+  .vnt-my-quotes-summary {
+    grid-template-columns:
+      repeat(3, minmax(0, 1fr));
+
+    gap: 8px;
+
+    margin-bottom: 17px;
+  }
+
+  .vnt-my-quotes-stat {
+    flex-direction: column;
+    align-items: flex-start;
+
+    min-height: 100px;
+
+    gap: 9px;
+    padding: 12px 10px;
+
+    border-radius: 11px;
+  }
+
+  .vnt-my-quotes-stat-icon {
+    width: 32px;
+    height: 32px;
+
+    border-radius: 9px;
+    font-size: 13px;
+  }
+
+  .vnt-my-quotes-stat strong {
+    font-size: 19px;
+  }
+
+  .vnt-my-quotes-stat span {
+    font-size: 10px;
+    line-height: 1.4;
+  }
+
+  /* SECTION */
+
+  .vnt-my-quotes-section {
+    padding: 15px;
+    border-radius: 14px;
+  }
+
+  .vnt-my-quotes-section-heading {
+    gap: 11px;
+    margin-bottom: 17px;
+  }
+
+  .vnt-my-quotes-section-heading h2 {
+    font-size: 17px;
+  }
+
+  .vnt-my-quotes-section-heading p {
+    font-size: 11px;
+  }
+
+  .vnt-my-quotes-refresh {
+    min-height: 34px;
+    padding: 8px 10px;
+    font-size: 11px;
+  }
+
+  /* FILTERS */
+
+  .vnt-my-quotes-filters {
+    grid-template-columns: 1fr;
+    gap: 9px;
+  }
+
+  /* CARD */
+
+  .vnt-my-quote-card {
+    border-radius: 12px;
+  }
+
+  .vnt-my-quote-card-header {
+    padding: 13px;
+  }
+
+  .vnt-my-quote-code-icon {
+    width: 34px;
+    height: 34px;
+
+    font-size: 14px;
+  }
+
+  .vnt-my-quote-code {
+    font-size: 12px;
+  }
+
+  .vnt-my-quote-status {
+    padding: 6px 9px;
+    font-size: 10px;
+  }
+
+  .vnt-my-quote-card-body {
+    padding: 14px 13px;
+  }
+
+  .vnt-my-quote-tour-row {
+    gap: 10px;
+  }
+
+  .vnt-my-quote-tour-icon {
+    width: 36px;
+    height: 36px;
+
+    font-size: 15px;
+  }
+
+  .vnt-my-quote-tour-content h3 {
+    font-size: 14px;
+  }
+
+  .vnt-my-quote-info-grid {
+    gap: 12px;
+    padding: 12px 10px;
+  }
+
+  .vnt-my-quote-info-item {
+    gap: 7px;
+  }
+
+  .vnt-my-quote-info-icon {
+    width: 27px;
+    height: 27px;
+
+    font-size: 11px;
+  }
+
+  .vnt-my-quote-info-item > div > span {
+    font-size: 10px;
+  }
+
+  .vnt-my-quote-info-item strong {
+    font-size: 11px;
+  }
+
+  .vnt-my-quote-status-description {
+    font-size: 11px;
+  }
+
+  .vnt-my-quote-card-footer {
+    padding: 11px 13px;
+    font-size: 10px;
+  }
+
+  .vnt-my-quote-footer-code {
+    display: none;
+  }
+
+  /* NOTE */
+
+  .vnt-my-quotes-note {
+    padding: 12px;
+  }
+
+  .vnt-my-quotes-note p {
+    font-size: 11px;
+  }
+}
+
+/* ==========================================
+   25. VERY SMALL DEVICES
+========================================== */
+
+@media (max-width: 360px) {
+  .vnt-my-quotes-stat {
+    padding: 10px 8px;
+  }
+
+  .vnt-my-quotes-stat span {
+    font-size: 9px;
+  }
+
+  .vnt-my-quotes-change-phone {
+    padding: 7px;
+  }
+
+  .vnt-my-quote-info-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ==========================================
+   26. ACCESSIBILITY
+========================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .vnt-my-quotes-spinner,
+  .vnt-my-quotes-refresh .is-spinning {
+    animation: none !important;
+  }
+
+  .vnt-my-quotes-explore,
+  .vnt-my-quote-card {
+    transition: none;
+  }
+}

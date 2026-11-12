@@ -21,10 +21,14 @@
 .blog-detail-page *::after {
   box-sizing: border-box;
 }
+/* ==========================================
+   BLOG CONTAINER
+   Đồng bộ chiều rộng với Tour Detail
+========================================== */
 
 .blog-detail-page .blog-container {
   width: calc(100% - 50px);
-  max-width: 1400px;
+  max-width: 1200px;
   margin: 0 auto;
 }
 
@@ -882,5 +886,277 @@
 @media (prefers-reduced-motion: reduce) {
   .blog-detail-loader .blog-loader-icon {
     animation: none;
+  }
+}
+
+
+/* =====================================================
+   VIET NAM TOUR - BLOG ARTICLE TYPOGRAPHY
+   Đồng bộ với trang chi tiết Tour
+   Font: Inter
+   Chỉ tác động nội dung bài viết
+   Không thay đổi SEO / Layout / Sidebar / TOC
+===================================================== */
+
+/* ==========================================
+   1. FONT NỘI DUNG BÀI VIẾT
+========================================== */
+
+.blog-detail-page .blog-rich-content {
+  font-family:
+    "Inter",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif !important;
+
+  font-size: 15px !important;
+  font-weight: 400;
+  line-height: 1.8 !important;
+
+  color: #263445;
+
+  text-align: justify !important;
+  text-justify: inter-word;
+
+  letter-spacing: normal;
+  word-spacing: normal;
+
+  overflow-wrap: break-word;
+
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* ==========================================
+   2. CHUẨN HÓA FONT TỪ WORD / TINYMCE
+========================================== */
+
+.blog-detail-page .blog-rich-content * {
+  font-family: inherit !important;
+  letter-spacing: normal !important;
+}
+
+/* Các phần tử văn bản bên trong HTML */
+
+.blog-detail-page .blog-rich-content p,
+.blog-detail-page .blog-rich-content div,
+.blog-detail-page .blog-rich-content span,
+.blog-detail-page .blog-rich-content font,
+.blog-detail-page .blog-rich-content li {
+  font-size: 15px !important;
+  line-height: 1.8 !important;
+}
+
+/* ==========================================
+   3. ĐOẠN VĂN - CĂN ĐỀU 2 BÊN
+========================================== */
+
+.blog-detail-page .blog-rich-content p {
+  margin: 0 0 12px !important;
+  padding: 0 !important;
+
+  color: #263445;
+
+  font-size: 15px !important;
+  font-weight: 400;
+  line-height: 1.8 !important;
+
+  text-align: justify !important;
+  text-align-last: left;
+
+  word-spacing: normal;
+  overflow-wrap: break-word;
+}
+
+/* Không tạo khoảng trắng từ đoạn rỗng */
+
+.blog-detail-page .blog-rich-content p:empty {
+  display: none;
+}
+
+/* ==========================================
+   4. TIÊU ĐỀ PHỤ TRONG BÀI
+   Giống trang chi tiết Tour
+========================================== */
+
+.blog-detail-page .blog-rich-content h1,
+.blog-detail-page .blog-rich-content h2,
+.blog-detail-page .blog-rich-content h3,
+.blog-detail-page .blog-rich-content h4,
+.blog-detail-page .blog-rich-content h5,
+.blog-detail-page .blog-rich-content h6 {
+  font-family:
+    "Inter",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif !important;
+
+  color: #1d61ad;
+
+  font-size: 17px !important;
+  font-weight: 800 !important;
+  line-height: 1.5 !important;
+
+  margin: 20px 0 11px !important;
+  padding: 0 !important;
+
+  letter-spacing: -0.2px !important;
+  text-align: left !important;
+
+  /* Giữ khoảng bù khi nhấn mục lục */
+  scroll-margin-top: 85px;
+}
+
+/* ==========================================
+   5. CHỮ IN ĐẬM
+========================================== */
+
+.blog-detail-page .blog-rich-content strong,
+.blog-detail-page .blog-rich-content b {
+  font-family: inherit !important;
+
+  font-size: inherit !important;
+  font-weight: 700 !important;
+
+  color: #1e344d;
+}
+
+/* ==========================================
+   6. DANH SÁCH
+========================================== */
+
+.blog-detail-page .blog-rich-content ul,
+.blog-detail-page .blog-rich-content ol {
+  margin: 10px 0 16px !important;
+  padding-left: 24px;
+}
+
+.blog-detail-page .blog-rich-content li {
+  margin-bottom: 7px !important;
+
+  font-size: 15px !important;
+  line-height: 1.8 !important;
+
+  text-align: justify !important;
+}
+
+.blog-detail-page .blog-rich-content li::marker {
+  color: #1d61ad;
+}
+
+/* ==========================================
+   7. LIÊN KẾT TRONG BÀI
+========================================== */
+
+.blog-detail-page .blog-rich-content a {
+  font-family: inherit !important;
+  font-size: inherit;
+
+  color: #1d61ad;
+
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* ==========================================
+   8. HÌNH ẢNH TRONG NỘI DUNG
+   Giữ ảnh responsive
+========================================== */
+
+.blog-detail-page .blog-rich-content img {
+  display: block;
+
+  max-width: 100% !important;
+  height: auto !important;
+
+  margin: 18px auto !important;
+
+  object-fit: contain;
+  border-radius: 12px;
+}
+
+/* ==========================================
+   9. CHÚ THÍCH HÌNH ẢNH
+========================================== */
+
+.blog-detail-page .blog-rich-content figcaption {
+  color: #64748b;
+
+  font-size: 12px !important;
+  line-height: 1.6 !important;
+
+  text-align: center !important;
+}
+
+/* ==========================================
+   10. BẢNG TRONG NỘI DUNG
+========================================== */
+
+.blog-detail-page .blog-rich-content table {
+  max-width: 100%;
+
+  font-family: inherit !important;
+  font-size: 14px !important;
+}
+
+.blog-detail-page .blog-rich-content th,
+.blog-detail-page .blog-rich-content td {
+  font-family: inherit !important;
+
+  font-size: 14px !important;
+  line-height: 1.6 !important;
+}
+
+/* ==========================================
+   11. KHOẢNG CÁCH ĐẦU / CUỐI NỘI DUNG
+========================================== */
+
+.blog-detail-page .blog-rich-content > :first-child {
+  margin-top: 0 !important;
+}
+
+.blog-detail-page .blog-rich-content > :last-child {
+  margin-bottom: 0 !important;
+}
+
+/* ==========================================
+   12. MOBILE
+========================================== */
+
+@media (max-width: 576px) {
+  .blog-detail-page .blog-rich-content {
+    font-size: 14px !important;
+    line-height: 1.75 !important;
+  }
+
+  .blog-detail-page .blog-rich-content p,
+  .blog-detail-page .blog-rich-content div,
+  .blog-detail-page .blog-rich-content span,
+  .blog-detail-page .blog-rich-content font,
+  .blog-detail-page .blog-rich-content li {
+    font-size: 14px !important;
+    line-height: 1.75 !important;
+  }
+
+  .blog-detail-page .blog-rich-content h1,
+  .blog-detail-page .blog-rich-content h2,
+  .blog-detail-page .blog-rich-content h3,
+  .blog-detail-page .blog-rich-content h4,
+  .blog-detail-page .blog-rich-content h5,
+  .blog-detail-page .blog-rich-content h6 {
+    font-size: 16px !important;
+    line-height: 1.5 !important;
+  }
+
+  .blog-detail-page .blog-rich-content ul,
+  .blog-detail-page .blog-rich-content ol {
+    padding-left: 22px;
+  }
+
+  .blog-detail-page .blog-rich-content img {
+    margin: 16px auto !important;
+    border-radius: 9px;
   }
 }

@@ -24,6 +24,7 @@ import FeedbackPage from "./app/FeedbackPage";
 import ImageGallery from "./app/ImageGallery";
 import ImageList from "./app/ImageList";
 import NewsAndEvent from "./app/NewsAndEvent";
+import MyTourQuoteRequests from "./app/MyTourQuoteRequests";
 
 const CityRoutes = () => (
   <Routes>
@@ -58,6 +59,7 @@ const CityRoutes = () => (
       <Route path="dich-vu/du-lich-mice" element={<MiceLanding />} />
       <Route path="dich-vu/cho-thue-xe" element={<CarRentalPro />} />
       <Route path="dich-vu/booking-dich-vu" element={<BookingAll />} />
+      <Route path="yeu-cau-bao-gia" element={<MyTourQuoteRequests />} />
     </Route>
   </Routes>
 );
